@@ -184,6 +184,14 @@ p{max-width:60ch;color:var(--ink-2);margin:18px 0 0}
 .pkg .extra{grid-column:1/-1;font-size:15px;color:var(--lichen);margin:6px 0 0;max-width:none}
 .pkg .extra b{color:var(--amber)}
 .pkg .btn{align-self:start;grid-column:1/-1;justify-self:start;margin-top:6px}
+.gw-flow{list-style:none;padding:0;margin:36px 0 0;display:grid;grid-template-columns:repeat(4,minmax(0,1fr));gap:2px;background:var(--line)}
+.gw-flow li{background:rgba(20,27,24,.94);padding:18px 16px;min-width:0}
+.gw-flow b{display:block;font-family:var(--f-display);font-weight:900;font-size:26px;text-transform:uppercase;color:var(--amber);line-height:1}
+.gw-flow span{display:block;margin-top:8px;font-size:15px;color:var(--ink-2);line-height:1.45}
+.gw-note{margin-top:22px;font-size:15px;color:var(--lichen);max-width:60ch}
+.gw-note b{color:var(--amber)}
+.gw-small{font-size:14px;color:var(--mist);margin-top:16px}
+@media (max-width:760px){.gw-flow{grid-template-columns:repeat(2,minmax(0,1fr))}}
 .steps{list-style:none;padding:0;margin:40px 0 0;display:grid;grid-template-columns:repeat(4,minmax(0,1fr));gap:20px}
 .steps li{min-width:0;font-size:15px;color:var(--ink-2)}
 .steps b{display:block;font-family:var(--f-display);font-weight:700;font-size:22px;text-transform:uppercase;color:var(--lichen);line-height:1;margin-bottom:6px}
@@ -272,6 +280,7 @@ footer{position:relative;z-index:2;padding-block:48px calc(56px + env(safe-area-
   <nav aria-label="Sections">
     <a class="hide-sm" href="#work">Work</a>
     <a class="hide-sm" href="#services">Services</a>
+    <a class="hide-sm" href="#groundwork">AI engine</a>
     <a class="hide-sm" href="#packages">Prices</a>
     <a class="cta" href="#contact" data-track="nav_contact"><span class="hide-sm">Start a project</span><span class="show-sm">Contact</span></a>
   </nav>
@@ -414,6 +423,42 @@ footer{position:relative;z-index:2;padding-block:48px calc(56px + env(safe-area-
     </div>
   </section>
 
+  <section id="groundwork">
+    <div class="col reveal">
+      <h2>Groundwork. Your AI marketing engine.</h2>
+      <p>The system that runs North Ground's own marketing, set up for your business. It plans, writes, designs and schedules your posts, tracks your leads and reports what worked. A senior creative director sets it up and keeps it sharp.</p>
+      <ol class="gw-flow" aria-label="How Groundwork works">
+        <li><b>Set up</b><span>Your brand voice, look, audience and goals, built into the engine.</span></li>
+        <li><b>Create</b><span>Posts, captions and designs for every week, in your brand.</span></li>
+        <li><b>Approve</b><span>You check the week's posts in minutes. Then they go out at the best times.</span></li>
+        <li><b>Report</b><span>What worked, new leads, and what to try next.</span></li>
+      </ol>
+      <p class="gw-note"><b>Nothing posts without your OK.</b> You keep ownership of your accounts, your content and your data.</p>
+      <div class="packages">
+        <div class="pkg">
+          <div><h3>Starter</h3><div class="for">Get consistent on social</div></div>
+          <div class="price">€450<small>per month + €1,500 setup</small></div>
+          <ul><li>2 platforms</li><li>8 posts a month, written and designed</li><li>Scheduling with your approval</li><li>Monthly report</li></ul>
+          <button class="btn" type="button" data-pkg="Groundwork" data-label="Groundwork AI engine">Get Starter</button>
+        </div>
+        <div class="pkg">
+          <div><h3>Growth</h3><div class="for">Turn social into enquiries</div></div>
+          <div class="price">€950<small>per month + €2,500 setup</small></div>
+          <ul><li>3 platforms</li><li>12 posts and 2 short animations a month</li><li>Lead tracker with reply drafts for every enquiry</li><li>Weekly report</li></ul>
+          <p class="extra"><b>Added value:</b> a quarterly strategy session with our creative director.</p>
+          <button class="btn" type="button" data-pkg="Groundwork" data-label="Groundwork AI engine">Get Growth</button>
+        </div>
+        <div class="pkg">
+          <div><h3>Custom</h3><div class="for">Several brands, or AI beyond social</div></div>
+          <div class="price">€1,800<small>per month, from</small></div>
+          <ul><li>Multiple brands or locations</li><li>Campaigns and paid social management</li><li>Custom AI assistants, such as quote drafting or product descriptions</li></ul>
+          <button class="btn" type="button" data-pkg="Groundwork" data-label="Groundwork AI engine">Talk to us</button>
+        </div>
+      </div>
+      <p class="gw-small">Prices exclude VAT where it applies. Scheduling software and ad spend are billed at cost. Minimum term three months.</p>
+    </div>
+  </section>
+
   <section id="packages" data-cam="Packages">
     <div class="col reveal">
       <h2>Clear prices. Fixed quotes.</h2>
@@ -529,7 +574,7 @@ footer{position:relative;z-index:2;padding-block:48px calc(56px + env(safe-area-
         <div class="field"><label for="f-service">What do you need?</label>
           <select id="f-service" name="service">
             <option>Launch package</option><option>Campaign package</option><option>Always on package</option>
-            <option>Website</option><option>Design &amp; brand</option><option>Animation</option><option>Film &amp; editing</option><option>Social campaigns</option><option>AI solutions</option><option>Not sure yet</option>
+            <option>Website</option><option>Design &amp; brand</option><option>Animation</option><option>Film &amp; editing</option><option>Social campaigns</option><option>AI solutions</option><option>Groundwork AI engine</option><option>Not sure yet</option>
           </select></div>
         <div class="field"><label for="f-budget">Budget <span>(optional)</span></label>
           <select id="f-budget" name="budget">
@@ -604,7 +649,7 @@ const SITE = {
   const msg = document.getElementById('f-msg'), service = document.getElementById('f-service');
   const goContact = () => document.getElementById('contact').scrollIntoView({behavior: reduce ? 'auto' : 'smooth'});
   document.querySelectorAll('[data-pkg]').forEach(b => b.addEventListener('click', () => {
-    service.value = b.dataset.pkg + ' package'; track('package_select', {package: b.dataset.pkg}); goContact();
+    service.value = b.dataset.label || (b.dataset.pkg + ' package'); track('package_select', {package: b.dataset.pkg, tier: b.textContent}); goContact();
     setTimeout(() => msg.focus({preventScroll:true}), reduce ? 0 : 700);
   }));
   const checks = [
