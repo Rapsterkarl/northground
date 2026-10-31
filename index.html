@@ -1,0 +1,936 @@
+<!doctype html>
+<html lang="en-IE">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<meta name="description" content="Websites, film, animation, social and AI for ambitious businesses. A Cork studio led by a senior creative director, with prices on the page.">
+<!-- Share previews for northground.ie -->
+<meta property="og:type" content="website">
+<meta property="og:site_name" content="North Ground">
+<meta property="og:title" content="North Ground · Creative that holds its ground">
+<meta property="og:description" content="Websites, film, animation, social and AI for ambitious businesses. A Cork studio led by a senior creative director, with prices on the page.">
+<meta property="og:url" content="https://www.northground.ie/">
+<meta property="og:image" content="https://www.northground.ie/og-image.png">
+<meta property="og:image:width" content="1200">
+<meta property="og:image:height" content="630">
+<meta property="og:image:alt" content="North Ground wordmark over orange survey contour lines">
+<meta name="twitter:card" content="summary_large_image">
+<link rel="canonical" href="https://www.northground.ie/">
+<title>North Ground · Creative that holds its ground</title>
+<meta name="theme-color" content="#0b100e">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Big+Shoulders+Display:wght@500;700;900&family=Instrument+Sans:wght@400;500;600&family=JetBrains+Mono:wght@400;500&display=swap">
+<style>
+/* Layout: one WebGL survey terrain behind a left reading column. Each case study is a survey marker on the land; the camera flies to it as you read. Single deliberate dark look. */
+:root{
+  --peat:#0b100e;
+  --peat-2:#141b18;
+  --peat-3:#1b2420;
+  --lichen:#c8d3bc;
+  --ink-2:#b9c4b0;
+  --mist:#8c9a8f;
+  --amber:#f2861e;
+  --danger:#f08a7a;
+  --line:rgba(200,211,188,.16);
+  --f-display:"Big Shoulders Display","Arial Narrow",Impact,sans-serif;
+  --f-body:"Instrument Sans",system-ui,-apple-system,"Segoe UI",sans-serif;
+  --f-mono:"JetBrains Mono",ui-monospace,Menlo,Consolas,monospace;
+  color-scheme:dark;
+}
+*{box-sizing:border-box}
+html{-webkit-tap-highlight-color:transparent;-webkit-text-size-adjust:100%}
+html,body{background:var(--peat);color:var(--lichen)}
+body{font-family:var(--f-body);font-size:17px;line-height:1.6;overflow-x:hidden}
+body::before{content:"";position:fixed;inset:0 0 auto;height:env(safe-area-inset-top,0px);z-index:10;background:var(--peat)}
+a,button{touch-action:manipulation}
+button,.btn,.navbar a,.opt{user-select:none;-webkit-user-select:none;-webkit-touch-callout:none}
+
+#gl{position:fixed;inset:0;width:100%;height:100%;z-index:0;display:block}
+.veil{position:fixed;inset:0;z-index:1;pointer-events:none;
+  background:linear-gradient(90deg,rgba(11,16,14,.94) 0%,rgba(11,16,14,.62) 44%,rgba(11,16,14,0) 70%)}
+.fallback{position:fixed;inset:0;z-index:0;background:repeating-radial-gradient(circle at 70% 55%,transparent 0 22px,var(--line) 22px 23px),var(--peat)}
+
+/* Nav */
+.navbar{position:fixed;inset:0 0 auto;z-index:6;display:flex;align-items:center;justify-content:space-between;gap:16px;padding-top:calc(12px + env(safe-area-inset-top,0px));padding-bottom:12px;padding-left:max(16px,env(safe-area-inset-left,0px));padding-right:max(16px,env(safe-area-inset-right,0px));background:rgba(11,16,14,.86)}
+.mark{font-family:var(--f-display);font-weight:900;font-size:21px;letter-spacing:.06em;color:var(--lichen);text-decoration:none}
+.mark span{color:var(--amber)}
+.navbar nav{display:flex;gap:2px;align-items:center}
+.navbar nav a{font-size:15px;font-weight:500;color:var(--ink-2);text-decoration:none;padding:8px 10px;white-space:nowrap;transition:color .15s}
+.navbar nav a.cta{color:var(--peat);background:var(--amber);margin-left:8px;font-weight:600}
+.navbar nav a:active{transform:scale(.97)}
+.show-sm{display:none}
+
+/* HUD */
+.hud{position:fixed;z-index:5;font-family:var(--f-mono);font-size:11px;letter-spacing:.08em;text-transform:uppercase;color:var(--mist);pointer-events:none;font-variant-numeric:tabular-nums}
+.hud b{color:var(--amber);font-weight:500}
+.hud.br{bottom:calc(18px + env(safe-area-inset-bottom,0px));right:max(16px,env(safe-area-inset-right,0px));text-align:right}
+.hud.bl{bottom:calc(18px + env(safe-area-inset-bottom,0px));left:max(16px,env(safe-area-inset-left,0px))}
+.meter{width:140px;height:2px;background:var(--line);margin-top:8px;margin-left:auto;position:relative;overflow:hidden}
+.meter i{position:absolute;inset:0 auto 0 0;width:0;background:var(--amber)}
+
+/* Content */
+main{position:relative;z-index:2;padding-left:max(16px,env(safe-area-inset-left,0px));padding-right:max(16px,env(safe-area-inset-right,0px))}
+.col{max-width:640px;margin-left:clamp(0px,6vw,96px)}
+section{padding-block:clamp(110px,18vh,190px) clamp(40px,8vh,100px);scroll-margin-top:40px}
+section#top{padding-top:clamp(120px,20vh,200px)}
+h1,h2,h3{font-family:var(--f-display);text-transform:uppercase;text-wrap:balance;margin:0;color:var(--lichen)}
+h1{font-weight:900;font-size:clamp(46px,6vw,92px);line-height:.9;letter-spacing:.005em}
+#top .col{max-width:860px}
+#top .lede,#top .proof{max-width:640px}
+h1 em{font-style:normal;color:transparent;-webkit-text-stroke:1.5px var(--lichen)}
+h2{font-weight:900;font-size:clamp(40px,5.6vw,78px);line-height:.9}
+h3{font-weight:700;font-size:30px;line-height:1;letter-spacing:.02em}
+p{max-width:60ch;color:var(--ink-2);margin:18px 0 0}
+.lede{font-size:clamp(18px,1.6vw,21px);color:var(--lichen);max-width:54ch;margin-top:28px}
+.cta-row{display:flex;flex-wrap:wrap;gap:12px;margin-top:34px;align-items:center}
+.btn{font-family:var(--f-body);font-size:16px;font-weight:600;text-decoration:none;padding:14px 22px;border:1px solid var(--lichen);color:var(--lichen);background:transparent;cursor:pointer;transition:background-color .2s,color .2s,transform .12s cubic-bezier(.2,.7,.1,1)}
+.btn.solid{background:var(--amber);border-color:var(--amber);color:var(--peat)}
+.btn:active{transform:scale(.97)}
+.btn[disabled]{opacity:.6;cursor:progress}
+.btn:focus-visible,a:focus-visible,.opt:focus-visible{outline:2px solid var(--amber);outline-offset:3px}
+
+/* Proof strip */
+.proof{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:26px 32px;margin:56px 0 0;padding:0}
+.proof div{min-width:0}
+.proof dt{font-family:var(--f-display);font-weight:900;font-size:clamp(40px,4.4vw,58px);line-height:.9;color:var(--amber);font-variant-numeric:tabular-nums}
+.proof dd{margin:8px 0 0;font-size:15px;color:var(--ink-2);line-height:1.45}
+
+/* Problem / answer */
+.compare{list-style:none;padding:0;margin:20px 0 0;display:grid;gap:0}
+.compare li{display:grid;grid-template-columns:minmax(0,1fr) minmax(0,1fr);gap:24px;padding:22px 0;border-top:1px solid var(--line)}
+.compare li:last-child{border-bottom:1px solid var(--line)}
+.compare .was{color:var(--mist);font-size:16px}
+.compare .now{color:var(--lichen);font-size:16px}
+.compare .now b{display:block;font-family:var(--f-display);font-weight:700;font-size:24px;text-transform:uppercase;line-height:1.05;color:var(--amber);margin-bottom:6px}
+.compare-head{display:grid;grid-template-columns:minmax(0,1fr) minmax(0,1fr);gap:24px;margin-top:40px;font-size:15px;font-weight:600}
+.compare-head span:first-child{color:var(--mist)}
+.compare-head span:last-child{color:var(--amber)}
+
+/* Work */
+.work-intro{padding-bottom:0}
+.case{padding-block:clamp(70px,16vh,170px) 0;min-height:62svh;scroll-margin-top:40px}
+.case .brand{font-size:16px;font-weight:600;color:var(--amber)}
+.case h3{font-size:clamp(40px,5vw,68px);font-weight:900;line-height:.9;margin-top:10px}
+.case .kind{font-size:15px;color:var(--mist);margin-top:12px;max-width:56ch}
+.case .result{margin-top:22px;padding:18px 20px;background:rgba(27,36,32,.88);max-width:520px}
+.case .result strong{display:block;font-family:var(--f-display);font-weight:900;font-size:clamp(34px,3.6vw,46px);line-height:.95;color:var(--amber)}
+.case .result span{display:block;margin-top:6px;font-size:15px;color:var(--ink-2)}
+.case .tag-spec{display:inline-block;margin-left:10px;padding:2px 8px;font-size:13px;font-weight:600;color:var(--peat);background:var(--lichen);vertical-align:2px}
+.case a.more{display:inline-block;margin-top:18px;color:var(--lichen);font-weight:600;text-underline-offset:4px}
+.vtile{position:relative;display:block;width:100%;max-width:560px;aspect-ratio:16/9;margin-top:22px;padding:0;border:0;background:var(--peat-3);cursor:pointer;overflow:hidden;text-align:left;color:var(--lichen);font:inherit}
+.vtile img{position:absolute;inset:0;width:100%;height:100%;object-fit:cover;transition:transform .5s cubic-bezier(.2,.7,.1,1)}
+.vtile::after{content:"";position:absolute;inset:0;background:linear-gradient(0deg,rgba(11,16,14,.85) 0%,rgba(11,16,14,0) 55%)}
+.vtile .play{position:absolute;left:50%;top:50%;width:64px;height:64px;margin:-32px 0 0 -32px;border-radius:50%;background:var(--amber);z-index:1;transition:transform .2s}
+.vtile .play::before{content:"";position:absolute;left:26px;top:21px;border-left:18px solid var(--peat);border-top:11px solid transparent;border-bottom:11px solid transparent}
+.vtile .vt{position:absolute;left:16px;right:16px;bottom:12px;z-index:1;font-size:15px;font-weight:600;line-height:1.3}
+.vtile:active .play{transform:scale(.94)}
+.vtile:focus-visible{outline:2px solid var(--amber);outline-offset:3px}
+.vtile.small{margin-top:0;max-width:none}
+.vtile.small .play{width:38px;height:38px;margin:0;left:10px;top:10px}
+.vtile.small .play::before{left:15px;top:12px;border-left-width:11px;border-top-width:7px;border-bottom-width:7px}
+.vtile.small .vt{font-size:13px;left:10px;right:10px;bottom:8px}
+@media (hover:hover) and (pointer:fine){.vtile:hover img{transform:scale(1.04)}.vtile:hover .play{transform:scale(1.08)}}
+.player{border:0;padding:0;background:transparent;width:min(1100px,calc(100vw - 32px));max-width:none;color:var(--lichen)}
+.player::backdrop{background:rgba(5,8,7,.9)}
+.player .frame{position:relative;aspect-ratio:16/9;background:#000}
+.player iframe{position:absolute;inset:0;width:100%;height:100%;border:0}
+.player .bar{display:flex;justify-content:space-between;align-items:center;gap:12px;margin-top:12px;flex-wrap:wrap}
+.player .bar strong{font-size:16px}
+.player .bar a{color:var(--ink-2);font-size:15px;margin-right:auto;margin-left:16px}
+.case .shot{display:block;width:100%;max-width:560px;aspect-ratio:16/9;object-fit:cover;margin-top:22px;background:var(--peat-2)}
+.earlier{margin-top:56px}
+.earlier h4{font-size:15px;font-weight:600;color:var(--amber);margin:0}
+.earlier-grid{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:12px;margin-top:12px;max-width:640px}
+.earlier-grid > *{min-width:0}
+.earlier figure img{display:block;width:100%;aspect-ratio:4/3;object-fit:cover;background:var(--peat-2)}
+.earlier figcaption{font-size:13px;color:var(--mist);margin-top:6px;line-height:1.35}
+@media (max-width:760px){.earlier-grid{grid-template-columns:repeat(2,minmax(0,1fr))}}
+.case video{display:block;width:100%;max-width:560px;aspect-ratio:16/9;object-fit:cover;margin-top:22px;background:var(--peat-2)}
+.case .client{display:inline-block;margin-left:10px;padding:2px 8px;font-size:13px;font-weight:600;color:var(--peat);background:var(--amber);vertical-align:2px}
+.pkg .price{font-family:var(--f-display);font-weight:900;font-size:34px;line-height:1;color:var(--amber);text-align:right}
+.pkg .price small{display:block;font-family:var(--f-body);font-weight:400;font-size:13px;color:var(--mist);margin-top:4px}
+.prices{margin-top:44px}
+.prices h3{font-size:28px;margin-top:30px}
+.prices h3:first-child{margin-top:0}
+.prices dl{margin:12px 0 0;display:grid;gap:0}
+.prices dl div{display:grid;grid-template-columns:minmax(0,1fr) auto;gap:16px;padding:10px 0;border-top:1px solid var(--line)}
+.prices dt{color:var(--ink-2);min-width:0}
+.prices dd{margin:0;font-weight:600;color:var(--lichen);font-variant-numeric:tabular-nums;white-space:nowrap}
+.vat-note{font-size:14px;color:var(--mist);margin-top:18px}
+.credit{font-size:14px;color:var(--mist);max-width:56ch;margin-top:64px}
+
+/* Services */
+.services{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:34px 36px;margin-top:44px}
+.services div{min-width:0}
+.services h3{font-size:30px}
+.services p{font-size:16px;margin-top:10px}
+.services small{display:block;font-size:14px;color:var(--mist);margin-top:8px;line-height:1.5}
+
+/* Packages */
+.packages{display:grid;gap:2px;margin-top:44px;background:var(--line)}
+.pkg{background:rgba(20,27,24,.94);padding:26px 24px;display:grid;grid-template-columns:minmax(0,1fr) auto;gap:10px 24px;align-items:start}
+.pkg h3{font-size:34px}
+.pkg .for{font-size:15px;color:var(--amber);font-weight:600;margin-top:6px}
+.pkg ul{grid-column:1/-1;margin:8px 0 0;padding-left:18px;color:var(--ink-2);font-size:16px;display:grid;gap:4px}
+.pkg .extra{grid-column:1/-1;font-size:15px;color:var(--lichen);margin:6px 0 0;max-width:none}
+.pkg .extra b{color:var(--amber)}
+.pkg .btn{align-self:start;grid-column:1/-1;justify-self:start;margin-top:6px}
+.steps{list-style:none;padding:0;margin:40px 0 0;display:grid;grid-template-columns:repeat(4,minmax(0,1fr));gap:20px}
+.steps li{min-width:0;font-size:15px;color:var(--ink-2)}
+.steps b{display:block;font-family:var(--f-display);font-weight:700;font-size:22px;text-transform:uppercase;color:var(--lichen);line-height:1;margin-bottom:6px}
+
+/* Survey tool */
+.survey{margin-top:40px;background:rgba(20,27,24,.94);padding:26px 24px}
+.q{border:0;margin:0 0 22px;padding:0;min-width:0}
+.q legend{font-size:17px;font-weight:600;color:var(--lichen);padding:0;margin-bottom:10px}
+.opts{display:flex;flex-wrap:wrap;gap:8px}
+.opt{position:relative}
+.opt input{position:absolute;opacity:0;pointer-events:none}
+.opt span{display:block;padding:10px 14px;border:1px solid var(--line);font-size:15px;color:var(--ink-2);cursor:pointer;transition:border-color .15s,background-color .15s,color .15s}
+.opt input:checked + span{background:var(--amber);border-color:var(--amber);color:var(--peat);font-weight:600}
+.opt input:focus-visible + span{outline:2px solid var(--amber);outline-offset:2px}
+.survey-foot{display:flex;flex-wrap:wrap;gap:14px;align-items:center}
+.survey-hint{font-size:15px;color:var(--mist)}
+.result-card{margin-top:24px;border-top:1px solid var(--line);padding-top:22px}
+.score{display:flex;align-items:baseline;gap:14px;flex-wrap:wrap}
+.score strong{font-family:var(--f-display);font-weight:900;font-size:64px;line-height:.9;color:var(--amber);font-variant-numeric:tabular-nums}
+.score span{font-size:16px;color:var(--ink-2)}
+.recs{margin:14px 0 0;padding-left:18px;color:var(--lichen);display:grid;gap:8px;max-width:60ch}
+
+/* Creative director */
+.cd-list{list-style:none;padding:0;margin:30px 0 0;display:grid;gap:10px}
+.cd-list li{padding-left:22px;position:relative;color:var(--ink-2)}
+.cd-list li::before{content:"";position:absolute;left:0;top:.7em;width:10px;height:2px;background:var(--amber)}
+
+/* Form */
+.enquiry{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:18px 20px;margin-top:36px}
+.field{display:grid;gap:8px;min-width:0;align-content:start}
+.field.full{grid-column:1/-1}
+.field label{font-size:15px;font-weight:600;color:var(--lichen)}
+.field label span{font-weight:400;color:var(--mist)}
+.field input,.field select,.field textarea{font:inherit;font-size:16px;color:var(--lichen);background:rgba(20,27,24,.92);border:1px solid var(--line);padding:13px 14px;border-radius:0;width:100%;transition:border-color .15s}
+.field textarea{min-height:150px;resize:vertical}
+.field input:focus-visible,.field select:focus-visible,.field textarea:focus-visible{outline:2px solid var(--amber);outline-offset:1px;border-color:var(--amber)}
+.field [aria-invalid="true"]{border-color:var(--danger)}
+.field .err{font-size:14px;color:var(--danger)}
+.form-foot{grid-column:1/-1;display:flex;flex-wrap:wrap;gap:16px;align-items:center}
+.form-status{font-size:15px;color:var(--ink-2);max-width:52ch}
+.form-status.ok{color:var(--amber)}
+.form-status.bad{color:var(--danger)}
+.hp{position:absolute;left:-9999px;width:1px;height:1px;overflow:hidden}
+.or-email{margin-top:40px;font-size:15px;color:var(--mist)}
+.contact-line{font-family:var(--f-display);font-weight:700;font-size:clamp(26px,3.6vw,40px);color:var(--lichen);margin-top:6px;user-select:all;word-break:break-word}
+.copy-note{font-size:14px;color:var(--mist)}
+
+footer{position:relative;z-index:2;padding-block:48px calc(56px + env(safe-area-inset-bottom,0px));padding-left:max(16px,env(safe-area-inset-left,0px));padding-right:max(16px,env(safe-area-inset-right,0px));background:var(--peat);font-size:14px;color:var(--mist)}
+.signoff{font-family:var(--f-display);font-weight:900;text-transform:uppercase;font-size:clamp(56px,13.5vw,220px);line-height:.82;letter-spacing:-.01em;color:var(--lichen);margin:0 0 28px;white-space:nowrap;overflow:hidden;max-width:none}
+.signoff span{color:var(--amber)}
+.foot-row{display:flex;flex-wrap:wrap;gap:10px 32px;justify-content:space-between}
+.foot-row a{color:var(--ink-2)}
+
+.reveal{transition:transform .8s cubic-bezier(.2,.7,.1,1),opacity .8s}
+.reveal.pre{transform:translateY(18px);opacity:.35}
+
+@media (hover:hover) and (pointer:fine){
+  .btn:hover{background:var(--lichen);border-color:var(--lichen);color:var(--peat)}
+  .navbar nav a:not(.cta):hover{color:var(--amber)}
+  .opt span:hover{border-color:var(--lichen);color:var(--lichen)}
+}
+@media (max-width:760px){
+  .veil{background:linear-gradient(0deg,rgba(11,16,14,.94) 0%,rgba(11,16,14,.72) 55%,rgba(11,16,14,.45) 100%)}
+  .hide-sm,.hud{display:none}
+  .show-sm{display:inline}
+  .compare li{grid-template-columns:1fr;gap:8px}
+  .compare-head{display:none}
+  .compare .was::before{content:"Usually: ";font-weight:600}
+  .services,.enquiry{grid-template-columns:1fr}
+  .pkg{grid-template-columns:1fr}
+  .steps{grid-template-columns:repeat(2,minmax(0,1fr))}
+  .case{min-height:0}
+  h1 em{-webkit-text-stroke:1px var(--lichen)}
+}
+@media (prefers-reduced-motion:reduce){.reveal,.reveal.pre{transition:none;transform:none;opacity:1}.btn{transition:none}}
+</style>
+<style>:root{padding-top:env(safe-area-inset-top,0px);padding-bottom:env(safe-area-inset-bottom,0px)}body{margin:0}img{max-width:100%}[hidden]{display:none!important}</style>
+</head>
+<body>
+<script>function ngImgFail(el){var f=el.closest("figure"),g=el.closest(".earlier");(f||el).remove();if(g&&!g.querySelector("img"))g.remove();}</script>
+<canvas id="gl" aria-hidden="true"></canvas>
+<div class="veil"></div>
+
+<header class="navbar">
+  <a class="mark" href="#top" aria-label="North Ground home">NORTH<span>/</span>GROUND</a>
+  <nav aria-label="Sections">
+    <a class="hide-sm" href="#work">Work</a>
+    <a class="hide-sm" href="#services">Services</a>
+    <a class="hide-sm" href="#packages">Prices</a>
+    <a class="cta" href="#contact" data-track="nav_contact"><span class="hide-sm">Start a project</span><span class="show-sm">Contact</span></a>
+  </nav>
+</header>
+<div class="hud br" aria-hidden="true">Survey point <b id="pt">01</b> / 15<br><span id="ptName">North Ground</span><div class="meter"><i id="bar"></i></div></div>
+
+<main>
+  <section id="top" data-cam="North Ground">
+    <div class="col reveal">
+      <h1>Creative that<br>holds its <em>ground.</em></h1>
+      <p class="lede">A Cork creative studio for ambitious businesses, from start-ups to global brands. Every project is led by a senior creative director with 27 years of big-brand work.</p>
+      <div class="cta-row">
+        <a class="btn solid" href="#contact" data-track="hero_start">Start a project</a>
+        <button class="btn" type="button" data-yt="o2yEAOTokCY" data-title="North Ground · Showreel">▶ Watch the showreel</button>
+      </div>
+      <dl class="proof">
+        <div><dt>#1</dt><dd>Share of voice for an AB InBev beer brand during the 2024 Rugby Championship</dd></div>
+        <div><dt>7</dt><dd>Gold awards at AB InBev's internal Creative X awards</dd></div>
+        <div><dt>27</dt><dd>Years making work for local and global brands</dd></div>
+        <div><dt>150+</dt><dd>Brands served, from Cork SMEs to HP and Microsoft</dd></div>
+      </dl>
+    </div>
+  </section>
+
+  <section id="why" data-cam="The problem">
+    <div class="col reveal">
+      <h2>Great creative shouldn't be this hard to find.</h2>
+      <div class="compare-head" aria-hidden="true"><span>What usually happens</span><span>How North Ground works</span></div>
+      <ul class="compare">
+        <li><span class="was">Seniors pitch, juniors deliver.</span><span class="now"><b>Senior from start to finish</b>The creative director who takes your brief makes the work.</span></li>
+        <li><span class="was">Five freelancers to manage.</span><span class="now"><b>Every discipline, one studio</b>Brand, web, film, animation, social and AI.</span></li>
+        <li><span class="was">Prices hidden until the proposal.</span><span class="now"><b>Prices on the page</b>And a fixed quote within 48 hours.</span></li>
+        <li><span class="was">The work ends at delivery.</span><span class="now"><b>More than you briefed</b>Extra cut-downs, templates and AI tools you keep.</span></li>
+      </ul>
+    </div>
+  </section>
+
+  <section id="work" class="work-intro" data-cam="Selected work">
+    <div class="col reveal">
+      <h2>Work that holds its ground.</h2>
+      <p>Start with the showreel, then keep scrolling: the camera flies to each of seven survey points.</p>
+      <button class="vtile" type="button" data-yt="o2yEAOTokCY" data-title="North Ground · Showreel" aria-label="Play the showreel"><img src="https://i.ytimg.com/vi/o2yEAOTokCY/hqdefault.jpg" alt="" loading="lazy" decoding="async" onerror="this.remove()"><span class="play" aria-hidden="true"></span><span class="vt">Showreel</span></button>
+    </div>
+  </section>
+
+  <article class="case" data-cam="West Cork Craft Kits">
+    <div class="col reveal">
+      <div class="brand">West Cork Craft Kits <span class="client">Client · Cork</span></div>
+      <h3>Paint-your-own Ireland</h3>
+      <div class="kind">Brand identity, packaging, characters, audio stories and an online store with card payments</div>
+      <div class="result"><strong>Brand, box and online store</strong><span>Ocean, Farm and Icons of Ireland collections, designed and made in West Cork.</span></div>
+      <a class="more" href="https://westcorkcraftkits.ie" target="_blank" rel="noopener" data-track="case_wcck">Visit westcorkcraftkits.ie ↗</a>
+    </div>
+  </article>
+
+  <article class="case" data-cam="Castle Lager · Rugby">
+    <div class="col reveal">
+      <div class="brand">Castle Lager · AB InBev</div>
+      <h3>Rugby Championship 2024</h3>
+      <div class="kind">Integrated campaign · creative direction</div>
+      <div class="result"><strong>#1 share of voice</strong><span>Castle Lager led the category conversation during the 2024 Rugby Championship.</span></div>
+    </div>
+  </article>
+
+  <article class="case" data-cam="Castle Lager · AFCON">
+    <div class="col reveal">
+      <div class="brand">Castle Lager · AB InBev</div>
+      <h3>AFCON “Backup Squad”</h3>
+      <div class="kind">Through-the-line campaign · creative direction</div>
+      <button class="vtile" type="button" data-yt="zzu5VjIN4uY" data-title="Castle Lager · Backup Squad" aria-label="Play Castle Lager · Backup Squad"><img src="https://i.ytimg.com/vi/zzu5VjIN4uY/hqdefault.jpg" alt="" loading="lazy" decoding="async" onerror="this.remove()"><span class="play" aria-hidden="true"></span><span class="vt">Castle Lager · Backup Squad</span></button>
+    </div>
+  </article>
+
+  <article class="case" data-cam="Castle Lite · Sub-Zero Bus">
+    <div class="col reveal">
+      <div class="brand">Castle Lite · AB InBev</div>
+      <h3>The Sub-Zero Bus</h3>
+      <div class="kind">Campaign · creative direction</div>
+    </div>
+  </article>
+
+  <article class="case" data-cam="Corona Cero">
+    <div class="col reveal">
+      <div class="brand">Corona · AB InBev</div>
+      <h3>Corona Cero “Cero Limits”</h3>
+      <div class="kind">Campaign · creative direction</div>
+    </div>
+  </article>
+
+  <article class="case" data-cam="Events & film">
+    <div class="col reveal">
+      <div class="brand">AB InBev · draftLine Africa</div>
+      <h3>Events &amp; film</h3>
+      <div class="kind">Creative X “Spectrum of Brilliance” · MarCon 2025 “UNCHARTED” · Carling Black Label SLC</div>
+      <button class="vtile" type="button" data-yt="U0V7unOemjM" data-title="Carling Black Label · SLC Conference" aria-label="Play Carling Black Label · SLC Conference"><img src="https://i.ytimg.com/vi/U0V7unOemjM/hqdefault.jpg" alt="" loading="lazy" decoding="async" onerror="this.remove()"><span class="play" aria-hidden="true"></span><span class="vt">Carling Black Label · SLC Conference</span></button>
+      <div class="result"><strong>7 Creative X golds</strong><span>Gold awards at AB InBev's internal Creative X awards.</span></div>
+    </div>
+  </article>
+
+  <article class="case" data-cam="Flying Fish · spec">
+    <div class="col reveal">
+      <div class="brand">Flying Fish · AB InBev <span class="tag-spec">Spec work</span></div>
+      <h3>“Expect the unexpected”</h3>
+      <div class="kind">Website concept with 3D cans and scroll animation, made speculatively to show what's possible</div>
+    </div>
+    <div class="col">
+      <p class="credit">AB InBev work was led by North Ground's creative director as Executive Creative Director at draftLine Africa. The brands belong to AB InBev and are shown as portfolio work.</p>
+      <div class="earlier">
+        <h4>More films from the archive</h4>
+        <div class="earlier-grid">
+          <button class="vtile small" type="button" data-yt="HRcS-GD4Vok" data-title="draftLine Summit" aria-label="Play draftLine Summit"><img src="https://i.ytimg.com/vi/HRcS-GD4Vok/hqdefault.jpg" alt="" loading="lazy" decoding="async" onerror="this.remove()"><span class="play" aria-hidden="true"></span><span class="vt">draftLine Summit</span></button>
+          <button class="vtile small" type="button" data-yt="M3xAn4RwiPg" data-title="Castle Free · A Night to Remember" aria-label="Play Castle Free · A Night to Remember"><img src="https://i.ytimg.com/vi/M3xAn4RwiPg/hqdefault.jpg" alt="" loading="lazy" decoding="async" onerror="this.remove()"><span class="play" aria-hidden="true"></span><span class="vt">Castle Free · A Night to Remember</span></button>
+          <button class="vtile small" type="button" data-yt="t9Z9pockdZM" data-title="SA Breweries Sales Conference" aria-label="Play SA Breweries Sales Conference"><img src="https://i.ytimg.com/vi/t9Z9pockdZM/hqdefault.jpg" alt="" loading="lazy" decoding="async" onerror="this.remove()"><span class="play" aria-hidden="true"></span><span class="vt">SA Breweries Sales Conference</span></button>
+          <button class="vtile small" type="button" data-yt="hWkkaN7-i1c" data-title="PPS · Finding the Forgotten Graduate (VR)" aria-label="Play PPS · Finding the Forgotten Graduate (VR)"><img src="https://i.ytimg.com/vi/hWkkaN7-i1c/hqdefault.jpg" alt="" loading="lazy" decoding="async" onerror="this.remove()"><span class="play" aria-hidden="true"></span><span class="vt">PPS · Finding the Forgotten Graduate (VR)</span></button>
+          <button class="vtile small" type="button" data-yt="Zb9_Qdyatdg" data-title="Standard Bank · WhatsApp Chatbot" aria-label="Play Standard Bank · WhatsApp Chatbot"><img src="https://i.ytimg.com/vi/Zb9_Qdyatdg/hqdefault.jpg" alt="" loading="lazy" decoding="async" onerror="this.remove()"><span class="play" aria-hidden="true"></span><span class="vt">Standard Bank · WhatsApp Chatbot</span></button>
+          <button class="vtile small" type="button" data-yt="EyZWuiRdTD8" data-title="SBTV · Brand Moments" aria-label="Play SBTV · Brand Moments"><img src="https://i.ytimg.com/vi/EyZWuiRdTD8/hqdefault.jpg" alt="" loading="lazy" decoding="async" onerror="this.remove()"><span class="play" aria-hidden="true"></span><span class="vt">SBTV · Brand Moments</span></button>
+        </div>
+      </div>
+    </div>
+  </article>
+
+  <section id="services" data-cam="Services">
+    <div class="col reveal">
+      <h2>Everything you need, made in one place.</h2>
+      <div class="services">
+        <div><h3>Websites</h3><p>Sites that turn visitors into enquiries, from one-page launches to 3D experiences like this one.</p></div>
+        <div><h3>Design &amp; brand</h3><p>Identities, packaging and the brand rules that keep it all consistent.</p></div>
+        <div><h3>Animation</h3><p>After Effects motion, explainers, and 3D films that show how products and machines work.</p></div>
+        <div><h3>Film &amp; editing</h3><p>Shot, cut and graded for TV, events, YouTube or a phone screen.</p></div>
+        <div><h3>Social campaigns</h3><p>Planned, produced and managed, with a monthly report on what worked.</p></div>
+        <div><h3>AI solutions</h3><p>Practical AI that saves your team hours every week.</p></div>
+      </div>
+    </div>
+  </section>
+
+  <section id="packages" data-cam="Packages">
+    <div class="col reveal">
+      <h2>Clear prices. Fixed quotes.</h2>
+      <p>Start from a package or a single service. Every price is a starting point, and you get a fixed quote within 48 hours.</p>
+      <div class="packages">
+        <div class="pkg">
+          <div><h3>Launch</h3><div class="for">New business, product or rebrand</div></div>
+          <div class="price">€4,500<small>from</small></div>
+          <ul><li>Brand identity</li><li>Website, built to convert</li><li>30-second launch animation</li></ul>
+          <p class="extra"><b>Added value:</b> social templates and a one-page brand guide.</p>
+          <button class="btn" type="button" data-pkg="Launch">Quote this</button>
+        </div>
+        <div class="pkg">
+          <div><h3>Campaign</h3><div class="for">A launch, season or sponsorship moment</div></div>
+          <div class="price">€6,500<small>from</small></div>
+          <ul><li>Campaign idea and look</li><li>Hero film or animation</li><li>Social, digital and print cut-downs</li></ul>
+          <p class="extra"><b>Added value:</b> every asset sized for each channel, plus a results report.</p>
+          <button class="btn" type="button" data-pkg="Campaign">Quote this</button>
+        </div>
+        <div class="pkg">
+          <div><h3>Always on</h3><div class="for">Content every month</div></div>
+          <div class="price">€1,500<small>per month, from</small></div>
+          <ul><li>Social plan and content on 3 platforms</li><li>Two short videos or animations a month</li><li>AI tools set up for your team</li></ul>
+          <p class="extra"><b>Added value:</b> a monthly review of what's working and what to try next.</p>
+          <button class="btn" type="button" data-pkg="Always on">Quote this</button>
+        </div>
+      </div>
+
+      <div class="prices">
+        <h3>Websites</h3>
+        <dl><div><dt>Business website, up to 6 pages</dt><dd>from €2,500</dd></div><div><dt>Online store</dt><dd>from €4,500</dd></div><div><dt>Immersive 3D site</dt><dd>from €7,500</dd></div><div><dt>Care plan: updates, backups, security</dt><dd>€75 / month</dd></div></dl>
+        <h3>Design &amp; brand</h3>
+        <dl><div><dt>Logo and core identity</dt><dd>from €1,500</dd></div><div><dt>Full brand identity with guidelines</dt><dd>from €3,500</dd></div><div><dt>Packaging, per product range</dt><dd>from €1,800</dd></div></dl>
+        <h3>Animation</h3>
+        <dl><div><dt>Social animation, up to 30 seconds</dt><dd>from €1,200</dd></div><div><dt>Explainer, 60 to 90 seconds</dt><dd>from €2,800</dd></div><div><dt>3D product animation</dt><dd>from €3,500</dd></div></dl>
+        <h3>Film &amp; editing</h3>
+        <dl><div><dt>Half-day shoot and short edit</dt><dd>from €950</dd></div><div><dt>Full-day shoot, hero film and 3 cut-downs</dt><dd>from €2,200</dd></div><div><dt>Editing only</dt><dd>€60 / hour</dd></div></dl>
+        <h3>Social campaigns</h3>
+        <dl><div><dt>Starter: 2 platforms, 12 posts a month</dt><dd>€750 / month</dd></div><div><dt>Growth: 3 platforms, 20 posts with video</dt><dd>€1,400 / month</dd></div><div><dt>Paid social management (excludes ad spend)</dt><dd>+€350 / month</dd></div></dl>
+        <h3>AI solutions</h3>
+        <dl><div><dt>AI audit and roadmap, half day</dt><dd>€650</dd></div><div><dt>Custom AI workflow or assistant</dt><dd>from €2,500</dd></div><div><dt>AI support</dt><dd>from €500 / month</dd></div></dl>
+        <p class="vat-note">Prices exclude VAT where it applies. Creative direction by the day: €650.</p>
+      </div>
+
+      <ol class="steps" aria-label="How a project runs">
+        <li><b>Brief</b>A 30-minute call.</li>
+        <li><b>Quote</b>A fixed price within 48 hours.</li>
+        <li><b>Make</b>Review points you sign off.</li>
+        <li><b>Deliver</b>Final files, extras and a report.</li>
+      </ol>
+    </div>
+  </section>
+
+  <section id="survey" data-cam="The Ground Survey">
+    <div class="col reveal">
+      <h2>The Ground Survey.</h2>
+      <p>Five questions, 60 seconds. You get a Ground Score out of 10 and the three things we'd fix first.</p>
+      <form class="survey" id="surveyForm">
+        <fieldset class="q"><legend>How consistent does your brand look across your website, social and print?</legend><div class="opts">
+          <label class="opt"><input type="radio" name="q1" value="0"><span>Consistent</span></label>
+          <label class="opt"><input type="radio" name="q1" value="1"><span>Mostly</span></label>
+          <label class="opt"><input type="radio" name="q1" value="2"><span>All over the place</span></label></div></fieldset>
+        <fieldset class="q"><legend>Could you say in one sentence why customers should pick you?</legend><div class="opts">
+          <label class="opt"><input type="radio" name="q2" value="0"><span>Yes, easily</span></label>
+          <label class="opt"><input type="radio" name="q2" value="1"><span>Sort of</span></label>
+          <label class="opt"><input type="radio" name="q2" value="2"><span>Not really</span></label></div></fieldset>
+        <fieldset class="q"><legend>When did your website last get a proper update?</legend><div class="opts">
+          <label class="opt"><input type="radio" name="q3" value="0"><span>This year</span></label>
+          <label class="opt"><input type="radio" name="q3" value="1"><span>1–3 years ago</span></label>
+          <label class="opt"><input type="radio" name="q3" value="2"><span>Over 3 years ago</span></label></div></fieldset>
+        <fieldset class="q"><legend>How often do you publish video or animation?</legend><div class="opts">
+          <label class="opt"><input type="radio" name="q4" value="0"><span>Every week</span></label>
+          <label class="opt"><input type="radio" name="q4" value="1"><span>Now and then</span></label>
+          <label class="opt"><input type="radio" name="q4" value="2"><span>Hardly ever</span></label></div></fieldset>
+        <fieldset class="q"><legend>Are you using AI anywhere in your marketing?</legend><div class="opts">
+          <label class="opt"><input type="radio" name="q5" value="0"><span>Yes, in our workflow</span></label>
+          <label class="opt"><input type="radio" name="q5" value="1"><span>Experimenting</span></label>
+          <label class="opt"><input type="radio" name="q5" value="2"><span>Not yet</span></label></div></fieldset>
+        <div class="survey-foot">
+          <button class="btn solid" type="submit">Get my Ground Score</button>
+          <span class="survey-hint" id="surveyHint" role="status" aria-live="polite"></span>
+        </div>
+        <div class="result-card" id="surveyResult" hidden>
+          <div class="score"><strong id="scoreNum">0/10</strong><span id="scoreLine"></span></div>
+          <ol class="recs" id="recs"></ol>
+          <div class="cta-row"><button class="btn solid" type="button" id="sendSurvey">Send my results to North Ground</button></div>
+        </div>
+      </form>
+    </div>
+  </section>
+
+  <section id="director" data-cam="Your creative director">
+    <div class="col reveal">
+      <h2>A senior creative director on every project.</h2>
+      <p>No juniors and no hand-offs. The creative director who takes your brief makes the work.</p>
+      <ul class="cd-list">
+        <li>27 years in creative direction, film, 3D and digital</li>
+        <li>Former Executive Creative Director at AB InBev's in-house agency, leading 16 creatives</li>
+        <li>Work for HP, Microsoft, Dell, Lenovo, Intel, Vodacom and Nedbank</li>
+        <li>After Effects, Blender, Cinema 4D, Unreal Engine and the Adobe suite</li>
+      </ul>
+    </div>
+  </section>
+
+  <section id="contact" data-cam="Contact">
+    <div class="col reveal">
+      <h2>Break ground with us.</h2>
+      <p>Tell us what you're building. You'll get a fixed quote within 48 hours.</p>
+      <form class="enquiry" id="enquiry" novalidate>
+        <div class="field"><label for="f-name">Name</label><input id="f-name" name="name" autocomplete="name" required><span class="err" id="e-name"></span></div>
+        <div class="field"><label for="f-email">Email</label><input id="f-email" name="email" type="email" autocomplete="email" autocapitalize="none" required><span class="err" id="e-email"></span></div>
+        <div class="field"><label for="f-company">Company <span>(optional)</span></label><input id="f-company" name="company" autocomplete="organization"></div>
+        <div class="field"><label for="f-service">What do you need?</label>
+          <select id="f-service" name="service">
+            <option>Launch package</option><option>Campaign package</option><option>Always on package</option>
+            <option>Website</option><option>Design &amp; brand</option><option>Animation</option><option>Film &amp; editing</option><option>Social campaigns</option><option>AI solutions</option><option>Not sure yet</option>
+          </select></div>
+        <div class="field"><label for="f-budget">Budget <span>(optional)</span></label>
+          <select id="f-budget" name="budget">
+            <option value="">Prefer not to say</option><option>Under €2,000</option><option>€2,000 – €5,000</option><option>€5,000 – €15,000</option><option>€15,000+</option>
+          </select></div>
+        <div class="field"><label for="f-when">Timing <span>(optional)</span></label>
+          <select id="f-when" name="timing">
+            <option value="">Flexible</option><option>This month</option><option>In 1–3 months</option><option>Later this year</option>
+          </select></div>
+        <div class="field full"><label for="f-msg">Project details</label><textarea id="f-msg" name="message" required placeholder="What are you building, who is it for, and when does it need to land?"></textarea><span class="err" id="e-msg"></span></div>
+        <div class="hp" aria-hidden="true"><label for="f-web">Website</label><input id="f-web" name="_gotcha" tabindex="-1" autocomplete="off"></div>
+        <div class="form-foot">
+          <button class="btn solid" id="send" type="submit">Send enquiry</button>
+          <span class="form-status" id="formStatus" role="status" aria-live="polite"></span>
+        </div>
+      </form>
+      <p class="or-email">Prefer email?</p>
+      <div class="contact-line" id="email">info@northground.ie</div>
+      <div class="cta-row">
+        <button class="btn" id="copy" type="button">Copy email</button>
+        <span class="copy-note" id="copyNote" aria-live="polite"></span>
+      </div>
+    </div>
+  </section>
+</main>
+
+<dialog class="player" id="player" aria-label="Video player">
+  <div class="frame" id="playerFrame"></div>
+  <div class="bar"><strong id="playerTitle"></strong><a id="playerLink" href="#" target="_blank" rel="noopener">Watch on YouTube ↗</a><button class="btn" type="button" id="playerClose">Close</button></div>
+</dialog>
+
+<footer>
+  <p class="signoff" aria-hidden="true">North<span>/</span>Ground</p>
+  <div class="foot-row">
+    <span>© 2026 North Ground · Creative studio · Cork, Ireland</span>
+    <span><a href="#work">Work</a> · <a href="#packages">Prices</a> · <a href="#survey">Ground Survey</a> · <a href="#contact">Contact</a></span>
+  </div>
+</footer>
+
+<script src="https://cdnjs.cloudflare.com/ajax/libs/three.js/r128/three.min.js"></script>
+<script>
+// ---- Site settings: fill these in before launch ----
+const SITE = {
+  email: 'info@northground.ie',   // shown on the page and used in form messages
+  formEndpoint: '',                // e.g. https://formspree.io/f/xxxxxxx (leave empty until connected)
+  gaId: ''                         // Google Analytics 4 ID, e.g. G-XXXXXXXXXX (leave empty to disable)
+};
+(function(){
+  const reduce = matchMedia('(prefers-reduced-motion: reduce)').matches;
+  const mobile = innerWidth < 760;
+
+  // ---------- Analytics (only when an ID is set) ----------
+  window.dataLayer = window.dataLayer || [];
+  function gtag(){ dataLayer.push(arguments); }
+  const track = (name, params) => { if (SITE.gaId) gtag('event', name, params || {}); };
+  if (SITE.gaId){
+    const g = document.createElement('script'); g.async = true; g.src = 'https://www.googletagmanager.com/gtag/js?id=' + SITE.gaId; document.head.appendChild(g);
+    gtag('js', new Date()); gtag('config', SITE.gaId);
+  }
+  document.querySelectorAll('[data-track]').forEach(a => a.addEventListener('click', () => track('cta_click', {label: a.dataset.track})));
+  document.getElementById('email').textContent = SITE.email;
+
+  // ---------- Copy email ----------
+  document.getElementById('copy').addEventListener('click', function(){
+    const el = document.getElementById('email'), note = document.getElementById('copyNote');
+    const sel = () => { const r = document.createRange(); r.selectNodeContents(el); const s = getSelection(); s.removeAllRanges(); s.addRange(r); note.textContent = 'Selected. Press copy.'; };
+    try { navigator.clipboard.writeText(el.textContent).then(() => note.textContent = 'Copied', sel); } catch(e){ sel(); }
+  });
+
+  // ---------- Enquiry form ----------
+  const form = document.getElementById('enquiry'), status = document.getElementById('formStatus'), send = document.getElementById('send');
+  const msg = document.getElementById('f-msg'), service = document.getElementById('f-service');
+  const goContact = () => document.getElementById('contact').scrollIntoView({behavior: reduce ? 'auto' : 'smooth'});
+  document.querySelectorAll('[data-pkg]').forEach(b => b.addEventListener('click', () => {
+    service.value = b.dataset.pkg + ' package'; track('package_select', {package: b.dataset.pkg}); goContact();
+    setTimeout(() => msg.focus({preventScroll:true}), reduce ? 0 : 700);
+  }));
+  const checks = [
+    ['f-name','e-name', v => v.trim() ? '' : 'Enter your name.'],
+    ['f-email','e-email', v => /^[^@\s]+@[^@\s]+\.[^@\s]+$/.test(v.trim()) ? '' : 'Enter an email address like name@company.ie.'],
+    ['f-msg','e-msg', v => v.trim().length >= 10 ? '' : 'Tell us a little about the project. A sentence or two is enough.']
+  ];
+  function validate(){
+    let first = null;
+    checks.forEach(([fid, eid, fn]) => { const el = document.getElementById(fid), m = fn(el.value); document.getElementById(eid).textContent = m; el.setAttribute('aria-invalid', m ? 'true' : 'false'); if (m) el.setAttribute('aria-describedby', eid); else el.removeAttribute('aria-describedby'); if (m && !first) first = el; });
+    if (first) first.focus();
+    return !first;
+  }
+  form.addEventListener('submit', async e => {
+    e.preventDefault();
+    status.className = 'form-status'; status.textContent = '';
+    if (!validate()) return;
+    if (!SITE.formEndpoint){
+      status.className = 'form-status bad';
+      status.textContent = "This form isn't connected yet. Please email " + SITE.email + ' with your project details.';
+      return;
+    }
+    send.disabled = true; send.textContent = 'Sending…';
+    try {
+      const r = await fetch(SITE.formEndpoint, {method:'POST', headers:{Accept:'application/json'}, body:new FormData(form)});
+      if (!r.ok) throw new Error(r.status);
+      form.reset(); status.className = 'form-status ok';
+      status.textContent = "Thanks. Your enquiry is in, and you'll have a reply within 48 hours.";
+      track('generate_lead', {service: service.value});
+    } catch(err){
+      status.className = 'form-status bad';
+      status.textContent = "Your enquiry didn't send. Check your connection and try again, or email " + SITE.email + '.';
+    } finally { send.disabled = false; send.textContent = 'Send enquiry'; }
+  });
+
+  // ---------- Brand survey ----------
+  const sForm = document.getElementById('surveyForm'), hint = document.getElementById('surveyHint'), res = document.getElementById('surveyResult');
+  const RECS = {
+    q1: ['A brand refresh and a one-page brand guide, so everything looks like it comes from the same business.', 'Launch'],
+    q2: ['A positioning sentence and messaging hierarchy, so every page and post makes the same clear promise.', 'Launch'],
+    q3: ['A new website built around that promise, with a clear enquiry path and analytics from day one.', 'Launch'],
+    q4: ['A steady video and animation plan, starting with one hero film cut down for every channel.', 'Always on'],
+    q5: ['A simple AI workflow for drafting on-brand posts and visuals, so your team saves hours every week.', 'Always on']
+  };
+  let lastSurvey = null;
+  sForm.addEventListener('submit', e => {
+    e.preventDefault();
+    const answers = {}; let missing = 0;
+    ['q1','q2','q3','q4','q5'].forEach(q => { const c = sForm.querySelector('input[name="'+q+'"]:checked'); if (!c) missing++; else answers[q] = +c.value; });
+    if (missing){ hint.textContent = 'Answer all five questions to get your score (' + missing + ' to go).'; return; }
+    hint.textContent = '';
+    const gaps = Object.values(answers).reduce((a,b) => a+b, 0);
+    const score = Math.max(0, 10 - gaps);
+    const ranked = Object.keys(answers).filter(q => answers[q] > 0).sort((a,b) => answers[b] - answers[a]).slice(0,3);
+    const recs = ranked.length ? ranked.map(q => RECS[q][0]) : ['Your foundations are strong. A Campaign package is the next step to turn them into growth.'];
+    const pkgVotes = {}; ranked.forEach(q => pkgVotes[RECS[q][1]] = (pkgVotes[RECS[q][1]] || 0) + answers[q]);
+    const pkg = Object.keys(pkgVotes).sort((a,b) => pkgVotes[b] - pkgVotes[a])[0] || 'Campaign';
+    document.getElementById('scoreNum').textContent = score + '/10';
+    document.getElementById('scoreLine').textContent = score >= 8 ? 'Solid ground, with a few gains left.' : score >= 5 ? 'Good bones, with clear room to grow.' : 'Plenty of ground to gain, so this is the best time to start.';
+    const ol = document.getElementById('recs'); ol.innerHTML = '';
+    recs.forEach(r => { const li = document.createElement('li'); li.textContent = r; ol.appendChild(li); });
+    res.hidden = false;
+    lastSurvey = {score, recs, pkg};
+    track('survey_complete', {score, package: pkg});
+  });
+  document.getElementById('sendSurvey').addEventListener('click', () => {
+    if (!lastSurvey) return;
+    service.value = lastSurvey.pkg + ' package';
+    msg.value = 'My Ground Score was ' + lastSurvey.score + '/10.\nSuggested next steps:\n- ' + lastSurvey.recs.join('\n- ') + '\n\nAbout my business: ';
+    track('survey_send', {score: lastSurvey.score});
+    goContact();
+    setTimeout(() => { msg.focus({preventScroll:true}); msg.setSelectionRange(msg.value.length, msg.value.length); }, reduce ? 0 : 700);
+  });
+
+  // ---------- Video player ----------
+  const dlg = document.getElementById('player'), pFrame = document.getElementById('playerFrame');
+  let lastTile = null;
+  function closePlayer(){ pFrame.innerHTML = ''; if (dlg.open) dlg.close(); if (lastTile) lastTile.focus(); }
+  document.querySelectorAll('[data-yt]').forEach(b => b.addEventListener('click', () => {
+    const id = b.dataset.yt, title = b.dataset.title; lastTile = b;
+    document.getElementById('playerTitle').textContent = title;
+    document.getElementById('playerLink').href = 'https://www.youtube.com/watch?v=' + id;
+    pFrame.innerHTML = '<iframe src="https://www.youtube-nocookie.com/embed/' + id + '?autoplay=1&rel=0&modestbranding=1" title="' + title.replace(/"/g,'') + '" allow="autoplay; encrypted-media; picture-in-picture; fullscreen" allowfullscreen></iframe>';
+    track('video_play', {video: title});
+    if (dlg.showModal) dlg.showModal(); else window.open('https://www.youtube.com/watch?v=' + id, '_blank');
+  }));
+  document.getElementById('playerClose').addEventListener('click', closePlayer);
+  dlg.addEventListener('cancel', e => { e.preventDefault(); closePlayer(); });
+  dlg.addEventListener('click', e => { if (e.target === dlg) closePlayer(); });
+
+  // ---------- Optional work loops: add data-video="clip.mp4" to a .case ----------
+  document.querySelectorAll('.case[data-video]').forEach(c => {
+    const vid = document.createElement('video');
+    vid.src = c.dataset.video; vid.muted = true; vid.loop = true; vid.playsInline = true; vid.preload = 'metadata';
+    vid.setAttribute('aria-hidden', 'true'); if (c.dataset.poster) vid.poster = c.dataset.poster;
+    c.querySelector('.col').appendChild(vid);
+    if (!reduce && 'IntersectionObserver' in window){
+      new IntersectionObserver(es => es.forEach(e => e.isIntersecting ? vid.play().catch(()=>{}) : vid.pause()), {threshold:.4}).observe(vid);
+    }
+  });
+
+  // ---------- Reveals ----------
+  const els = document.querySelectorAll('.reveal');
+  if (!reduce && 'IntersectionObserver' in window){
+    const io = new IntersectionObserver(es => es.forEach(e => e.target.classList.toggle('pre', !e.isIntersecting)), {threshold:.1});
+    els.forEach((el,i) => { if (i>0) el.classList.add('pre'); io.observe(el); });
+  }
+
+  // ---------- Chapters: fractional index from where each [data-cam] block sits ----------
+  const chapters = [...document.querySelectorAll('[data-cam]')];
+  const ptEl = document.getElementById('pt'), ptName = document.getElementById('ptName'), bar = document.getElementById('bar');
+  let chapterT = 0;
+  function onScroll(){
+    const mid = innerHeight * .45;
+    const c = chapters.map(s => { const r = s.getBoundingClientRect(); return r.top + Math.min(r.height, innerHeight) * .35; });
+    let m = 0;
+    if (mid <= c[0]) m = 0;
+    else if (mid >= c[c.length-1]) m = c.length-1;
+    else for (let i=0;i<c.length-1;i++) if (mid >= c[i] && mid < c[i+1]){ m = i + (mid-c[i])/(c[i+1]-c[i]); break; }
+    chapterT = m;
+    const idx = Math.round(m);
+    ptEl.textContent = String(idx+1).padStart(2,'0');
+    ptName.textContent = chapters[idx].dataset.cam;
+    bar.style.width = (m/(c.length-1)*100) + '%';
+  }
+  let queued = false;
+  const queue = () => { if (!queued){ queued = true; requestAnimationFrame(() => { queued = false; onScroll(); }); } };
+  addEventListener('scroll', queue, {passive:true}); addEventListener('resize', queue); onScroll();
+
+  // ---------- WebGL ----------
+  const canvas = document.getElementById('gl');
+  function fallback(){ if (canvas.isConnected) canvas.remove(); const d = document.createElement('div'); d.className = 'fallback'; document.body.prepend(d); }
+  if (!window.THREE){ fallback(); return; }
+  let renderer;
+  try { renderer = new THREE.WebGLRenderer({canvas, antialias:true, alpha:false}); } catch(e){ fallback(); return; }
+  const coarse = matchMedia('(pointer: coarse)').matches;
+  renderer.setPixelRatio(Math.min(devicePixelRatio, coarse ? 1.5 : 2));
+  renderer.setClearColor(0x0b100e, 1);
+  let lost = false, running = false;
+  canvas.addEventListener('webglcontextlost', e => { e.preventDefault(); lost = true; fallback(); });
+
+  const scene = new THREE.Scene();
+  scene.fog = new THREE.FogExp2(0x0b100e, 0.042);
+  const camera = new THREE.PerspectiveCamera(50, 1, 0.1, 200);
+
+  const noise = `
+  vec3 mod289(vec3 x){return x-floor(x*(1.0/289.0))*289.0;}
+  vec2 mod289(vec2 x){return x-floor(x*(1.0/289.0))*289.0;}
+  vec3 permute(vec3 x){return mod289(((x*34.0)+1.0)*x);}
+  float snoise(vec2 v){
+    const vec4 C=vec4(0.211324865405187,0.366025403784439,-0.577350269189626,0.024390243902439);
+    vec2 i=floor(v+dot(v,C.yy)); vec2 x0=v-i+dot(i,C.xx);
+    vec2 i1=(x0.x>x0.y)?vec2(1.0,0.0):vec2(0.0,1.0);
+    vec4 x12=x0.xyxy+C.xxzz; x12.xy-=i1; i=mod289(i);
+    vec3 p=permute(permute(i.y+vec3(0.0,i1.y,1.0))+i.x+vec3(0.0,i1.x,1.0));
+    vec3 m=max(0.5-vec3(dot(x0,x0),dot(x12.xy,x12.xy),dot(x12.zw,x12.zw)),0.0); m=m*m; m=m*m;
+    vec3 x=2.0*fract(p*C.www)-1.0; vec3 h=abs(x)-0.5; vec3 ox=floor(x+0.5); vec3 a0=x-ox;
+    m*=1.79284291400159-0.85373472095314*(a0*a0+h*h);
+    vec3 g; g.x=a0.x*x0.x+h.x*x0.y; g.yz=a0.yz*x12.xz+h.yz*x12.yw; return 130.0*dot(m,g);
+  }
+  float fbm(vec2 p){float s=0.0,a=0.5;for(int i=0;i<5;i++){s+=a*snoise(p);p*=2.03;a*=0.5;}return s;}`;
+
+  // Terrain with contour lines; flattens around each survey marker so the pins sit on pads
+  const seg = mobile ? 160 : 260;
+  const tGeo = new THREE.PlaneGeometry(90, 90, seg, seg); tGeo.rotateX(-Math.PI/2);
+  const MARKERS = [[-6,9],[-9,4],[-3,-10],[8,-9],[13,2],[7,11],[-12,-3]];   // x,z of the seven case studies
+  const tMat = new THREE.ShaderMaterial({
+    extensions:{derivatives:true},
+    uniforms:{uTime:{value:0}, uScroll:{value:0}, uIntro:{value: reduce ? 1 : 0}, uFogColor:{value:new THREE.Color(0x0b100e)},
+      uM:{value: MARKERS.map(m => new THREE.Vector2(m[0], m[1]))}, uActive:{value:-9}},
+    vertexShader: noise + `
+      uniform float uTime; uniform float uScroll; uniform float uIntro; uniform vec2 uM[7];
+      varying float vH; varying float vDist; varying vec2 vXZ;
+      void main(){
+        vec3 p = position;
+        float d = length(p.xz);
+        float h = fbm(p.xz*0.07 + vec2(0.0, uTime*0.015)) * 4.2;
+        h += smoothstep(14.0, 0.0, d) * 1.2;
+        h *= smoothstep(1.8, 5.0, d);
+        for (int i=0;i<7;i++){ h *= smoothstep(.6, 2.4, length(p.xz - uM[i])); }
+        h *= uIntro;
+        p.y = h - 1.6;
+        vH = h; vXZ = p.xz;
+        vec4 mv = modelViewMatrix * vec4(p,1.0);
+        vDist = -mv.z;
+        gl_Position = projectionMatrix * mv;
+      }`,
+    fragmentShader: `
+      uniform vec3 uFogColor; uniform float uTime; uniform float uScroll; uniform vec2 uM[7]; uniform float uActive;
+      varying float vH; varying float vDist; varying vec2 vXZ;
+      void main(){
+        float f = vH * 3.2;
+        float w = fwidth(f);
+        float d1 = 0.5 - abs(fract(f) - 0.5);
+        float line = 1.0 - smoothstep(0.0, w*1.2, d1);
+        float d5 = (0.5 - abs(fract(f/5.0) - 0.5)) * 5.0;
+        float major = 1.0 - smoothstep(w*0.6, w*2.2, d5);
+        vec3 base = vec3(0.043,0.063,0.055);
+        vec3 lichen = vec3(0.78,0.83,0.74);
+        vec3 amber = vec3(0.949,0.525,0.118);
+        float scan = smoothstep(1.2, 0.0, abs(vXZ.y + 30.0 - mod(uTime*4.0 + uScroll*60.0, 60.0)));
+        vec3 col = base + lichen*line*0.32 + lichen*major*0.35;
+        col = mix(col, amber, scan*(line+major)*0.9);
+        // pulsing survey rings on each marker pad, bright on the active one
+        for (int i=0;i<7;i++){
+          float on = 1.0 - min(1.0, abs(uActive - float(i)));
+          float r = length(vXZ - uM[i]);
+          float rw = fwidth(r*1.6);
+          float rr = 0.5 - abs(fract(r*1.6 - uTime*0.6) - 0.5);
+          float rings = 1.0 - smoothstep(0.0, rw*1.5, rr);
+          col += amber * rings * smoothstep(3.2, 0.4, r) * (0.1 + on*0.8);
+        }
+        float fog = 1.0 - exp(-pow(vDist*0.045, 2.0));
+        gl_FragColor = vec4(mix(col, uFogColor, clamp(fog,0.0,1.0)), 1.0);
+      }`
+  });
+  scene.add(new THREE.Mesh(tGeo, tMat));
+
+  // The carved "N" monolith
+  const nShape = new THREE.Shape();
+  [[0,0],[0.8,0],[0.8,2.55],[2.2,0],[3,0],[3,4],[2.2,4],[2.2,1.45],[0.8,4],[0,4]].forEach((p,i)=> i ? nShape.lineTo(p[0]-1.5,p[1]-2) : nShape.moveTo(p[0]-1.5,p[1]-2));
+  const nGeo = new THREE.ExtrudeGeometry(nShape, {depth:.9, steps:3, bevelEnabled:true, bevelThickness:.1, bevelSize:.07, bevelSegments:2, curveSegments:1});
+  nGeo.translate(0,0,-.45);
+  const pos = nGeo.attributes.position, v = new THREE.Vector3();
+  for (let i=0;i<pos.count;i++){
+    v.fromBufferAttribute(pos,i);
+    const n = Math.sin(v.x*5.3+v.y*3.1)*Math.cos(v.y*4.7-v.z*6.1);
+    v.x += n*.045; v.z += Math.sin(v.y*6.2+v.x*2.3)*.05; v.y += Math.cos(v.x*7.1)*.02;
+    pos.setXYZ(i,v.x,v.y,v.z);
+  }
+  nGeo.computeVertexNormals();
+  const rock = new THREE.Group();
+  const stoneMat = new THREE.MeshStandardMaterial({color:0x222c27, roughness:.88, metalness:.12, flatShading:true});
+  const stone = new THREE.Mesh(nGeo, stoneMat);
+  const wireMat = new THREE.LineBasicMaterial({color:0xf2861e, transparent:true, opacity:.6});
+  stone.add(new THREE.LineSegments(new THREE.EdgesGeometry(nGeo, 24), wireMat));
+  stone.rotation.z = -.06; stone.rotation.x = -.04;
+  rock.add(stone);
+  [[-1.9,-1.75,.9,.32],[2.1,-1.8,-.6,.24],[.6,-1.85,1.6,.18],[-.9,-1.85,-1.5,.2]].forEach(s=>{
+    const g = new THREE.TetrahedronGeometry(s[3],0); const m = new THREE.Mesh(g, stoneMat);
+    m.position.set(s[0],s[1],s[2]); m.rotation.set(s[0]*2,s[2]*3,s[1]); rock.add(m);
+    m.add(new THREE.LineSegments(new THREE.EdgesGeometry(g), wireMat));
+  });
+  scene.add(rock);
+  const ringMat = new THREE.MeshBasicMaterial({color:0xf2861e, transparent:true, opacity:.5, side:THREE.DoubleSide});
+  const ring = new THREE.Mesh(new THREE.RingGeometry(3.6, 3.64, 128), ringMat);
+  ring.rotation.x = -Math.PI/2; ring.position.y = -1.55; scene.add(ring);
+
+  // Survey markers: a pole with a beacon for each case study
+  const poleGeo = new THREE.CylinderGeometry(.035, .035, 3.2, 6); poleGeo.translate(0, 1.6, 0);
+  const beaconGeo = new THREE.OctahedronGeometry(.22, 0);
+  const markers = MARKERS.map(m => {
+    const g = new THREE.Group(); g.position.set(m[0], -1.6, m[1]);
+    const pm = new THREE.MeshBasicMaterial({color:0xc8d3bc, transparent:true, opacity:.5});
+    const bm = new THREE.MeshBasicMaterial({color:0xf2861e, transparent:true, opacity:.6});
+    const pole = new THREE.Mesh(poleGeo, pm), beacon = new THREE.Mesh(beaconGeo, bm);
+    beacon.position.y = 3.45; g.add(pole, beacon); g.userData = {pm, bm, beacon}; scene.add(g);
+    return g;
+  });
+
+  scene.add(new THREE.HemisphereLight(0x9fb3a4, 0x0b100e, .55));
+  const sun = new THREE.DirectionalLight(0xf2861e, 1.6); sun.position.set(6,8,4); scene.add(sun);
+  const rim = new THREE.DirectionalLight(0x8fb0c0, .6); rim.position.set(-8,3,-6); scene.add(rim);
+
+  const NP = mobile ? 500 : 1100, pg = new THREE.BufferGeometry(), pa = new Float32Array(NP*3);
+  for (let i=0;i<NP;i++){ pa[i*3]=(Math.random()-.5)*50; pa[i*3+1]=Math.random()*8-1; pa[i*3+2]=(Math.random()-.5)*50; }
+  pg.setAttribute('position', new THREE.BufferAttribute(pa,3));
+  const mist = new THREE.Points(pg, new THREE.PointsMaterial({color:0xc8d3bc, size:.05, transparent:true, opacity:.5, depthWrite:false}));
+  scene.add(mist);
+
+  // ---------- Camera chapters as data (one per [data-cam] block) ----------
+  const markerCam = m => { const d = Math.hypot(m[0], m[1]) || 1, ox = m[0]/d, oz = m[1]/d;
+    return {p:[m[0] + ox*5.2 - oz*2.2, 1.9, m[1] + oz*5.2 + ox*2.2], l:[m[0], .6, m[1]]}; };
+  const CAMS = [
+    {p:[ 9, 6.5, 13], l:[0, .6, 0]},        // hero
+    {p:[-8, 2.6,  9], l:[0, .8, 0]},        // problem
+    {p:[ 0, 15, 14],  l:[0, -1, -1]},       // work overview
+    ...MARKERS.map(markerCam),              // seven case studies
+    {p:[ 6, 2.0, -5], l:[0, .6, 0]},        // services
+    {p:[-14, 7, 6],   l:[0, 0, 0]},         // packages
+    {p:[-3.4, 1.2, 4.6], l:[0, .9, 0]},     // survey
+    {p:[ 4, 3.2, 7],  l:[0, .8, 0]},        // director
+    {p:[ 0, 16, 8],   l:[0, 0, -2]}         // contact
+  ];
+  const FIRST_CASE = 3;
+  const A = new THREE.Vector3(), B = new THREE.Vector3(), L1 = new THREE.Vector3(), L2 = new THREE.Vector3(), look = new THREE.Vector3();
+  const ease = x => x<.5 ? 4*x*x*x : 1-Math.pow(-2*x+2,3)/2;
+  const easeOut = x => 1 - Math.pow(1 - Math.min(1, Math.max(0, x)), 3);
+  let smoothT = chapterT, mx = 0, my = 0, smx = 0, smy = 0;
+  addEventListener('pointermove', e => { if (e.pointerType !== 'mouse') return; mx = e.clientX/innerWidth - .5; my = e.clientY/innerHeight - .5; }, {passive:true});
+
+  function resize(){
+    const w = innerWidth, h = innerHeight;
+    renderer.setSize(w, h, false); camera.aspect = w/h;
+    const shift = w > 900 ? Math.round(w * .2) : 0;     // push the subject right of the reading column
+    if (shift) camera.setViewOffset(w, h, -shift, 0, w, h); else camera.clearViewOffset();
+    camera.updateProjectionMatrix();
+  }
+  addEventListener('resize', resize); resize();
+
+  const clock = new THREE.Clock();
+  function frame(){
+    if (document.hidden || lost){ running = false; return; }
+    running = true;
+    const t = reduce ? 0 : clock.getElapsedTime();
+    const land = reduce ? 1 : easeOut(t / 2.2), lift = reduce ? 1 : easeOut((t - .7) / 1.8);
+    tMat.uniforms.uIntro.value = land;
+    rock.position.y = .32 - (1 - lift) * 4.6;
+    ringMat.opacity = .5 * lift;
+
+    smoothT += (chapterT - smoothT) * (reduce ? 1 : .055);
+    smx += (mx - smx)*.05; smy += (my - smy)*.05;
+    const i = Math.min(CAMS.length-2, Math.floor(smoothT)), f = ease(smoothT - i);
+    A.fromArray(CAMS[i].p); B.fromArray(CAMS[i+1].p); L1.fromArray(CAMS[i].l); L2.fromArray(CAMS[i+1].l);
+    camera.position.lerpVectors(A, B, f); look.lerpVectors(L1, L2, f);
+    camera.position.x += smx*1.1; camera.position.y += -smy*.5;
+    camera.lookAt(look);
+
+    // markers: the active one burns bright, the rest stay quiet
+    const active = smoothT - FIRST_CASE;
+    tMat.uniforms.uActive.value = active;
+    markers.forEach((g, k) => {
+      const on = Math.max(0, 1 - Math.abs(active - k)) * lift;
+      g.userData.bm.opacity = .35 + on*.65; g.userData.pm.opacity = .25 + on*.5;
+      g.userData.beacon.rotation.y = t*.8 + k; g.userData.beacon.scale.setScalar(1 + on*.6);
+      g.scale.y = Math.max(.001, lift);
+    });
+
+    rock.rotation.y = -.35 + Math.sin(t*.22)*.28 + smoothT*.45;
+    wireMat.opacity = .45 + Math.sin(t*1.4)*.15;
+    ring.rotation.z = t*.2;
+    mist.rotation.y = t*.01; mist.position.y = Math.sin(t*.2)*.3;
+    tMat.uniforms.uTime.value = t; tMat.uniforms.uScroll.value = smoothT / (CAMS.length-1);
+    renderer.render(scene, camera);
+    if (!reduce || Math.abs(chapterT - smoothT) > .001) requestAnimationFrame(frame); else running = false;
+  }
+  const wake = () => { if (!running && !lost && !document.hidden){ running = true; requestAnimationFrame(frame); } };
+  frame();
+  document.addEventListener('visibilitychange', wake);
+  if (reduce) addEventListener('scroll', wake, {passive:true});
+})();
+</script>
+</body>
+</html>
