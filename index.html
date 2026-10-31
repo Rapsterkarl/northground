@@ -138,6 +138,14 @@ p{max-width:60ch;color:var(--ink-2);margin:18px 0 0}
 .player .bar{display:flex;justify-content:space-between;align-items:center;gap:12px;margin-top:12px;flex-wrap:wrap}
 .player .bar strong{font-size:16px}
 .player .bar a{color:var(--ink-2);font-size:15px;margin-right:auto;margin-left:16px}
+.tags{display:flex;flex-wrap:wrap;gap:6px;margin-top:14px}
+.tags span{font-size:13px;font-weight:600;color:var(--lichen);border:1px solid var(--line);padding:4px 10px}
+.jump{margin-top:30px}
+.jump h3{font-family:var(--f-body);text-transform:none;font-size:15px;font-weight:600;color:var(--amber);letter-spacing:0}
+.jump ul{list-style:none;padding:0;margin:12px 0 0;display:flex;flex-wrap:wrap;gap:8px}
+.jump a{display:inline-block;padding:10px 14px;border:1px solid var(--line);color:var(--ink-2);text-decoration:none;font-size:15px;transition:border-color .15s,color .15s,background-color .15s}
+.jump a:active{transform:scale(.97)}
+@media (hover:hover) and (pointer:fine){.jump a:hover{border-color:var(--amber);color:var(--lichen)}}
 .case .shot{display:block;width:100%;max-width:560px;aspect-ratio:16/9;object-fit:cover;margin-top:22px;background:var(--peat-2)}
 .earlier{margin-top:56px}
 .earlier h4{font-size:15px;font-weight:600;color:var(--amber);margin:0}
@@ -305,69 +313,77 @@ footer{position:relative;z-index:2;padding-block:48px calc(56px + env(safe-area-
     <div class="col reveal">
       <h2>Work that holds its ground.</h2>
       <p>Start with the showreel, then keep scrolling: the camera flies to each of seven survey points.</p>
+      <nav class="jump" aria-label="Jump to a project"><h3>Jump to a project</h3><ul><li><a href="#wcck">West Cork Craft Kits</a></li><li><a href="#rugby">Castle Lager · Rugby</a></li><li><a href="#afcon">Castle Lager · AFCON</a></li><li><a href="#subzero">Castle Lite · Sub-Zero Bus</a></li><li><a href="#corona">Corona Cero</a></li><li><a href="#events">Events &amp; film</a></li><li><a href="#flyingfish">Flying Fish · spec</a></li></ul></nav>
       <button class="vtile" type="button" data-yt="o2yEAOTokCY" data-title="North Ground · Showreel" aria-label="Play the showreel"><img src="https://i.ytimg.com/vi/o2yEAOTokCY/hqdefault.jpg" alt="" loading="lazy" decoding="async" onerror="this.remove()"><span class="play" aria-hidden="true"></span><span class="vt">Showreel</span></button>
     </div>
   </section>
 
-  <article class="case" data-cam="West Cork Craft Kits">
+  <article class="case" id="wcck" data-cam="West Cork Craft Kits">
     <div class="col reveal">
       <div class="brand">West Cork Craft Kits <span class="client">Client · Cork</span></div>
       <h3>Paint-your-own Ireland</h3>
       <div class="kind">Brand identity, packaging, characters, audio stories and an online store with card payments</div>
+      <div class="tags" aria-label="Services"><span>Brand</span><span>Packaging</span><span>Web</span><span>Audio</span></div>
       <div class="result"><strong>Brand, box and online store</strong><span>Ocean, Farm and Icons of Ireland collections, designed and made in West Cork.</span></div>
       <a class="more" href="https://westcorkcraftkits.ie" target="_blank" rel="noopener" data-track="case_wcck">Visit westcorkcraftkits.ie ↗</a>
     </div>
   </article>
 
-  <article class="case" data-cam="Castle Lager · Rugby">
+  <article class="case" id="rugby" data-cam="Castle Lager · Rugby">
     <div class="col reveal">
       <div class="brand">Castle Lager · AB InBev</div>
       <h3>Rugby Championship 2024</h3>
       <div class="kind">Integrated campaign · creative direction</div>
+      <div class="tags" aria-label="Services"><span>Campaign</span><span>Strategy</span></div>
       <div class="result"><strong>#1 share of voice</strong><span>Castle Lager led the category conversation during the 2024 Rugby Championship.</span></div>
     </div>
   </article>
 
-  <article class="case" data-cam="Castle Lager · AFCON">
+  <article class="case" id="afcon" data-cam="Castle Lager · AFCON">
     <div class="col reveal">
       <div class="brand">Castle Lager · AB InBev</div>
       <h3>AFCON “Backup Squad”</h3>
       <div class="kind">Through-the-line campaign · creative direction</div>
+      <div class="tags" aria-label="Services"><span>Campaign</span><span>Film</span></div>
       <button class="vtile" type="button" data-yt="zzu5VjIN4uY" data-title="Castle Lager · Backup Squad" aria-label="Play Castle Lager · Backup Squad"><img src="https://i.ytimg.com/vi/zzu5VjIN4uY/hqdefault.jpg" alt="" loading="lazy" decoding="async" onerror="this.remove()"><span class="play" aria-hidden="true"></span><span class="vt">Castle Lager · Backup Squad</span></button>
     </div>
   </article>
 
-  <article class="case" data-cam="Castle Lite · Sub-Zero Bus">
+  <article class="case" id="subzero" data-cam="Castle Lite · Sub-Zero Bus">
     <div class="col reveal">
       <div class="brand">Castle Lite · AB InBev</div>
       <h3>The Sub-Zero Bus</h3>
-      <div class="kind">Campaign · creative direction</div>
+      <div class="kind">Creative direction</div>
+      <div class="tags" aria-label="Services"><span>Campaign</span></div>
     </div>
   </article>
 
-  <article class="case" data-cam="Corona Cero">
+  <article class="case" id="corona" data-cam="Corona Cero">
     <div class="col reveal">
       <div class="brand">Corona · AB InBev</div>
       <h3>Corona Cero “Cero Limits”</h3>
-      <div class="kind">Campaign · creative direction</div>
+      <div class="kind">Creative direction</div>
+      <div class="tags" aria-label="Services"><span>Campaign</span></div>
     </div>
   </article>
 
-  <article class="case" data-cam="Events & film">
+  <article class="case" id="events" data-cam="Events & film">
     <div class="col reveal">
       <div class="brand">AB InBev · draftLine Africa</div>
       <h3>Events &amp; film</h3>
       <div class="kind">Creative X “Spectrum of Brilliance” · MarCon 2025 “UNCHARTED” · Carling Black Label SLC</div>
+      <div class="tags" aria-label="Services"><span>Events</span><span>Film</span></div>
       <button class="vtile" type="button" data-yt="U0V7unOemjM" data-title="Carling Black Label · SLC Conference" aria-label="Play Carling Black Label · SLC Conference"><img src="https://i.ytimg.com/vi/U0V7unOemjM/hqdefault.jpg" alt="" loading="lazy" decoding="async" onerror="this.remove()"><span class="play" aria-hidden="true"></span><span class="vt">Carling Black Label · SLC Conference</span></button>
       <div class="result"><strong>7 Creative X golds</strong><span>Gold awards at AB InBev's internal Creative X awards.</span></div>
     </div>
   </article>
 
-  <article class="case" data-cam="Flying Fish · spec">
+  <article class="case" id="flyingfish" data-cam="Flying Fish · spec">
     <div class="col reveal">
       <div class="brand">Flying Fish · AB InBev <span class="tag-spec">Spec work</span></div>
       <h3>“Expect the unexpected”</h3>
       <div class="kind">Website concept with 3D cans and scroll animation, made speculatively to show what's possible</div>
+      <div class="tags" aria-label="Services"><span>Web</span><span>3D</span></div>
     </div>
     <div class="col">
       <p class="credit">AB InBev work was led by North Ground's creative director as Executive Creative Director at draftLine Africa. The brands belong to AB InBev and are shown as portfolio work.</p>
@@ -679,6 +695,13 @@ const SITE = {
   document.getElementById('playerClose').addEventListener('click', closePlayer);
   dlg.addEventListener('cancel', e => { e.preventDefault(); closePlayer(); });
   dlg.addEventListener('click', e => { if (e.target === dlg) closePlayer(); });
+
+  // ---------- Jump-to links: smooth glide so the camera flies there ----------
+  document.querySelectorAll('.jump a').forEach(a => a.addEventListener('click', e => {
+    const t = document.querySelector(a.getAttribute('href')); if (!t) return;
+    e.preventDefault(); t.scrollIntoView({behavior: reduce ? 'auto' : 'smooth', block: 'start'});
+    track('jump_to_project', {project: a.textContent});
+  }));
 
   // ---------- Optional work loops: add data-video="clip.mp4" to a .case ----------
   document.querySelectorAll('.case[data-video]').forEach(c => {
