@@ -214,6 +214,16 @@ p{max-width:60ch;color:var(--ink-2);margin:18px 0 0}
 .score span{font-size:16px;color:var(--ink-2)}
 .recs{margin:14px 0 0;padding-left:18px;color:var(--lichen);display:grid;gap:8px;max-width:60ch}
 
+/* Free competitor snapshot */
+.snap{margin-top:28px;background:rgba(20,27,24,.94);border:1px solid var(--amber);padding:26px 24px}
+.snap-head{display:grid;gap:10px;max-width:62ch}
+.snap-tag{font-size:12px;font-weight:700;letter-spacing:.12em;text-transform:uppercase;color:var(--peat);background:var(--amber);padding:3px 8px;width:max-content}
+.snap h3{font-family:var(--f-display);font-weight:900;font-size:clamp(30px,4vw,42px);text-transform:uppercase;line-height:.95;margin:0;color:var(--lichen)}
+.snap p{margin:0;color:var(--ink-2)}
+.snap-list{margin:2px 0 0;padding-left:18px;color:var(--lichen);display:grid;gap:4px}
+.snap-form{margin-top:22px}
+.snap-small{grid-column:1/-1;font-size:13px;color:var(--mist);margin:0}
+
 /* Creative director */
 .cd-list{list-style:none;padding:0;margin:30px 0 0;display:grid;gap:10px}
 .cd-list li{padding-left:22px;position:relative;color:var(--ink-2)}
@@ -515,7 +525,7 @@ footer{position:relative;z-index:2;padding-block:48px calc(56px + env(safe-area-
   <section id="survey" data-cam="The Ground Survey">
     <div class="col reveal">
       <h2>The Ground Survey.</h2>
-      <p>Five questions, 60 seconds. You get a Ground Score out of 10 and the three things we'd fix first.</p>
+      <p>Five questions, 60 seconds. You get a Ground Score out of 10 and the three things we'd fix first. Or go further with a free competitor snapshot, below.</p>
       <form class="survey" id="surveyForm">
         <fieldset class="q"><legend>How consistent does your brand look across your website, social and print?</legend><div class="opts">
           <label class="opt"><input type="radio" name="q1" value="0"><span>Consistent</span></label>
@@ -547,6 +557,32 @@ footer{position:relative;z-index:2;padding-block:48px calc(56px + env(safe-area-
           <div class="cta-row"><button class="btn solid" type="button" id="sendSurvey">Send my results to North Ground</button></div>
         </div>
       </form>
+      <div class="snap" id="snapshot">
+        <div class="snap-head">
+          <span class="snap-tag">Free</span>
+          <h3>Competitor snapshot</h3>
+          <p>Tell us who you're up against. Within three working days, a senior creative director sends you a two-page report: how you compare with up to three competitors, the gap nobody owns, and three things to fix this week.</p>
+          <ul class="snap-list"><li>A scorecard on price, delivery, story, proof and more</li><li>A map of where the open ground is</li><li>Three quick wins you can act on yourself</li></ul>
+        </div>
+        <form class="enquiry snap-form" id="snapForm" novalidate>
+          <input type="hidden" name="_subject" value="Ground Survey request">
+          <input type="hidden" name="form" value="competitor-snapshot">
+          <div class="field"><label for="s-name">Name</label><input id="s-name" name="name" autocomplete="name" required><span class="err" id="se-name"></span></div>
+          <div class="field"><label for="s-email">Email</label><input id="s-email" name="email" type="email" autocomplete="email" autocapitalize="none" required><span class="err" id="se-email"></span></div>
+          <div class="field"><label for="s-biz">Business name</label><input id="s-biz" name="business" autocomplete="organization" required><span class="err" id="se-biz"></span></div>
+          <div class="field"><label for="s-site">Website</label><input id="s-site" name="website" type="url" inputmode="url" autocapitalize="none" placeholder="https://"><span class="err" id="se-site"></span></div>
+          <div class="field"><label for="s-ig">Instagram <span>(optional)</span></label><input id="s-ig" name="instagram" autocapitalize="none" placeholder="@yourbusiness"></div>
+          <div class="field"><label for="s-when">Planning marketing help? <span>(optional)</span></label>
+            <select id="s-when" name="timing"><option value="">Choose one</option><option>In the next month</option><option>In the next 3 months</option><option>Later this year</option><option>Just curious</option></select></div>
+          <div class="field full"><label for="s-rivals">Up to three competitors <span>(optional: leave blank and we'll find them)</span></label><textarea id="s-rivals" name="competitors" rows="3" style="min-height:90px" placeholder="Names or websites, one per line"></textarea></div>
+          <div class="hp" aria-hidden="true"><label for="s-web">Leave blank</label><input id="s-web" name="_gotcha" tabindex="-1" autocomplete="off"></div>
+          <div class="form-foot">
+            <button class="btn solid" type="submit" id="snapSend">Get my free snapshot</button>
+            <p class="form-status" id="snapStatus" role="status" aria-live="polite"></p>
+          </div>
+          <p class="snap-small full">One free snapshot per business, using public information only. We'll only use your details to send your report and follow up once.</p>
+        </form>
+      </div>
     </div>
   </section>
 
@@ -683,6 +719,31 @@ const SITE = {
       status.className = 'form-status bad';
       status.textContent = "Your enquiry didn't send. Check your connection and try again, or email " + SITE.email + '.';
     } finally { send.disabled = false; send.textContent = 'Send enquiry'; }
+  });
+
+  // ---------- Free competitor snapshot ----------
+  const sf = document.getElementById('snapForm'), sStatus = document.getElementById('snapStatus'), sSend = document.getElementById('snapSend');
+  const sChecks = [
+    ['s-name','se-name', v => v.trim() ? '' : 'Enter your name.'],
+    ['s-email','se-email', v => /^[^@\s]+@[^@\s]+\.[^@\s]+$/.test(v.trim()) ? '' : 'Enter an email address like name@company.ie.'],
+    ['s-biz','se-biz', v => v.trim() ? '' : 'Enter your business name.'],
+    ['s-site','se-site', v => !v.trim() || /^(https?:\/\/)?[^\s.]+\.[^\s]+$/i.test(v.trim()) ? '' : 'Enter a web address like yourbusiness.ie.']
+  ];
+  sf.addEventListener('submit', async e => {
+    e.preventDefault(); sStatus.className = 'form-status'; sStatus.textContent = '';
+    let first = null;
+    sChecks.forEach(([fid, eid, fn]) => { const el = document.getElementById(fid), m = fn(el.value); document.getElementById(eid).textContent = m; el.setAttribute('aria-invalid', m ? 'true' : 'false'); if (m) el.setAttribute('aria-describedby', eid); else el.removeAttribute('aria-describedby'); if (m && !first) first = el; });
+    if (first){ first.focus(); return; }
+    if (!SITE.formEndpoint){ sStatus.className = 'form-status bad'; sStatus.textContent = 'This form isn\'t connected yet. Please email ' + SITE.email + ' with your business and competitors.'; return; }
+    sSend.disabled = true; sSend.textContent = 'Sending…';
+    try {
+      const r = await fetch(SITE.formEndpoint, {method:'POST', headers:{Accept:'application/json'}, body:new FormData(sf)});
+      if (!r.ok) throw new Error(r.status);
+      sf.reset(); sStatus.className = 'form-status ok';
+      sStatus.textContent = 'Thanks, your request is in. Your snapshot arrives by email within three working days.';
+      track('generate_lead', {service: 'Competitor snapshot'});
+    } catch(err){ sStatus.className = 'form-status bad'; sStatus.textContent = 'Your request didn\'t send. Check your connection and try again, or email ' + SITE.email + '.'; }
+    finally { sSend.disabled = false; sSend.textContent = 'Get my free snapshot'; }
   });
 
   // ---------- Brand survey ----------
