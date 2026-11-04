@@ -1,0 +1,810 @@
+<!doctype html><html lang="en"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover"><meta name="robots" content="noindex,nofollow"><title>Groundwork demo · Lantern & Loaf</title><script>
+/* Standalone demo: stands in for Claude's database so the portal runs on any web host.
+   Data starts from a demo snapshot for an invented bakery; changes are kept in this browser only. */
+(function(){
+  var SNAP = {"posts": {"p01": {"caption": "Thirty-six hours. Three ingredients. One very proud crust. 🍞\n\nOur sourdough starts on Tuesday night and comes out of the oven on Thursday morning. Slow is the whole secret.\n\nToast, sandwich or straight off the board?\n\n📍 Main Street, Midleton · link in bio\n#LanternAndLoaf #MidletonEats #CorkFood", "date": "2026-11-03", "format": "Single image", "link": "https://northground.ie/demo/#meet-sourdough", "platforms": ["Instagram", "Facebook"], "ratio": "4:5", "status": "planned", "tag": "meet-sourdough", "theme": "Meet the sourdough", "time": "19:00", "visual": "The house sourdough on the counter, ear up.", "image": "images/sourdough.jpg"}, "p02": {"caption": "Ever wondered why our bread tastes different? 🕰️\n\nSwipe through a day and a half in the life of a loaf: mix, rest, fold, rest, shape, rest, bake.\n\nWhich step would you want to try?\n\n📍 Main Street, Midleton · link in bio\n#LanternAndLoaf #MidletonEats #CorkFood", "date": "2026-11-06", "format": "Carousel", "link": "https://northground.ie/demo/#how-we-bake", "platforms": ["Instagram", "Facebook"], "ratio": "4:5", "status": "planned", "tag": "how-we-bake", "theme": "How we bake: the long ferment", "time": "18:30", "visual": "Four slides: mixing, folding, shaping, baking. Photos to come from the team."}, "p03": {"caption": "The 7am queue knows exactly why. 🌀\n\nBrown butter, Ceylon cinnamon and a drizzle of icing that never quite sets.\n\nTag the person you'd share one with (or wouldn't).\n\n📍 Main Street, Midleton · link in bio\n#LanternAndLoaf #MidletonEats #CorkFood", "date": "2026-11-10", "format": "Single image", "link": "https://northground.ie/demo/#meet-cinnamon-bun", "platforms": ["Instagram", "Facebook"], "ratio": "4:5", "status": "planned", "tag": "meet-cinnamon-bun", "theme": "Meet the cinnamon bun", "time": "19:00", "visual": "A tray of buns, one pulled apart.", "image": "images/bun.jpg"}, "p04": {"caption": "Buttermilk, wholemeal and a cross on top for luck. ☘️\n\nOur brown soda is the same recipe Aoife's granny made in Cloyne.\n\nButter only, or butter and jam?\n\n📍 Main Street, Midleton · link in bio\n#LanternAndLoaf #MidletonEats #CorkFood", "date": "2026-11-13", "format": "Single image", "link": "https://northground.ie/demo/#meet-brown-soda", "platforms": ["Instagram", "Facebook"], "ratio": "4:5", "status": "planned", "tag": "meet-brown-soda", "theme": "Meet the brown soda", "time": "18:30", "visual": "Brown soda on a wooden board with butter.", "image": "images/soda.jpg"}, "p05": {"caption": "Meetings are better with buns. ☕\n\nOur office trays mix pastries, scones and sausage rolls. Order by 3pm for the next morning.\n\nWhat's on your team's dream tray?\n\n📍 Main Street, Midleton · link in bio\n#LanternAndLoaf #MidletonEats #CorkFood", "date": "2026-11-17", "format": "Single image", "link": "https://northground.ie/demo/#office-trays", "platforms": ["Instagram", "Facebook"], "ratio": "4:5", "status": "planned", "tag": "office-trays", "theme": "Office trays", "time": "19:00", "visual": "Overhead shot of a mixed tray. Photo to come."}, "p06": {"caption": "Christmas, sorted. 🎄\n\nSwipe for cakes, puddings, mince pies and stollen. Pre-orders are open in the shop and online.\n\nWhat's the one thing your Christmas table needs?\n\n📍 Main Street, Midleton · link in bio\n#LanternAndLoaf #MidletonEats #CorkFood", "date": "2026-11-20", "format": "Carousel", "link": "https://northground.ie/demo/#christmas-order-guide", "platforms": ["Instagram", "Facebook"], "ratio": "4:5", "status": "planned", "tag": "christmas-order-guide", "theme": "Christmas order guide", "time": "18:30", "visual": "Christmas range, one product per slide, with the order deadline on the last slide (to confirm with Aoife)."}, "p07": {"caption": "Twenty-seven layers of butter. We counted. 🥐\n\nLaminated by hand every morning before the doors open.\n\nPlain, or ham and cheese?\n\n📍 Main Street, Midleton · link in bio\n#LanternAndLoaf #MidletonEats #CorkFood", "date": "2026-11-24", "format": "Single image", "link": "https://northground.ie/demo/#meet-croissant", "platforms": ["Instagram", "Facebook"], "ratio": "4:5", "status": "planned", "tag": "meet-croissant", "theme": "Meet the croissant", "time": "19:00", "visual": "Croissant, cut in half to show the layers.", "image": "images/croissant.jpg"}, "p08": {"caption": "Your table, our bread. 📸\n\nShare your Lantern & Loaf breakfast and tag us. Our favourite each week gets a free coffee.\n\nReady, set, crumbs.\n\n📍 Main Street, Midleton · link in bio\n#LanternAndLoaf #MidletonEats #CorkFood", "date": "2026-11-27", "format": "Single image", "link": "https://northground.ie/demo/#show-us-your-breakfast", "platforms": ["Instagram", "Facebook"], "ratio": "4:5", "status": "planned", "tag": "show-us-your-breakfast", "theme": "Show us your breakfast", "time": "18:30", "visual": "Customer photos, shared with permission."}, "p09": {"caption": "Our mincemeat went into jars in October. 🌟\n\nIt's been quietly getting better ever since. Now it's ready.\n\nWarm with cream, or cold from the box?\n\n📍 Main Street, Midleton · link in bio\n#LanternAndLoaf #MidletonEats #CorkFood", "date": "2026-12-01", "format": "Single image", "link": "https://northground.ie/demo/#meet-mince-pie", "platforms": ["Instagram", "Facebook"], "ratio": "4:5", "status": "planned", "tag": "meet-mince-pie", "theme": "Meet the mince pie", "time": "19:00", "visual": "Mince pies on a cooling rack, one with a star top.", "image": "images/mincepie.jpg"}, "p10": {"caption": "Fed every Friday since September. 🎂\n\nRich, dark and properly boozy, with almond paste and royal icing by hand.\n\nMarzipan: love it or leave it?\n\n📍 Main Street, Midleton · link in bio\n#LanternAndLoaf #MidletonEats #CorkFood", "date": "2026-12-04", "format": "Single image", "link": "https://northground.ie/demo/#meet-christmas-cake", "platforms": ["Instagram", "Facebook"], "ratio": "4:5", "status": "planned", "tag": "meet-christmas-cake", "theme": "Meet the Christmas cake", "time": "18:30", "visual": "Iced Christmas cake with holly on top.", "image": "images/cake.jpg"}, "p11": {"caption": "Iced by hand, one smile at a time. 😊\n\nOur gingerbread people are back for December. Kids' icing mornings on Saturdays.\n\nName this little fella 👇\n\n📍 Main Street, Midleton · link in bio\n#LanternAndLoaf #MidletonEats #CorkFood", "date": "2026-12-08", "format": "Single image", "link": "https://northground.ie/demo/#meet-gingerbread", "platforms": ["Instagram", "Facebook"], "ratio": "4:5", "status": "planned", "tag": "meet-gingerbread", "theme": "Meet the gingerbread", "time": "19:00", "visual": "Gingerbread people being iced.", "image": "images/gingerbread.jpg"}, "p12": {"caption": "Local roast, poured properly. ☕\n\nOur beans come from a small roaster in Cork city, ground fresh for every cup.\n\nWhat's your order?\n\n📍 Main Street, Midleton · link in bio\n#LanternAndLoaf #MidletonEats #CorkFood", "date": "2026-12-11", "format": "Single image", "link": "https://northground.ie/demo/#meet-flat-white", "platforms": ["Instagram", "Facebook"], "ratio": "4:5", "status": "planned", "tag": "meet-flat-white", "theme": "Meet the flat white", "time": "18:30", "visual": "Flat white with latte art on the counter.", "image": "images/cup.jpg"}, "p13": {"caption": "Marzipan in the middle. Obviously. ❄️\n\nFruit, nuts and a snowfall of sugar. Our December favourite.\n\nHave you tried stollen before?\n\n📍 Main Street, Midleton · link in bio\n#LanternAndLoaf #MidletonEats #CorkFood", "date": "2026-12-15", "format": "Single image", "link": "https://northground.ie/demo/#meet-stollen", "platforms": ["Instagram", "Facebook"], "ratio": "4:5", "status": "planned", "tag": "meet-stollen", "theme": "Meet the stollen", "time": "19:00", "visual": "Sliced stollen dusted with sugar.", "image": "images/stollen.jpg"}, "p14": {"caption": "No yeast, no knead, all goodness. 🌾\n\nOats, yoghurt and a little treacle. The easiest loaf to love.\n\nWho's on a January health kick already?\n\n📍 Main Street, Midleton · link in bio\n#LanternAndLoaf #MidletonEats #CorkFood", "date": "2026-12-18", "format": "Single image", "link": "https://northground.ie/demo/#meet-porridge-bread", "platforms": ["Instagram", "Facebook"], "ratio": "4:5", "status": "planned", "tag": "meet-porridge-bread", "theme": "Meet the porridge bread", "time": "18:30", "visual": "Porridge loaf with oats on top.", "image": "images/porridge.jpg"}, "p15": {"caption": "Flaky, peppery and usually gone by noon. 🥟\n\nMade with free-range pork from a farm down the road.\n\nKetchup, brown sauce or neither?\n\n📍 Main Street, Midleton · link in bio\n#LanternAndLoaf #MidletonEats #CorkFood", "date": "2026-12-22", "format": "Single image", "link": "https://northground.ie/demo/#meet-sausage-roll", "platforms": ["Instagram", "Facebook"], "ratio": "4:5", "status": "planned", "tag": "meet-sausage-roll", "theme": "Meet the sausage roll", "time": "19:00", "visual": "Two sausage rolls fresh out of the oven.", "image": "images/sausage.jpg"}, "p16": {"caption": "Jam first or cream first? 🍓\n\nOur fruit scones are baked every morning. The debate is yours to settle.\n\nTell us your side below.\n\n📍 Main Street, Midleton · link in bio\n#LanternAndLoaf #MidletonEats #CorkFood", "date": "2026-12-29", "format": "Single image", "link": "https://northground.ie/demo/#meet-scone", "platforms": ["Instagram", "Facebook"], "ratio": "4:5", "status": "planned", "tag": "meet-scone", "theme": "Meet the scone", "time": "19:00", "visual": "Fruit scones with jam and cream.", "image": "images/scone.jpg"}, "p17": {"caption": "Dark, dense and made for January. 🌑\n\nOur rye is packed with seeds and keeps for days. Perfect with smoked salmon.\n\nWhat's your favourite topping?\n\n📍 Main Street, Midleton · link in bio\n#LanternAndLoaf #MidletonEats #CorkFood", "date": "2027-01-01", "format": "Single image", "link": "https://northground.ie/demo/#meet-rye", "platforms": ["Instagram", "Facebook"], "ratio": "4:5", "status": "planned", "tag": "meet-rye", "theme": "Meet the rye", "time": "12:00", "visual": "Dark rye loaf, sliced.", "image": "images/rye.jpg"}, "p18": {"caption": "Bramleys from just up the road. 🍎\n\nSharp apples, short pastry and a lattice top, the way it should be.\n\nCustard, cream or ice cream?\n\n📍 Main Street, Midleton · link in bio\n#LanternAndLoaf #MidletonEats #CorkFood", "date": "2027-01-05", "format": "Single image", "link": "https://northground.ie/demo/#meet-apple-tart", "platforms": ["Instagram", "Facebook"], "ratio": "4:5", "status": "planned", "tag": "meet-apple-tart", "theme": "Meet the apple tart", "time": "19:00", "visual": "Lattice apple tart on a stand.", "image": "images/tart.jpg"}}, "backups": {"b01": {"caption": "Sourdough, rye or porridge bread? 🍞\n\nEvery loaf has a personality. Which one is yours?\n\nTell us below 👇\n\n📍 Main Street, Midleton · link in bio\n#LanternAndLoaf #MidletonEats #CorkFood", "format": "Single image", "image": "images/trio.jpg", "link": "https://northground.ie/demo/#which-loaf", "order": 1, "platforms": ["Instagram", "Facebook"], "ratio": "4:5", "tag": "which-loaf", "theme": "Which loaf are you?", "visual": "Ready-made post from the brand's own photos."}, "b02": {"caption": "The oven's on before the street lights are off. 🌙\n\nBehind every loaf is a very early alarm.\n\nEarly bird or night owl?\n\n📍 Main Street, Midleton · link in bio\n#LanternAndLoaf #MidletonEats #CorkFood", "format": "Single image", "image": "images/oven.jpg", "link": "https://northground.ie/demo/#5am-main-street", "order": 2, "platforms": ["Instagram", "Facebook"], "ratio": "4:5", "tag": "5am-main-street", "theme": "5am on Main Street", "visual": "Ready-made post from the brand's own photos."}, "b03": {"caption": "You make the early starts worth it. ❤️\n\nTo everyone who stops in for a coffee and a chat: thank you.\n\nTag a regular who deserves a shout-out.\n\n📍 Main Street, Midleton · link in bio\n#LanternAndLoaf #MidletonEats #CorkFood", "format": "Single image", "image": "images/heart.jpg", "link": "https://northground.ie/demo/#thank-you-regulars", "order": 3, "platforms": ["Instagram", "Facebook"], "ratio": "4:5", "tag": "thank-you-regulars", "theme": "Thank you, regulars", "visual": "Ready-made post from the brand's own photos."}, "b04": {"caption": "Still warm. Come quick. 🔥\n\nFresh loaves land on the shelves at 8am, 11am and 2pm.\n\nWhat time do you usually call in?\n\n📍 Main Street, Midleton · link in bio\n#LanternAndLoaf #MidletonEats #CorkFood", "format": "Single image", "image": "images/steam.jpg", "link": "https://northground.ie/demo/#fresh-out", "order": 4, "platforms": ["Instagram", "Facebook"], "ratio": "4:5", "tag": "fresh-out", "theme": "Fresh out of the oven", "visual": "Ready-made post from the brand's own photos."}, "b05": {"caption": "Three aprons, one very small kitchen. 👩‍🍳\n\nAoife, Ronan and Jess bake everything on site, every day.\n\nSay hello to the team below.\n\n📍 Main Street, Midleton · link in bio\n#LanternAndLoaf #MidletonEats #CorkFood", "format": "Single image", "image": "images/team.jpg", "link": "https://northground.ie/demo/#meet-the-bakers", "order": 5, "platforms": ["Instagram", "Facebook"], "ratio": "4:5", "tag": "meet-the-bakers", "theme": "Meet the bakers", "visual": "Ready-made post from the brand's own photos."}, "b06": {"caption": "Make Friday the best day of the week. 🧁\n\nMixed trays for offices, birthdays and meetings. Order by 3pm for tomorrow.\n\nWho's buying this week?\n\n📍 Main Street, Midleton · link in bio\n#LanternAndLoaf #MidletonEats #CorkFood", "format": "Single image", "image": "images/tray.jpg", "link": "https://northground.ie/demo/#office-treats", "order": 6, "platforms": ["Instagram", "Facebook"], "ratio": "4:5", "tag": "office-treats", "theme": "Office treats, sorted", "visual": "Ready-made post from the brand's own photos."}, "b07": {"caption": "Is it ever too early for a croissant? 🥐\n\nAsking for everyone in the queue.\n\nBreakfast or afternoon treat?\n\n📍 Main Street, Midleton · link in bio\n#LanternAndLoaf #MidletonEats #CorkFood", "format": "Single image", "image": "images/croissant.jpg", "link": "https://northground.ie/demo/#croissant-o-clock", "order": 7, "platforms": ["Instagram", "Facebook"], "ratio": "4:5", "tag": "croissant-o-clock", "theme": "Croissant o'clock", "visual": "Ready-made post from the brand's own photos."}}, "profile": {"brand": {"audience": "Midleton locals and commuters who want good coffee and real bread, plus families and offices ordering treats for occasions.", "compliance": ["Allergen information on every product post (gluten, dairy, eggs, nuts)", "No health claims about bread"], "donts": ["No prices unless confirmed for that post", "No order deadlines not confirmed by Aoife", "No stock photos, only our own bakes"], "dos": ["Name the bakes and the people who make them", "Mention local suppliers where we can", "Invite comments with a simple question", "Point to the shop on Main Street and pre-orders"], "hashtags": "#LanternAndLoaf #MidletonEats #CorkFood", "look": "Warm, flat illustrations and real bakery photos: cream, crust brown, deep green and berry red. Wood, flour and early-morning light.", "pillars": ["Meet the bakes, one at a time", "How we bake: slow and by hand", "Behind the counter: the team and the early starts", "Occasions: Christmas, birthdays and office trays", "Your table: customers' breakfasts"], "voice": "Warm, cheerful and proudly local. Short sentences, a little humour, never pushy."}, "handle": "lanternandloaf", "name": "Lantern & Loaf", "plan": "Starter · demo client", "platforms": ["Instagram", "Facebook"], "reviewDrafts": true, "shop": "https://northground.ie/demo/", "startDate": "2026-11-03", "tagline": "Small-batch bakery and coffee on Main Street, Midleton. An invented business, shown for illustration."}};
+  var KEY = 'groundwork-demo-lantern-v1', VKEY = 'groundwork-demo-view';
+  var store; try { store = JSON.parse(localStorage.getItem(KEY)); } catch(e){}
+  (function(){ /* keep the plan current: move all dates forward in whole weeks so the first post is a few days away */
+    var ds = Object.keys(SNAP.posts).map(function(k){ return SNAP.posts[k].date; }).sort(), first = new Date(ds[0] + 'T12:00:00');
+    var target = new Date(); target.setHours(12,0,0,0); target.setDate(target.getDate() + 3);
+    var wk = Math.max(0, Math.ceil((target - first) / 864e5 / 7)), sh = function(d){ var x = new Date(d + 'T12:00:00'); x.setDate(x.getDate() + wk * 7); return x.toISOString().slice(0, 10); };
+    if (wk) { Object.keys(SNAP.posts).forEach(function(k){ SNAP.posts[k].date = sh(SNAP.posts[k].date); }); SNAP.profile.startDate = sh(SNAP.profile.startDate); }
+  })();
+  if (!store) store = {posts: SNAP.posts, backups: SNAP.backups, client: {profile: SNAP.profile}, approvals: {}, ideas: {}, metrics: {}, leads: {}, reports: {}};
+  var view = 'client'; try { view = localStorage.getItem(VKEY) || 'client'; } catch(e){}
+  var subs = {};
+  function save(){ try { localStorage.setItem(KEY, JSON.stringify(store)); } catch(e){ console.warn('Demo storage full', e); } }
+  function coll(c){ return store[c] || (store[c] = {}); }
+  function snapOf(c){ var o = coll(c); return {metadata:{fromCache:false}, docs: Object.keys(o).map(function(k){ var v = o[k]; return {id:k, data:function(){ return JSON.parse(JSON.stringify(v)); }}; })}; }
+  function fire(c){ (subs[c]||[]).forEach(function(f){ setTimeout(f, 0); }); }
+  function doc(path){
+    var parts = path.split('/'), c = parts[0], id = parts[1];
+    return {
+      onSnapshot: function(fn){ var go = function(){ var v = coll(c)[id]; fn({exists: !!v, metadata:{fromCache:false}, data:function(){ return v ? JSON.parse(JSON.stringify(v)) : undefined; }}); }; (subs[c] = subs[c] || []).push(go); go(); return function(){}; },
+      set: function(d){ coll(c)[id] = JSON.parse(JSON.stringify(d)); save(); fire(c); return Promise.resolve(); },
+      update: function(d){ var o = coll(c); o[id] = Object.assign(o[id] || {}, JSON.parse(JSON.stringify(d))); save(); fire(c); return Promise.resolve(); },
+      delete: function(){ delete coll(c)[id]; save(); fire(c); return Promise.resolve(); }
+    };
+  }
+  var db = {
+    doc: doc,
+    collection: function(c){ return { onSnapshot: function(fn){ var go = function(){ fn(snapOf(c)); }; (subs[c] = subs[c] || []).push(go); go(); return function(){}; } }; }
+  };
+  var user = { id: function(){ return Promise.resolve(view === 'ng' ? 'demo-northground' : 'demo-client'); }, canEdit: function(){ return Promise.resolve(view === 'ng'); } };
+  var assets = { upload: function(blob){ return new Promise(function(res, rej){
+    createImageBitmap(blob).then(function(bmp){
+      var k = Math.min(1, 900 / Math.max(bmp.width, bmp.height)), cv = document.createElement('canvas');
+      cv.width = Math.round(bmp.width * k); cv.height = Math.round(bmp.height * k); cv.getContext('2d').drawImage(bmp, 0, 0, cv.width, cv.height);
+      res({id: 'demo', url: cv.toDataURL('image/jpeg', 0.8)});
+    }).catch(function(){ rej({code:'unsupported_type'}); });
+  }); } };
+  window.claude = { use: function(n){ return Promise.resolve(n === 'db' ? db : n === 'user' ? user : n === 'assets' ? assets : null); } };
+
+  // Demo bar: switch view, reset
+  document.addEventListener('DOMContentLoaded', function(){
+    var bar = document.createElement('div'); bar.className = 'demobar';
+    bar.innerHTML = '<span><b>Demo</b> · changes stay in this browser</span>';
+    var lab = document.createElement('label'); lab.textContent = 'Viewing as ';
+    var sel = document.createElement('select'); sel.setAttribute('aria-label', 'View the portal as');
+    [['client','Client (Aoife)'],['ng','North Ground (you)']].forEach(function(o){ var op = document.createElement('option'); op.value = o[0]; op.textContent = o[1]; if (o[0] === view) op.selected = true; sel.appendChild(op); });
+    sel.addEventListener('change', function(){ try { localStorage.setItem(VKEY, sel.value); } catch(e){} location.reload(); });
+    lab.appendChild(sel); bar.appendChild(lab);
+    var rs = document.createElement('button'); rs.type = 'button'; rs.textContent = 'Reset demo';
+    rs.addEventListener('click', function(){ try { localStorage.removeItem(KEY); } catch(e){} location.reload(); });
+    bar.appendChild(rs); document.body.insertBefore(bar, document.body.firstChild);
+  });
+})();
+</script>
+<style>
+.demobar{position:sticky;top:0;z-index:50;display:flex;flex-wrap:wrap;gap:8px 16px;align-items:center;justify-content:space-between;padding:8px max(16px,env(safe-area-inset-left,0px));background:#f2861e;color:#0b100e;font:600 13px/1.3 "Instrument Sans",system-ui,sans-serif}
+.demobar label{display:flex;gap:6px;align-items:center}
+.demobar select,.demobar button{font:inherit;font-size:13px;background:#0b100e;color:#f2861e;border:0;padding:5px 9px;cursor:pointer}
+.demobar select:focus-visible,.demobar button:focus-visible{outline:2px solid #0b100e;outline-offset:2px}
+</style>
+</head><body>
+<meta name="claude:viewport-fit-sides" content="cover">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Big+Shoulders+Display:wght@700;900&family=Instrument+Sans:wght@400;500;600&display=swap">
+<style>
+/* Layout: a client portal. Summary strip first, then this month's content by week, leads, reports and the brand kit. North Ground's dark look, one orange accent, status shown as pills. */
+:root{
+  --peat:#0b100e; --peat-2:#141b18; --peat-3:#1b2420;
+  --lichen:#c8d3bc; --ink-2:#b9c4b0; --mist:#8c9a8f;
+  --amber:#f2861e; --line:rgba(200,211,188,.16);
+  --ok:#7fc79a; --warn:#f2c14e; --bad:#f08a7a; --info:#8fb7d8;
+  --f-display:"Big Shoulders Display","Arial Narrow",Impact,sans-serif;
+  --f-body:"Instrument Sans",system-ui,-apple-system,"Segoe UI",sans-serif;
+  color-scheme:dark;
+}
+*{box-sizing:border-box}
+.wrap>*{min-width:0}
+html,body{background:var(--peat);color:var(--lichen)}
+body{font-family:var(--f-body);font-size:15px;line-height:1.5}
+.wrap{max-width:1180px;margin:0 auto;padding-block:28px 56px;padding-left:max(16px,env(safe-area-inset-left,0px));padding-right:max(16px,env(safe-area-inset-right,0px));display:grid;gap:40px}
+header{display:flex;flex-wrap:wrap;justify-content:space-between;align-items:flex-end;gap:16px;padding-bottom:20px;border-bottom:1px solid var(--line)}
+.by{font-family:var(--f-display);font-weight:900;font-size:18px;letter-spacing:.06em}
+.by span{color:var(--amber)}
+h1{font-family:var(--f-display);font-weight:900;text-transform:uppercase;font-size:clamp(36px,6vw,64px);line-height:.9;margin:8px 0 0;text-wrap:balance}
+.sub{color:var(--ink-2);margin:10px 0 0}
+.plan{font-size:14px;color:var(--ink-2);text-align:right}
+.plan b{display:block;font-family:var(--f-display);font-size:28px;color:var(--amber);font-weight:900;text-transform:uppercase;line-height:1}
+h2{font-family:var(--f-display);font-weight:900;text-transform:uppercase;font-size:30px;line-height:1;margin:0 0 16px}
+.stats{display:grid;grid-template-columns:repeat(4,minmax(0,1fr));gap:2px;background:var(--line)}
+.stat{background:var(--peat-2);padding:16px;min-width:0}
+.stat strong{display:block;font-family:var(--f-display);font-weight:900;font-size:40px;line-height:1;font-variant-numeric:tabular-nums}
+.stat span{display:block;font-size:13px;color:var(--mist);margin-top:6px}
+.week{margin-top:22px}
+.week h3{font-size:14px;font-weight:600;color:var(--amber);margin:0 0 10px}
+.cards{display:grid;grid-template-columns:repeat(auto-fill,minmax(260px,1fr));gap:12px}
+.card{background:var(--peat-2);border:1px solid var(--line);padding:16px;display:flex;flex-direction:column;gap:10px;min-width:0}
+.card .top{display:flex;justify-content:space-between;align-items:flex-start;gap:8px}
+.date{font-weight:600}
+.date small{display:block;font-weight:400;color:var(--mist);font-size:13px}
+.theme{font-family:var(--f-display);font-weight:700;font-size:22px;text-transform:uppercase;line-height:1.05}
+.chips{display:flex;flex-wrap:wrap;gap:6px}
+.chip{font-size:12px;font-weight:600;padding:3px 8px;border:1px solid var(--line);color:var(--ink-2)}
+.pill{font-size:12px;font-weight:600;padding:4px 9px;white-space:nowrap;border:1px solid currentColor}
+.s-planned{color:var(--mist)} .s-review{color:var(--warn)} .s-approved{color:var(--info)} .s-scheduled{color:var(--info)} .s-published{color:var(--ok)} .s-rejected{color:var(--bad)}
+.s-swapped{color:var(--mist)} .s-moved{color:var(--warn)} .s-backup{color:var(--mist)} .s-used{color:var(--ok)}
+.due{font-size:13px;color:var(--mist)} .due.soon{color:var(--warn);font-weight:600} .due.late{color:var(--bad);font-weight:600}
+.upd{font-size:13px;color:var(--info);margin:0}
+.bk-count{font-size:14px;color:var(--ink-2);margin:0 0 12px}
+.bk-count b{color:var(--amber)}
+.s-draft{color:var(--amber)}
+[hidden]{display:none !important}
+.desk{border:1px solid var(--amber);background:#17130d;padding:20px;display:grid;gap:22px}
+.desk-head{display:flex;flex-wrap:wrap;justify-content:space-between;align-items:baseline;gap:8px 16px}
+.desk-head h2{margin:0;color:var(--amber)}
+.desk h3{margin:0 0 10px;font-size:15px;display:flex;gap:8px;align-items:baseline}
+.desk h3 .n{font-family:var(--f-display);font-weight:900;font-size:22px;color:var(--amber)}
+.dlist{display:grid;gap:10px}
+.ditem{background:var(--peat-2);border:1px solid var(--line);padding:14px;display:grid;gap:8px;min-width:0}
+.ditem .meta{font-size:13px;color:var(--mist)}
+.ditem .what{font-weight:600}
+.ditem .quote{border-left:3px solid var(--warn);padding-left:10px;color:var(--lichen);white-space:pre-wrap}
+.ditem textarea,.ideaform textarea,.ditem input[type=text]{font:inherit;font-size:14px;width:100%;background:var(--peat);color:var(--lichen);border:1px solid var(--line);padding:8px}
+.ditem textarea{min-height:110px;resize:vertical}
+.ditem textarea:focus-visible,.ideaform textarea:focus-visible,.ditem input:focus-visible{outline:2px solid var(--amber);outline-offset:1px}
+.thumb{width:96px;height:96px;object-fit:cover;background:var(--peat-3);flex:none}
+.irow{display:flex;gap:12px;align-items:flex-start;min-width:0}
+.irow > div{min-width:0}
+.toggle{display:flex;gap:8px;align-items:center;font-size:14px;cursor:pointer}
+.toggle input{width:18px;height:18px;accent-color:var(--amber)}
+.urgent{white-space:nowrap;font-size:11px;font-weight:700;color:var(--peat);background:var(--amber);padding:2px 6px;margin-left:6px}
+.ideaform{background:var(--peat-2);border:1px solid var(--line);padding:16px;display:grid;gap:12px;max-width:640px}
+.ideaform label.lab{font-size:14px;font-weight:600}
+.ideaform textarea{min-height:90px;resize:vertical}
+.ideaform .file{display:flex;flex-wrap:wrap;gap:10px;align-items:center}
+.ideaform .file input{font-size:14px;color:var(--ink-2)}
+.ideaform .prev{width:120px;height:120px;object-fit:cover}
+.ideas{display:grid;grid-template-columns:repeat(auto-fill,minmax(280px,1fr));gap:12px;margin-top:14px}
+.s-idea-new{color:var(--info)} .s-idea-drafted{color:var(--ok)} .s-idea-needs{color:var(--warn)} .s-idea-done{color:var(--mist)}
+.s-new{color:var(--amber)} .s-quoted{color:var(--warn)} .s-won{color:var(--ok)} .s-lost{color:var(--mist)}
+details summary{cursor:pointer;color:var(--ink-2);font-size:14px}
+details p{white-space:pre-wrap;margin:8px 0 0;color:var(--lichen);font-size:14px}
+.visual{font-size:13px;color:var(--mist)}
+.ig{background:#fff;color:#111;border-radius:10px;overflow:hidden;font-family:-apple-system,BlinkMacSystemFont,"Segoe UI",Roboto,sans-serif}
+.ig-head{display:flex;align-items:center;gap:8px;padding:8px 10px;font-size:13px;font-weight:600}
+.ig-av{width:26px;height:26px;border-radius:50%;background:linear-gradient(135deg,#f2861e,#d9478f);flex:none}
+.ig-media{position:relative;aspect-ratio:1/1;background:#eef0ec;display:flex;align-items:center;justify-content:center;text-align:center;padding:18px;color:#5a645d;font-size:13px;line-height:1.4}
+.ig-media.r45{aspect-ratio:4/5}
+.ig-media img,.ig-media video{position:absolute;inset:0;width:100%;height:100%;object-fit:cover}
+.ig-badge{position:absolute;top:8px;right:8px;background:rgba(0,0,0,.6);color:#fff;font-size:11px;font-weight:600;padding:2px 7px;border-radius:10px}
+.ig-ph b{display:block;color:#111;font-size:14px;margin-bottom:4px}
+.ig-icons{display:flex;gap:12px;padding:8px 10px 2px;font-size:18px;color:#111}
+.ig-cap{padding:2px 10px 10px;font-size:13px;line-height:1.4;white-space:pre-wrap;max-height:4.2em;overflow:hidden}
+.ig-cap b{font-weight:600}
+.tablewrap{overflow-x:auto;border:1px solid var(--line)}
+table{width:100%;border-collapse:collapse;min-width:640px}
+th,td{text-align:left;padding:10px 12px;border-bottom:1px solid var(--line);vertical-align:top}
+th{font-size:12px;color:var(--mist);font-weight:600;background:var(--peat-2)}
+td{font-size:14px}
+.empty{background:var(--peat-2);border:1px dashed var(--line);padding:20px;color:var(--ink-2)}
+.empty b{color:var(--lichen)}
+.reports{display:grid;gap:12px}
+.report{background:var(--peat-2);border:1px solid var(--line);padding:16px}
+.report h3{margin:0;font-size:16px}
+.report ul{margin:8px 0 0;padding-left:18px;color:var(--ink-2)}
+.kit{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:12px}
+.kit div{background:var(--peat-2);border:1px solid var(--line);padding:16px;min-width:0}
+.kit h3{margin:0 0 6px;font-size:14px;color:var(--amber)}
+.kit p,.kit ul{margin:0;color:var(--lichen)}
+.kit ul{padding-left:18px}
+.note{font-size:13px;color:var(--mist)}
+.banner{padding:10px 14px;border:1px solid var(--warn);color:var(--warn);font-size:14px}
+.perf-head{display:flex;flex-wrap:wrap;justify-content:space-between;align-items:baseline;gap:8px 16px;margin-bottom:12px}
+.perf-head h2{margin:0}
+.perf-head .note{margin:0}
+.btn{font:inherit;font-size:13px;font-weight:600;background:transparent;color:var(--lichen);border:1px solid var(--line);padding:6px 12px;cursor:pointer;touch-action:manipulation}
+.btn:hover{border-color:var(--amber);color:var(--amber)}
+.btn:focus-visible{outline:2px solid var(--amber);outline-offset:2px}
+.sample{display:inline-block;font-size:12px;font-weight:600;color:var(--peat);background:var(--warn);padding:3px 8px;margin-bottom:12px}
+.hero{background:var(--peat-2);border:1px solid var(--line);border-left:4px solid var(--amber);padding:18px 20px;margin-bottom:2px;display:flex;flex-wrap:wrap;align-items:baseline;gap:6px 18px}
+.hero strong{font-family:var(--f-display);font-weight:900;font-size:clamp(44px,8vw,68px);line-height:1;color:var(--amber);font-variant-numeric:tabular-nums}
+.hero span{font-size:15px;color:var(--lichen)}
+.hero em{font-style:normal;font-size:13px;font-weight:600;color:var(--mist)}
+.hero em.up{color:var(--ok)} .hero em.down{color:var(--bad)}
+.kpis{display:grid;grid-template-columns:repeat(4,minmax(0,1fr));gap:2px;background:var(--line)}
+.kpi{background:var(--peat-2);padding:14px 16px;min-width:0}
+.kpi strong{display:block;font-family:var(--f-display);font-weight:900;font-size:34px;line-height:1;font-variant-numeric:tabular-nums}
+.kpi span{display:block;font-size:13px;color:var(--mist);margin-top:6px}
+.kpi em{font-style:normal;font-size:12px;font-weight:600;display:block;margin-top:4px;color:var(--mist)}
+.kpi em.up{color:var(--ok)} .kpi em.down{color:var(--bad)}
+.charts{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:12px;margin-top:12px}
+.chart{background:var(--peat-2);border:1px solid var(--line);padding:16px;min-width:0;position:relative}
+.chart h3{margin:0 0 2px;font-size:14px}
+.chart p{margin:0 0 10px;font-size:12px;color:var(--mist)}
+.chart svg{display:block;width:100%;height:140px;overflow:visible}
+.chart .axis{display:flex;border-top:1px solid var(--line);padding-top:6px}
+.chart .axis span{flex:1;text-align:center;font-size:11px;color:var(--mist)}
+.chart .bar{fill:var(--amber);pointer-events:none}
+.chart .hit{fill:transparent;cursor:default}
+.chart .hit:hover + .bar,.chart .hit:focus + .bar{fill:#ffa548}
+.chart .hit:focus{outline:none}
+.chart .ax{fill:var(--mist);font-size:11px;font-family:var(--f-body)}
+.chart .base{stroke:var(--line);stroke-width:1}
+.tip{position:absolute;pointer-events:none;background:var(--peat);border:1px solid var(--line);padding:6px 9px;font-size:12px;white-space:nowrap;transform:translate(-50%,-100%);z-index:2}
+.tip b{display:block;font-variant-numeric:tabular-nums}
+.perf-table{margin-top:12px}
+.perf-table td.n,.perf-table th.n{text-align:right;font-variant-numeric:tabular-nums}
+.appr{display:grid;gap:8px;border-top:1px solid var(--line);padding-top:10px}
+.appr-row{display:flex;flex-wrap:wrap;gap:8px}
+.btn.go{background:var(--amber);color:var(--peat);border-color:var(--amber)}
+.btn.go:hover{background:#ffa548;color:var(--peat)}
+.btn[disabled]{opacity:.5;cursor:default}
+.appr textarea{font:inherit;font-size:14px;width:100%;min-height:72px;background:var(--peat);color:var(--lichen);border:1px solid var(--line);padding:8px;resize:vertical}
+.appr textarea:focus-visible{outline:2px solid var(--amber);outline-offset:1px}
+.appr .msg{font-size:13px;color:var(--ink-2)}
+.appr .msg b{color:var(--lichen)}
+.appr .err{font-size:13px;color:var(--bad)}
+.pstats{display:flex;flex-wrap:wrap;gap:4px 12px;font-size:13px;color:var(--ink-2);font-variant-numeric:tabular-nums}
+.pstats b{color:var(--lichen)}
+@media (max-width:760px){.irow{flex-direction:column}.thumb{width:100%;height:auto;aspect-ratio:1}.stats,.kpis{grid-template-columns:repeat(2,minmax(0,1fr))}.charts{grid-template-columns:1fr}.kit{grid-template-columns:1fr}.plan{text-align:left}}
+</style>
+
+<div class="wrap">
+  <header>
+    <div>
+      <div class="by">GROUNDWORK <span>/</span> NORTH GROUND</div>
+      <h1 id="clientName">Client portal</h1>
+      <p class="sub" id="clientSub">Your content plan, approvals, leads and reports in one place.</p>
+    </div>
+    <div class="plan" id="planBox"></div>
+  </header>
+
+  <div class="banner" id="banner" hidden></div>
+
+  <section class="desk" id="desk" aria-labelledby="hDesk" hidden>
+    <div class="desk-head">
+      <h2 id="hDesk">North Ground desk</h2>
+      <p class="note" style="margin:0">Only you and other editors see this. Everything that needs you.</p>
+    </div>
+    <div id="deskBody"></div>
+  </section>
+
+  <section aria-label="Summary">
+    <div class="stats">
+      <div class="stat"><strong id="stPosts">–</strong><span>Posts planned this month</span></div>
+      <div class="stat"><strong id="stReview">–</strong><span>Waiting for your approval</span></div>
+      <div class="stat"><strong id="stLive">–</strong><span>Published</span></div>
+      <div class="stat"><strong id="stLeads">–</strong><span>Open enquiries</span></div>
+    </div>
+  </section>
+
+  <section aria-labelledby="hPerf">
+    <div class="perf-head">
+      <h2 id="hPerf">Performance</h2>
+      <p class="note" id="perfNote">Last 7 days compared with the week before. Updated every Monday.</p>
+      <button class="btn" id="sampleBtn" type="button" hidden aria-pressed="false">Show example numbers</button>
+    </div>
+    <div id="perf"><div class="empty">Loading performance…</div></div>
+  </section>
+
+  <section aria-labelledby="hContent">
+    <h2 id="hContent">Content plan</h2>
+    <p class="note">Approve each post, or ask for a change, right here on its card. Nothing publishes without your OK.</p>
+    <div id="posts"><div class="empty">Loading the content plan…</div></div>
+  </section>
+
+  <section aria-labelledby="hIdeas">
+    <h2 id="hIdeas">Ideas and photos</h2>
+    <p class="note">New bake, a customer's breakfast photo, a market this weekend? Send it here and we'll turn it into a post for you to approve, usually within a day. You never have to write a caption.</p>
+    <div id="ideaForm"></div>
+    <div id="ideas"></div>
+  </section>
+
+  <section aria-labelledby="hBackups">
+    <h2 id="hBackups">Backup posts</h2>
+    <p class="note">If a post isn't approved two days before it's due, your next approved backup goes out instead and the original moves to the following week, so your feed never goes quiet. Backups only go out if you've approved them.</p>
+    <div id="backups"><div class="empty">Loading backup posts…</div></div>
+  </section>
+
+  <section aria-labelledby="hLeads">
+    <h2 id="hLeads">Enquiries</h2>
+    <div id="leads"><div class="empty">Loading enquiries…</div></div>
+  </section>
+
+  <section aria-labelledby="hReports">
+    <h2 id="hReports">Reports</h2>
+    <div id="reports"><div class="empty">Loading reports…</div></div>
+  </section>
+
+  <section aria-labelledby="hKit">
+    <h2 id="hKit">Brand kit</h2>
+    <div id="kit"><div class="empty">Loading the brand kit…</div></div>
+  </section>
+</div>
+
+<script>
+(function(){
+  const $ = id => document.getElementById(id);
+  const el = (tag, cls, text) => { const e = document.createElement(tag); if (cls) e.className = cls; if (text != null) e.textContent = text; return e; };
+  const STATUS = {planned:'Planned', review:'Waiting for approval', approved:'Approved', scheduled:'Scheduled', published:'Published', rejected:'Changes requested', swapped:'Swapped for a backup', moved:'Moved to next week', backup:'Backup', used:'Used', draft:'Draft: North Ground check',
+                  new:'New', quoted:'Quoted', won:'Won', lost:'Closed'};
+  const pill = s => el('span', 'pill s-' + (s || 'planned'), STATUS[s] || s || 'Planned');
+  const fmtDate = iso => { try { return new Date(iso + 'T12:00:00').toLocaleDateString('en-IE', {weekday:'short', day:'numeric', month:'short'}); } catch(e){ return iso; } };
+  const weekOf = iso => { const d = new Date(iso + 'T12:00:00'); const day = (d.getDay() + 6) % 7; d.setDate(d.getDate() - day); return d.toISOString().slice(0,10); };
+  let posts = [], leads = [], backups = [], ideas = [], approvals = {}, profile = {}, dbRef = null, assetsRef = null, canApprove = true, isEditor = false;
+  const todayISO = () => { const d = new Date(); return new Date(d.getTime() - d.getTimezoneOffset() * 60000).toISOString().slice(0,10); };
+  const addDaysISO = (iso, n) => { const d = new Date(iso + 'T12:00:00Z'); d.setUTCDate(d.getUTCDate() + n); return d.toISOString().slice(0,10); };
+  const daysUntil = iso => Math.round((Date.parse(iso + 'T12:00:00Z') - Date.parse(todayISO() + 'T12:00:00Z')) / 86400000);
+
+  function renderProfile(p){
+    if (!p) return;
+    profile = p; renderDesk();
+    $('clientName').textContent = p.name || 'Client portal';
+    if (p.handle){ handle = p.handle; renderPosts(); }
+    document.title = 'Groundwork · ' + (p.name || 'Client');
+    if (p.tagline) $('clientSub').textContent = p.tagline;
+    const box = $('planBox'); box.textContent = '';
+    box.appendChild(el('b', null, p.plan || ''));
+    box.appendChild(document.createTextNode((p.platforms || []).join(' · ') + (p.startDate ? ' · since ' + fmtDate(p.startDate) : '')));
+    const kit = $('kit'); kit.textContent = '';
+    const b = p.brand || {};
+    const grid = el('div', 'kit');
+    const block = (title, val) => {
+      if (!val || (Array.isArray(val) && !val.length)) return;
+      const d = el('div'); d.appendChild(el('h3', null, title));
+      if (Array.isArray(val)){ const ul = el('ul'); val.forEach(v => ul.appendChild(el('li', null, v))); d.appendChild(ul); }
+      else d.appendChild(el('p', null, val));
+      grid.appendChild(d);
+    };
+    block('Who it is for', b.audience); block('Voice', b.voice); block('Content themes', b.pillars);
+    block('Always', b.dos); block('Never', b.donts); block('Look', b.look); block('Must include', b.compliance); block('Hashtags', b.hashtags);
+    kit.appendChild(grid.childNodes.length ? grid : el('div', 'empty', 'The brand kit will appear here after onboarding.'));
+  }
+
+  let handle = 'yourbrand';
+  function igPreview(p){
+    const box = el('div', 'ig'); box.setAttribute('aria-label', 'Preview of how the post will look on Instagram');
+    const head = el('div', 'ig-head'); head.append(el('span', 'ig-av'), el('span', null, handle)); box.appendChild(head);
+    const media = el('div', 'ig-media' + (p.format === 'Reel' || p.ratio === '4:5' ? ' r45' : ''));
+    if (p.image){
+      if (/\.(mp4|webm|mov)(\?|$)/i.test(p.image)){ const v = el('video'); v.src = p.image; v.muted = true; v.loop = true; v.playsInline = true; v.autoplay = true; media.appendChild(v); }
+      else { const im = el('img'); im.src = p.image; im.alt = p.theme || 'Post image'; im.loading = 'lazy'; media.appendChild(im); }
+    } else {
+      const ph = el('div', 'ig-ph'); ph.appendChild(el('b', null, 'Image to come'));
+      ph.appendChild(document.createTextNode(p.visual || 'Real product photos from the client.')); media.appendChild(ph);
+    }
+    if (p.format === 'Reel' || p.format === 'Carousel') media.appendChild(el('span', 'ig-badge', p.format === 'Reel' ? 'Reel' : '1/4'));
+    box.appendChild(media);
+    const icons = el('div', 'ig-icons'); icons.setAttribute('aria-hidden', 'true'); icons.textContent = '♡  ◯  ➤'; box.appendChild(icons);
+    const cap = el('div', 'ig-cap'); cap.appendChild(el('b', null, handle + ' ')); cap.appendChild(document.createTextNode(p.caption || '')); box.appendChild(cap);
+    return box;
+  }
+
+  function renderPosts(){
+    const box = $('posts'); box.textContent = '';
+    if (!posts.filter(p => isEditor || p.status !== 'draft').length){ const e = el('div', 'empty'); e.append(el('b', null, 'No posts planned yet. '), document.createTextNode('The first month\'s plan appears here after onboarding.')); box.appendChild(e); }
+    const visible = isEditor ? posts : posts.filter(p => p.status !== 'draft');
+    const sorted = visible.slice().sort((a,b) => (a.date + (a.time||'')).localeCompare(b.date + (b.time||'')));
+    let wk = null, grid = null;
+    sorted.forEach(p => {
+      const w = weekOf(p.date);
+      if (w !== wk){ wk = w; const sec = el('div', 'week'); sec.appendChild(el('h3', null, 'Week of ' + fmtDate(w))); grid = el('div', 'cards'); sec.appendChild(grid); box.appendChild(sec); }
+      grid.appendChild(postCard(p, false));
+    });
+    const month = new Date().toISOString().slice(0,7);
+    $('stPosts').textContent = posts.filter(p => (p.date || '').slice(0,7) === month).length || posts.length;
+    $('stReview').textContent = posts.filter(p => !approvals[p.id] && (p.status === 'review' || p.status === 'planned')).length;
+    renderDesk();
+    $('stLive').textContent = posts.filter(p => p.status === 'published').length;
+  }
+
+
+  // One card for a planned post (isBackup false) or a backup post (true)
+  function postCard(p, isBackup){
+      const c = el('article', 'card');
+      const top = el('div', 'top');
+      const a = approvals[p.id];
+      const locked = ['scheduled','published','swapped','used'].includes(p.status);
+      let shown = p.status || (isBackup ? 'backup' : 'planned');
+      if (!locked && a) shown = a.decision === 'approved' ? 'approved' : 'rejected';
+      let d;
+      if (isBackup){ d = el('div', 'date', p.usedOn ? 'Used ' + fmtDate(p.usedOn) : 'Any time'); if (p.format) d.appendChild(el('small', null, p.format)); }
+      else {
+        d = el('div', 'date', fmtDate(p.date)); if (p.time) d.appendChild(el('small', null, p.time + (p.format ? ' · ' + p.format : '')));
+      }
+      top.append(d, pill(shown)); c.appendChild(top);
+      c.appendChild(el('div', 'theme', p.theme || ''));
+      if (!isBackup && !locked && !(a && a.decision === 'approved') && p.date){
+        const due = addDaysISO(p.date, -2), left = daysUntil(due);
+        const txt = left < 0 ? 'Approval deadline passed. A backup post goes out instead.' : left === 0 ? 'Approve by today' : left === 1 ? 'Approve by tomorrow' : 'Approve by ' + fmtDate(due);
+        c.appendChild(el('div', 'due' + (left < 0 ? ' late' : left <= 2 ? ' soon' : ''), txt));
+      }
+      if (p.status === 'moved' && p.movedFrom) c.appendChild(el('p', 'upd', 'Moved from ' + fmtDate(p.movedFrom) + ' because it wasn\'t approved in time.'));
+      if (p.status === 'swapped' && p.swappedFor) c.appendChild(el('p', 'upd', 'Not approved in time, so "' + p.swappedFor + '" went out instead.'));
+      if (p.updatedNote && !locked) c.appendChild(el('p', 'upd', 'Updated: ' + p.updatedNote));
+      const chips = el('div', 'chips'); (p.platforms || []).forEach(n => chips.appendChild(el('span', 'chip', n))); c.appendChild(chips);
+      c.appendChild(igPreview(p));
+      if (p.stats){
+        const s = p.stats, row = el('div', 'pstats'); row.setAttribute('aria-label', 'Results for this post');
+        [['Sales', s.sales != null ? eur(s.sales) : null], ['Reach', s.reach], ['Likes', s.likes], ['Comments', s.comments], ['Shares', s.shares], ['Saves', s.saves], ['Link clicks', s.clicks]]
+          .forEach(([k, v]) => { if (v != null){ const sp = el('span', null, k + ' '); sp.appendChild(el('b', null, typeof v === 'string' ? v : nf(v))); row.appendChild(sp); } });
+        c.appendChild(row);
+      } else if (p.visual) c.appendChild(el('div', 'visual', 'Visual: ' + p.visual));
+      if (dbRef && p.id && !locked) c.appendChild(approvalBox(p, a));
+      if (p.caption){ const det = el('details'); det.appendChild(el('summary', null, 'Read the full caption')); det.appendChild(el('p', null, p.caption)); c.appendChild(det); }
+      return c;
+  }
+
+  function renderBackups(){
+    const box = $('backups'); box.textContent = '';
+    if (!backups.length){ const e = el('div', 'empty'); e.append(el('b', null, 'No backup posts yet. '), document.createTextNode('We\'ll add a set of general posts here for you to approve once.')); box.appendChild(e); return; }
+    const ok = backups.filter(b => (approvals[b.id] && approvals[b.id].decision === 'approved') && b.status !== 'used').length;
+    const cnt = el('p', 'bk-count'); cnt.appendChild(el('b', null, ok + ' of ' + backups.filter(b => b.status !== 'used').length)); cnt.appendChild(document.createTextNode(' backups approved and ready.')); box.appendChild(cnt);
+    const grid = el('div', 'cards');
+    backups.slice().sort((a,b) => (a.order || 0) - (b.order || 0)).forEach(b => grid.appendChild(postCard(b, true)));
+    box.appendChild(grid);
+  }
+
+  function renderLeads(){
+    const box = $('leads'); box.textContent = '';
+    $('stLeads').textContent = leads.filter(l => l.status === 'new' || l.status === 'quoted').length;
+    if (!leads.length){ const e = el('div', 'empty'); e.append(el('b', null, 'No enquiries yet. '), document.createTextNode('New enquiries from your website and social channels are added here each day, with a suggested reply.')); box.appendChild(e); return; }
+    const wrap = el('div', 'tablewrap'), t = el('table'), head = el('tr');
+    ['Received','Name','Where from','Interested in','Status','Next step'].forEach(h => head.appendChild(el('th', null, h)));
+    const thead = el('thead'); thead.appendChild(head); t.appendChild(thead);
+    const tb = el('tbody');
+    leads.slice().sort((a,b) => (b.date||'').localeCompare(a.date||'')).forEach(l => {
+      const tr = el('tr');
+      tr.append(el('td', null, fmtDate(l.date)), el('td', null, l.name || ''), el('td', null, l.source || ''), el('td', null, l.interest || ''));
+      const st = el('td'); st.appendChild(pill(l.status)); tr.appendChild(st); tr.appendChild(el('td', null, l.next || ''));
+      tb.appendChild(tr);
+    });
+    t.appendChild(tb); wrap.appendChild(t); box.appendChild(wrap);
+  }
+
+  function renderReports(list){
+    const box = $('reports'); box.textContent = '';
+    if (!list.length){ const e = el('div', 'empty'); e.append(el('b', null, 'No reports yet. '), document.createTextNode('Your first report arrives after the first week of posts.')); box.appendChild(e); return; }
+    const g = el('div', 'reports');
+    list.slice().sort((a,b) => (b.date||'').localeCompare(a.date||'')).forEach(r => {
+      const d = el('article', 'report'); d.appendChild(el('h3', null, r.period || fmtDate(r.date)));
+      if (r.summary) d.appendChild(el('p', null, r.summary));
+      if (r.highlights && r.highlights.length){ const ul = el('ul'); r.highlights.forEach(h => ul.appendChild(el('li', null, h))); d.appendChild(ul); }
+      g.appendChild(d);
+    });
+    box.appendChild(g);
+  }
+
+  /* ---------- Approvals: the client writes approvals/{postId}; North Ground schedules approved posts ---------- */
+  function approvalBox(p, a){
+    const box = el('div', 'appr');
+    const when = iso => { try { return new Date(iso).toLocaleDateString('en-IE', {day:'numeric', month:'short'}); } catch(e){ return ''; } };
+    if (a){
+      const m = el('p', 'msg'); m.style.margin = '0';
+      if (a.decision === 'approved'){ m.appendChild(el('b', null, 'You approved this')); m.appendChild(document.createTextNode(' on ' + when(a.at) + (p.date ? '. We\'ll schedule it.' : '. It\'s ready to use as a backup.'))); }
+      else { m.appendChild(el('b', null, 'You asked for a change')); m.appendChild(document.createTextNode(' on ' + when(a.at) + ': "' + (a.note || '') + '". We\'ll update it and send it back.')); }
+      box.appendChild(m);
+      if (canApprove){ const u = el('button', 'btn', 'Undo'); u.type = 'button'; u.addEventListener('click', () => write(p.id, null, box, u)); const r = el('div', 'appr-row'); r.appendChild(u); box.appendChild(r); }
+      return box;
+    }
+    if (!canApprove) return box;
+    const row = el('div', 'appr-row');
+    const ok = el('button', 'btn go', 'Approve'); ok.type = 'button';
+    const ch = el('button', 'btn', 'Request a change'); ch.type = 'button'; ch.setAttribute('aria-expanded', 'false');
+    row.append(ok, ch); box.appendChild(row);
+    ok.addEventListener('click', () => write(p.id, {decision:'approved'}, box, ok));
+    ch.addEventListener('click', () => {
+      if (box.querySelector('textarea')) return;
+      ch.setAttribute('aria-expanded', 'true');
+      const id = 'note-' + p.id, lab = el('label', 'msg', 'What would you like changed?'); lab.htmlFor = id;
+      const ta = el('textarea'); ta.id = id; ta.maxLength = 1000; ta.placeholder = 'e.g. Use the photo of the sliced loaf, and mention Christmas pre-orders.';
+      const send = el('button', 'btn go', 'Send request'); send.type = 'button';
+      send.addEventListener('click', () => { const note = ta.value.trim(); if (!note){ ta.focus(); return; } write(p.id, {decision:'changes', note}, box, send); });
+      box.append(lab, ta); const r2 = el('div', 'appr-row'); r2.appendChild(send); box.appendChild(r2); ta.focus();
+    });
+    return box;
+  }
+  async function write(postId, data, box, btn){
+    btn.disabled = true; const old = box.querySelector('.err'); if (old) old.remove();
+    try {
+      const ref = dbRef.doc('approvals/' + postId);
+      if (data){ data.at = new Date().toISOString(); if (userRef){ const id = await userRef.id().catch(() => null); if (id) data.by = id; } await ref.set(data); }
+      else await ref.delete();
+    } catch(e){
+      btn.disabled = false;
+      if (e && e.code === 'invalid_argument'){ canApprove = false; renderPosts(); return; }
+      box.appendChild(el('p', 'err', e && e.code === 'unavailable' ? 'That didn\'t go through. Please try again in a moment.' : 'That couldn\'t be saved. Please try again later.'));
+    }
+  }
+
+  /* ---------- Ideas and photos (client writes ideas/{id}; the agent drafts posts from them) ---------- */
+  const IDEA = {new:['With North Ground','s-idea-new'], drafted:['Drafted: see your plan','s-idea-drafted'], 'needs-photo':['We need another photo','s-idea-needs'], done:['Done','s-idea-done']};
+  const ideaPill = st => { const m = IDEA[st] || IDEA.new; return el('span', 'pill ' + m[1], m[0]); };
+  const stamp = iso => { try { return new Date(iso).toLocaleString('en-IE', {day:'numeric', month:'short', hour:'2-digit', minute:'2-digit'}); } catch(e){ return ''; } };
+  let ideaFile = null;
+
+  function renderIdeaForm(){
+    const box = $('ideaForm'); box.textContent = '';
+    if (!dbRef){ return; }
+    const f = el('form', 'ideaform'); f.noValidate = true;
+    const l1 = el('label', 'lab', 'What\'s happening?'); l1.htmlFor = 'ideaNote';
+    const ta = el('textarea'); ta.id = 'ideaNote'; ta.maxLength = 1500; ta.placeholder = 'e.g. Pumpkin loaves are back this week. Or: a customer sent this photo of their Sunday breakfast.';
+    f.append(l1, ta);
+    const fileWrap = el('div', 'file');
+    if (assetsRef){
+      const l2 = el('label', 'lab', 'Add a photo (optional)'); l2.htmlFor = 'ideaPhoto';
+      const inp = el('input'); inp.type = 'file'; inp.id = 'ideaPhoto'; inp.accept = 'image/*';
+      const prev = el('img', 'prev'); prev.alt = ''; prev.hidden = true;
+      inp.addEventListener('change', () => { ideaFile = inp.files && inp.files[0] || null; if (ideaFile){ prev.src = URL.createObjectURL(ideaFile); prev.hidden = false; } else prev.hidden = true; });
+      f.appendChild(l2); fileWrap.append(inp, prev); f.appendChild(fileWrap);
+    } else {
+      f.appendChild(el('p', 'note', 'Got a photo? Email it to info@northground.ie with a line about it, and we\'ll add it here for you.'));
+    }
+    const tg = el('label', 'toggle'); const cb = el('input'); cb.type = 'checkbox'; cb.id = 'ideaUrgent'; tg.append(cb, document.createTextNode('Post this week if possible')); f.appendChild(tg);
+    const row = el('div', 'appr-row'); const send = el('button', 'btn go', 'Send to North Ground'); send.type = 'submit'; row.appendChild(send); f.appendChild(row);
+    const msg = el('p', 'msg'); msg.setAttribute('role', 'status'); msg.style.margin = '0'; f.appendChild(msg);
+    f.addEventListener('submit', async e => {
+      e.preventDefault(); msg.textContent = ''; msg.className = 'msg';
+      const note = ta.value.trim();
+      if (!note && !ideaFile){ msg.className = 'err'; msg.textContent = 'Add a line about it, or a photo.'; ta.focus(); return; }
+      send.disabled = true; send.textContent = 'Sending…';
+      try {
+        const doc = {note, urgent: cb.checked, at: new Date().toISOString(), status: 'new'};
+        if (ideaFile){ const up = await assetsRef.upload(await shrink(ideaFile)); doc.image = up.url || ('/_blob/' + up.id); }
+        if (userRef){ const id = await userRef.id().catch(() => null); if (id) doc.by = id; }
+        await dbRef.doc('ideas/i' + Date.now().toString(36) + Math.random().toString(36).slice(2, 6)).set(doc);
+        ideaFile = null; renderIdeaForm(); const m = $('ideaForm').querySelector('.msg'); if (m) m.textContent = 'Thanks! We\'ve got it. You\'ll see the post in your plan soon.';
+      } catch(err){
+        send.disabled = false; send.textContent = 'Send to North Ground'; msg.className = 'err';
+        const c = err && err.code;
+        msg.textContent = c === 'too_large' ? 'That photo is too big. Try a smaller one.' : c === 'unsupported_type' ? 'That file type can\'t be uploaded. Try a JPG or PNG photo.' : c === 'invalid_argument' ? 'Your account can\'t send ideas here yet. Email them to info@northground.ie instead.' : 'That didn\'t send. Please try again in a moment.';
+      }
+    });
+    box.appendChild(f);
+  }
+  // Phone photos are large (and iPhones save HEIC): re-encode to a JPEG no bigger than 2000px.
+  async function shrink(file){
+    try {
+      const bmp = await createImageBitmap(file);
+      const k = Math.min(1, 2000 / Math.max(bmp.width, bmp.height));
+      const c = document.createElement('canvas'); c.width = Math.round(bmp.width * k); c.height = Math.round(bmp.height * k);
+      c.getContext('2d').drawImage(bmp, 0, 0, c.width, c.height);
+      return await new Promise((res, rej) => c.toBlob(b => b ? res(b) : rej(new Error('encode')), 'image/jpeg', 0.88));
+    } catch(e){ return file; }
+  }
+  function renderIdeas(){
+    const box = $('ideas'); box.textContent = '';
+    if (!ideas.length) return;
+    box.appendChild(el('h3', null, 'What you\'ve sent')).style.cssText = 'font-size:14px;color:var(--amber);margin:20px 0 0';
+    const g = el('div', 'ideas');
+    ideas.slice().sort((a,b) => (b.at||'').localeCompare(a.at||'')).forEach(i => {
+      const c = el('article', 'card'); const top = el('div', 'top'); const d = el('div', 'date', stamp(i.at)); if (i.urgent) d.appendChild(el('span', 'urgent', 'THIS WEEK'));
+      top.append(d, ideaPill(i.status)); c.appendChild(top);
+      if (i.image){ const im = el('img'); im.src = i.image; im.alt = 'Your photo'; im.loading = 'lazy'; im.style.cssText = 'width:100%;aspect-ratio:1;object-fit:cover;background:var(--peat-3)'; im.onerror = () => im.remove(); c.appendChild(im); }
+      if (i.note) c.appendChild(el('p', null, i.note)).style.margin = '0';
+      if (i.reply) c.appendChild(el('p', 'upd', 'From North Ground: ' + i.reply));
+      g.appendChild(c);
+    });
+    box.appendChild(g);
+  }
+
+  /* ---------- North Ground desk (editors only) ---------- */
+  let deskDirty = false, deskPending = false;
+  function renderDesk(){
+    if (!isEditor) return;
+    if (deskDirty){ deskPending = true; return; }   // don't wipe something Karl is typing
+    deskPending = false;
+    $('desk').hidden = false;
+    const body = $('deskBody'); body.textContent = '';
+    const markDirty = node => node.addEventListener('input', () => { deskDirty = true; });
+    const act = async (btn, fn) => { btn.disabled = true; try { await fn(); deskDirty = false; renderDesk(); } catch(e){ btn.disabled = false; btn.parentNode.appendChild(el('p', 'err', 'That didn\'t save. Try again.')); } };
+    const group = (title, items, build, empty) => {
+      const sec = el('div'); const h = el('h3'); h.append(el('span', 'n', String(items.length)), document.createTextNode(title)); sec.appendChild(h);
+      if (!items.length){ sec.appendChild(el('p', 'note', empty)).style.margin = '0'; body.appendChild(sec); return; }
+      const list = el('div', 'dlist'); items.forEach(x => list.appendChild(build(x))); sec.appendChild(list); body.appendChild(sec);
+    };
+
+    // setting
+    const set = el('label', 'toggle'); const cb = el('input'); cb.type = 'checkbox'; cb.checked = profile.reviewDrafts !== false;
+    set.append(cb, document.createTextNode('Check drafts before the client sees them'));
+    cb.addEventListener('change', () => dbRef.doc('client/profile').update({reviewDrafts: cb.checked}).catch(() => { cb.checked = !cb.checked; }));
+    body.appendChild(set);
+
+    // 1. new ideas from the client
+    const newIdeas = ideas.filter(i => i.status === 'new').sort((a,b) => (b.urgent - a.urgent) || (a.at||'').localeCompare(b.at||''));
+    group('New ideas from the client', newIdeas, i => {
+      const it = el('div', 'ditem'); const row = el('div', 'irow');
+      if (i.image){ const im = el('img', 'thumb'); im.src = i.image; im.alt = 'Client photo'; im.onerror = () => im.remove(); row.appendChild(im); }
+      const t = el('div'); const m = el('div', 'meta', stamp(i.at)); if (i.urgent) m.appendChild(el('span', 'urgent', 'THIS WEEK')); t.appendChild(m);
+      t.appendChild(el('div', 'quote', i.note || '(photo only)')); row.appendChild(t); it.appendChild(row);
+      it.appendChild(el('p', 'note', 'The agent drafts a post from this on its next run. You can also reply now.')).style.margin = '0';
+      const r = el('div', 'appr-row');
+      const ask = el('button', 'btn', 'Ask for another photo'); ask.type = 'button';
+      const done = el('button', 'btn', 'Mark as handled'); done.type = 'button';
+      r.append(ask, done); it.appendChild(r);
+      done.addEventListener('click', () => act(done, () => dbRef.doc('ideas/' + i.id).update({status: 'done'})));
+      ask.addEventListener('click', () => {
+        if (it.querySelector('input[type=text]')) return;
+        const inp = el('input'); inp.type = 'text'; inp.maxLength = 300; inp.value = 'Could you send a sharper photo of the loaf, in daylight?'; inp.setAttribute('aria-label', 'Message to the client'); markDirty(inp);
+        const go = el('button', 'btn go', 'Send'); go.type = 'button';
+        go.addEventListener('click', () => act(go, () => dbRef.doc('ideas/' + i.id).update({status: 'needs-photo', reply: inp.value.trim()})));
+        it.append(inp, go); inp.focus();
+      });
+      return it;
+    }, 'Nothing new.');
+
+    // 2. drafts waiting for Karl
+    const drafts = posts.filter(p => p.status === 'draft').sort((a,b) => (a.date||'').localeCompare(b.date||''));
+    group('Drafts to check before the client sees them', drafts, p => {
+      const it = el('div', 'ditem');
+      it.appendChild(el('div', 'what', (p.theme || 'Post') + ' · ' + (p.date ? fmtDate(p.date) : 'no date')));
+      if (p.fromIdea) it.appendChild(el('div', 'meta', 'From the client\'s idea'));
+      const ta = el('textarea'); ta.value = p.caption || ''; ta.setAttribute('aria-label', 'Caption for ' + (p.theme || 'post')); markDirty(ta); it.appendChild(ta);
+      const r = el('div', 'appr-row'); const go = el('button', 'btn go', 'Send to client'); go.type = 'button'; const sv = el('button', 'btn', 'Save caption'); sv.type = 'button';
+      r.append(go, sv); it.appendChild(r);
+      go.addEventListener('click', () => act(go, () => dbRef.doc('posts/' + p.id).update({caption: ta.value, status: 'review'})));
+      sv.addEventListener('click', () => act(sv, () => dbRef.doc('posts/' + p.id).update({caption: ta.value})));
+      return it;
+    }, 'No drafts waiting.');
+
+    // 3. change requests
+    const locked = p => ['scheduled','published','swapped','used'].includes(p.status);
+    const changes = posts.concat(backups).filter(p => approvals[p.id] && approvals[p.id].decision === 'changes' && !locked(p));
+    group('Change requests', changes, p => {
+      const a = approvals[p.id], it = el('div', 'ditem'), isB = !p.date;
+      it.appendChild(el('div', 'what', (p.theme || 'Post') + ' · ' + (isB ? 'backup' : fmtDate(p.date))));
+      it.appendChild(el('div', 'meta', 'Asked ' + stamp(a.at)));
+      it.appendChild(el('div', 'quote', a.note || ''));
+      const ta = el('textarea'); ta.value = p.caption || ''; ta.setAttribute('aria-label', 'Revised caption'); markDirty(ta); it.appendChild(ta);
+      const what = el('input'); what.type = 'text'; what.maxLength = 200; what.placeholder = 'What you changed, e.g. Swapped to the sliced-loaf photo'; what.setAttribute('aria-label', 'What you changed'); markDirty(what); it.appendChild(what);
+      const r = el('div', 'appr-row'); const go = el('button', 'btn go', 'Send back to client'); go.type = 'button'; r.appendChild(go); it.appendChild(r);
+      go.addEventListener('click', () => act(go, async () => {
+        await dbRef.doc((isB ? 'backups/' : 'posts/') + p.id).update({caption: ta.value, updatedNote: what.value.trim() || 'Changed as you asked.', status: isB ? 'backup' : 'review'});
+        await dbRef.doc('approvals/' + p.id).delete();
+      }));
+      return it;
+    }, 'No change requests.');
+
+    // 4. approved, ready to schedule
+    const ready = posts.filter(p => approvals[p.id] && approvals[p.id].decision === 'approved' && !locked(p)).sort((a,b) => (a.date||'').localeCompare(b.date||''));
+    group('Approved, ready to schedule', ready, p => {
+      const it = el('div', 'ditem'); const row = el('div', 'appr-row'); row.style.alignItems = 'center'; row.style.justifyContent = 'space-between';
+      const t = el('div'); t.appendChild(el('div', 'what', p.theme || 'Post')); t.appendChild(el('div', 'meta', fmtDate(p.date) + (p.time ? ' · ' + p.time : '') + ' · approved ' + stamp(approvals[p.id].at)));
+      const b = el('button', 'btn', 'Mark scheduled'); b.type = 'button';
+      b.addEventListener('click', () => act(b, () => dbRef.doc('posts/' + p.id).update({status: 'scheduled'})));
+      row.append(t, b); it.appendChild(row); return it;
+    }, 'Nothing waiting. Once Metricool is connected, the agent schedules these itself.');
+
+    if (deskPending) renderDesk();
+  }
+
+  /* ---------- Performance ---------- */
+  const eur = n => (n == null || isNaN(n)) ? '–' : '€' + Number(n).toLocaleString('en-IE', {minimumFractionDigits: n % 1 ? 2 : 0, maximumFractionDigits: 2});
+  const nf = n => (n == null || isNaN(n)) ? '–' : Number(n).toLocaleString('en-IE');
+  const KPIS = [
+    ['reach', 'People reached'], ['likes', 'Likes'], ['comments', 'Comments'], ['shares', 'Shares'],
+    ['saves', 'Saves'], ['dms', 'DMs received'], ['webVisits', 'Website visits from social'], ['newFollowers', 'New followers']
+  ];
+  let metrics = [], showSample = false, userRef = null;
+
+  // Clearly labelled example data, only shown when the viewer presses the button.
+  const SAMPLE = {
+    metrics: [
+      {week:'2026-11-02', socialSales:96, socialOrders:4, reach:1840, likes:162, comments:21, shares:9, saves:34, dms:6, webVisits:58, newFollowers:27},
+      {week:'2026-11-09', socialSales:148, socialOrders:6, reach:2310, likes:204, comments:30, shares:14, saves:41, dms:9, webVisits:77, newFollowers:35},
+      {week:'2026-11-16', socialSales:131, socialOrders:5, reach:2120, likes:188, comments:25, shares:22, saves:39, dms:11, webVisits:84, newFollowers:31},
+      {week:'2026-11-23', socialSales:214, socialOrders:9, reach:2960, likes:251, comments:37, shares:19, saves:56, dms:14, webVisits:112, newFollowers:48}
+    ],
+    posts: [
+      {theme:'Meet the sourdough', date:'2026-11-03', stats:{reach:1420, likes:131, comments:18, shares:7, saves:29, clicks:22, orders:3, sales:87}},
+      {theme:'How we bake: the long ferment', date:'2026-11-06', stats:{reach:1980, likes:142, comments:12, shares:16, saves:38, clicks:31, orders:2, sales:48}},
+      {theme:'Meet the cinnamon bun', date:'2026-11-10', stats:{reach:1190, likes:97, comments:14, shares:5, saves:17, clicks:14, orders:1, sales:29}},
+      {theme:'Meet the brown soda', date:'2026-11-13', stats:{reach:1350, likes:118, comments:20, shares:6, saves:22, clicks:19, orders:2, sales:58}}
+    ]
+  };
+
+  function renderPerf(){
+    const box = $('perf'); box.textContent = '';
+    const m = showSample ? SAMPLE.metrics : metrics;
+    const ps = showSample ? SAMPLE.posts : posts.filter(p => p.stats);
+    $('sampleBtn').hidden = metrics.length > 0;
+    if (showSample) box.appendChild(el('div', 'sample', 'Example numbers only. Your real results replace these once posting starts.'));
+
+    if (!m.length && !ps.length){
+      const e = el('div', 'empty');
+      e.append(el('b', null, 'Your results start with the first post. '),
+        document.createTextNode('Once Instagram and Facebook are connected, this shows the sales your posts bring in, plus people reached, likes, comments, shares, saves, DMs, new followers and visits to your shop, every week, with each post\'s results on its card below.'));
+      box.appendChild(e); return;
+    }
+
+    const wk = m.slice().sort((a,b) => a.week.localeCompare(b.week));
+    const cur = wk[wk.length - 1] || {}, prev = wk[wk.length - 2];
+    if (cur.socialSales != null){
+      const h = el('div', 'hero');
+      h.appendChild(el('strong', null, eur(cur.socialSales)));
+      h.appendChild(el('span', null, 'in sales from social media last week' + (cur.socialOrders != null ? ' · ' + nf(cur.socialOrders) + ' order' + (cur.socialOrders === 1 ? '' : 's') : '')));
+      if (prev && prev.socialSales){ const pct = Math.round((cur.socialSales - prev.socialSales) / prev.socialSales * 100);
+        h.appendChild(el('em', pct > 0 ? 'up' : pct < 0 ? 'down' : '', (pct > 0 ? '▲ ' : pct < 0 ? '▼ ' : '') + Math.abs(pct) + '% on last week')); }
+      box.appendChild(h);
+    }
+    const grid = el('div', 'kpis');
+    KPIS.forEach(([k, label]) => {
+      const t = el('div', 'kpi'); t.appendChild(el('strong', null, nf(cur[k]))); t.appendChild(el('span', null, label));
+      if (prev && prev[k] && cur[k] != null){
+        const pct = Math.round((cur[k] - prev[k]) / prev[k] * 100);
+        t.appendChild(el('em', pct > 0 ? 'up' : pct < 0 ? 'down' : '', (pct > 0 ? '▲ ' : pct < 0 ? '▼ ' : '') + Math.abs(pct) + '% on last week'));
+      }
+      grid.appendChild(t);
+    });
+    box.appendChild(grid);
+
+    if (wk.length > 1){
+      const charts = el('div', 'charts');
+      const hasSales = wk.some(r => r.socialSales != null);
+      charts.append(hasSales ? barChart(wk, 'socialSales', 'Sales from social', 'Per week, orders from people who came from your posts', eur)
+                             : barChart(wk, 'webVisits', 'Website visits from social', 'Per week, people who clicked through to your shop'),
+                    barChart(wk, 'reach', 'People reached', 'Per week, Instagram and Facebook'));
+      box.appendChild(charts);
+    }
+
+    if (ps.length){
+      const wrap = el('div', 'tablewrap perf-table'), t = el('table'), head = el('tr');
+      t.appendChild(el('caption', 'note', 'Post results, highest sales first. Sales shows money and (orders) from people who came from that post.')); t.querySelector('caption').style.cssText = 'text-align:left;padding:10px 12px';
+      [['Post',''],['Date',''],['Reached','n'],['Likes','n'],['Comments','n'],['Shares','n'],['Saves','n'],['Link clicks','n'],['Engagement','n'],['Sales','n']]
+        .forEach(([h, c]) => head.appendChild(el('th', c || null, h)));
+      const th = el('thead'); th.appendChild(head); t.appendChild(th);
+      const tb = el('tbody');
+      const eng = s => s.reach ? ((s.likes||0) + (s.comments||0) + (s.shares||0) + (s.saves||0)) / s.reach : 0;
+      ps.slice().sort((a,b) => ((b.stats.sales || 0) - (a.stats.sales || 0)) || (eng(b.stats) - eng(a.stats))).forEach(p => {
+        const s = p.stats, tr = el('tr');
+        tr.append(el('td', null, p.theme || ''), el('td', null, fmtDate(p.date))); tr.lastChild.style.whiteSpace = 'nowrap';
+        [s.reach, s.likes, s.comments, s.shares, s.saves, s.clicks].forEach(v => tr.appendChild(el('td', 'n', nf(v))));
+        tr.appendChild(el('td', 'n', s.reach ? (eng(s) * 100).toFixed(1) + '%' : '–'));
+        tr.appendChild(el('td', 'n', s.sales != null ? eur(s.sales) + (s.orders ? ' (' + s.orders + ')' : '') : '–'));
+        tb.appendChild(tr);
+      });
+      t.appendChild(tb); wrap.appendChild(t); box.appendChild(wrap);
+      box.appendChild(el('p', 'note', 'Engagement is likes, comments, shares and saves divided by people reached. For a small Irish business, 3% or more is strong.'));
+    }
+  }
+
+  function barChart(rows, key, title, sub, fmt){
+    fmt = fmt || nf;
+    const card = el('div', 'chart'); card.appendChild(el('h3', null, title)); card.appendChild(el('p', null, sub));
+    const NS = 'http://www.w3.org/2000/svg', W = 320, H = 140, top = 8, bot = 1;
+    const axis = el('div', 'axis'); axis.setAttribute('aria-hidden', 'true');
+    const svg = document.createElementNS(NS, 'svg'); svg.setAttribute('viewBox', `0 0 ${W} ${H}`); svg.setAttribute('preserveAspectRatio', 'none');
+    svg.setAttribute('role', 'img'); svg.setAttribute('aria-label', title + ' by week: ' + rows.map(r => 'week of ' + fmtDate(r.week) + ' ' + fmt(r[key])).join(', '));
+    const max = Math.max(1, ...rows.map(r => r[key] || 0)), n = rows.length, slot = W / n, bw = Math.min(44, slot * 0.6);
+    const tip = el('div', 'tip'); tip.hidden = true;
+    const mk = (tag, attrs) => { const e = document.createElementNS(NS, tag); for (const k in attrs) e.setAttribute(k, attrs[k]); return e; };
+    rows.forEach((r, i) => {
+      const v = r[key] || 0, h = (H - top - bot) * v / max, x = i * slot + (slot - bw) / 2, y = H - bot - h;
+      const hit = mk('rect', {class:'hit', x: i * slot, y: 0, width: slot, height: H - bot, tabindex: 0});
+      const r4 = Math.min(4, h / 2);
+      const bar = mk('path', {class:'bar', d:`M${x},${H-bot} V${y + r4} Q${x},${y} ${x + r4},${y} H${x + bw - r4} Q${x + bw},${y} ${x + bw},${y + r4} V${H-bot} Z`});
+      const show = () => { tip.textContent = ''; tip.appendChild(el('b', null, fmt(v))); tip.appendChild(document.createTextNode('Week of ' + fmtDate(r.week)));
+        const box = svg.getBoundingClientRect(), cb = card.getBoundingClientRect();
+        tip.style.left = (box.left - cb.left + (x + bw / 2) / W * box.width) + 'px'; tip.style.top = (box.top - cb.top + y / H * box.height - 6) + 'px'; tip.hidden = false;
+        const half = tip.offsetWidth / 2, L = parseFloat(tip.style.left); tip.style.left = Math.max(half + 4, Math.min(cb.width - half - 4, L)) + 'px'; };
+      hit.addEventListener('pointerenter', show); hit.addEventListener('focus', show);
+      hit.addEventListener('pointerleave', () => tip.hidden = true); hit.addEventListener('blur', () => tip.hidden = true);
+      svg.append(hit, bar);
+      axis.appendChild(el('span', null, fmtDate(r.week).replace(/^\w+,?\s*/, '')));
+    });
+    card.append(svg, axis, tip);
+    return card;
+  }
+
+  $('sampleBtn').addEventListener('click', () => {
+    showSample = !showSample; $('sampleBtn').setAttribute('aria-pressed', String(showSample));
+    $('sampleBtn').textContent = showSample ? 'Hide example numbers' : 'Show example numbers'; renderPerf();
+  });
+
+  function offline(msg){ const b = $('banner'); b.textContent = msg; b.hidden = false; }
+
+  async function start(){
+    let tries = 0;
+    while (!(window.claude && window.claude.use) && tries < 40){ await new Promise(r => setTimeout(r, 100)); tries++; }
+    const db = window.claude && window.claude.use ? await window.claude.use('db').catch(() => null) : null;
+    if (!db){
+      ['perf','posts','backups','leads','reports','kit'].forEach(id => { $(id).textContent = ''; $(id).appendChild(el('div', 'empty', 'Sign in to Claude to see this portal\'s live data.')); });
+      return;
+    }
+    dbRef = db;
+    userRef = await window.claude.use('user').catch(() => null);
+    isEditor = userRef ? await userRef.canEdit().catch(() => false) : false;
+    assetsRef = await window.claude.use('assets').catch(() => null);
+    renderIdeaForm();
+    let pending = 4;
+    const timer = setTimeout(() => { if (pending) offline('The portal\'s data can\'t be reached right now. What you see may be out of date.'); }, 10000);
+    const done = snap => { if (snap && snap.metadata && !snap.metadata.fromCache && pending > 0){ pending--; if (!pending){ clearTimeout(timer); $('banner').hidden = true; } } };
+    const fail = () => { pending = 0; clearTimeout(timer); offline('Some of the portal\'s data couldn\'t be loaded. Try again later.'); };
+    db.doc('client/profile').onSnapshot(s => { done(s); renderProfile(s.exists ? s.data() : null); if (!s.exists){ $('kit').textContent=''; $('kit').appendChild(el('div','empty','The brand kit will appear here after onboarding.')); } }, fail);
+    db.collection('posts').onSnapshot(s => { done(s); posts = s.docs.map(d => Object.assign({id: d.id}, d.data())); renderPosts(); renderPerf(); }, fail);
+    db.collection('approvals').onSnapshot(s => { approvals = {}; s.docs.forEach(d => approvals[d.id] = d.data()); renderPosts(); renderBackups(); renderDesk(); }, () => {});
+    db.collection('backups').onSnapshot(s => { backups = s.docs.map(d => Object.assign({id: d.id}, d.data())); renderBackups(); renderDesk(); }, () => { $('backups').textContent = ''; });
+    db.collection('ideas').onSnapshot(s => { ideas = s.docs.map(d => Object.assign({id: d.id}, d.data())); renderIdeas(); renderDesk(); }, () => {});
+    db.collection('metrics').onSnapshot(s => { metrics = s.docs.map(d => d.data()).filter(r => r.week); renderPerf(); }, () => renderPerf());
+    db.collection('leads').onSnapshot(s => { done(s); leads = s.docs.map(d => d.data()); renderLeads(); }, fail);
+    db.collection('reports').onSnapshot(s => { done(s); renderReports(s.docs.map(d => d.data())); }, fail);
+  }
+  setTimeout(start, 0);
+})();
+</script>
+</body></html>
