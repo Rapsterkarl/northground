@@ -263,6 +263,55 @@ footer{position:relative;z-index:2;padding-block:40px calc(60px + env(safe-area-
 .hero-line:nth-child(3) > span{animation-delay:.24s}
 @keyframes rise{from{transform:translateY(60%);opacity:0}to{transform:none;opacity:1}}
 
+
+/* ODD-1 case study */
+.odd-hook{font-family:var(--f-display);font-weight:700;font-size:clamp(24px,2.6vw,34px);line-height:1.05;text-transform:uppercase;color:var(--lichen);margin:22px 0 0;max-width:30ch}
+.odd-hook span{color:var(--amber)}
+.odd-meta{display:flex;flex-wrap:wrap;gap:6px;margin-top:20px}
+.odd-meta span{font-family:var(--f-mono);font-size:11px;letter-spacing:.06em;text-transform:uppercase;color:var(--ink-2);border:1px solid var(--line);padding:5px 9px}
+.odd-meta span.ai{color:var(--peat);background:var(--amber);border-color:var(--amber)}
+.odd-film{position:relative;margin-top:36px;background:#000;aspect-ratio:16/9;max-width:100%;overflow:hidden}
+.odd-film video{position:absolute;inset:0;width:100%;height:100%;object-fit:cover;display:block}
+.odd-film .slate{position:absolute;left:14px;top:12px;display:flex;border:1px solid rgba(200,211,188,.3);background:rgba(7,10,9,.6);font-family:var(--f-mono);font-size:10px;letter-spacing:.1em;text-transform:uppercase;color:var(--mist)}
+.odd-film .slate span{padding:4px 8px;border-right:1px solid rgba(200,211,188,.3)}
+.odd-film .slate span:last-child{border-right:0;color:var(--amber)}
+.odd-film .ctrls{position:absolute;right:14px;bottom:14px;display:flex;gap:8px}
+.odd-film .ctrls button{font-family:var(--f-mono);font-size:11px;letter-spacing:.08em;text-transform:uppercase;padding:9px 12px;min-height:40px;border:1px solid rgba(200,211,188,.5);background:rgba(7,10,9,.7);color:var(--lichen);cursor:pointer}
+.odd-film .ctrls button[aria-pressed="true"]{background:var(--amber);border-color:var(--amber);color:var(--peat)}
+.odd-cap{font-size:13px;color:var(--mist);margin-top:10px;max-width:none}
+.odd-row{display:grid;grid-template-columns:minmax(0,1.1fr) minmax(0,1fr);gap:40px;margin-top:64px;align-items:center}
+.odd-row.flip{grid-template-columns:minmax(0,1fr) minmax(0,1.25fr)}
+.odd-row > *{min-width:0}
+.odd-row h3,.odd-block h3{font-size:clamp(30px,3.2vw,42px);font-weight:900;line-height:.92}
+.odd-row h3 small,.odd-block h3 small{display:block;font-family:var(--f-mono);font-weight:500;font-size:11px;letter-spacing:.12em;color:var(--amber);margin-bottom:10px}
+.odd-row p,.odd-block p{font-size:16px}
+.odd-shot{display:block;margin:0}
+.odd-shot img{display:block;width:100%;height:auto;max-width:100%;background:var(--peat-2)}
+.odd-shot figcaption{font-family:var(--f-mono);font-size:11px;letter-spacing:.06em;text-transform:uppercase;color:var(--mist);margin-top:8px}
+.odd-fixes{list-style:none;padding:0;margin:22px 0 0;display:grid;gap:0;counter-reset:fix}
+.odd-fixes li{display:grid;grid-template-columns:36px minmax(0,1fr);gap:12px;padding:12px 0;border-top:1px solid var(--line);font-size:15px;color:var(--lichen);counter-increment:fix}
+.odd-fixes li:last-child{border-bottom:1px solid var(--line)}
+.odd-fixes li::before{content:"0" counter(fix);font-family:var(--f-mono);font-size:12px;color:var(--amber);padding-top:2px}
+.odd-pair{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:14px}
+.odd-block{margin-top:72px}
+.odd-block .wide{margin-top:24px}
+.odd-flow{list-style:none;padding:0;margin:26px 0 0;display:grid;grid-template-columns:repeat(4,minmax(0,1fr));gap:2px;background:var(--line)}
+.odd-flow li{background:rgba(20,27,24,.95);padding:16px 16px 14px;min-width:0}
+.odd-flow b{display:block;font-family:var(--f-display);font-weight:900;font-size:22px;text-transform:uppercase;color:var(--lichen);line-height:1}
+.odd-flow span{display:block;margin-top:8px;font-size:14px;color:var(--ink-2);line-height:1.45}
+.odd-flow li:last-child b{color:var(--amber)}
+.odd-scenes{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:14px;margin-top:24px}
+.odd-scenes .odd-shot img{aspect-ratio:4/5;object-fit:cover}
+.odd-disclose{margin-top:56px;padding:22px 24px;border:1px solid var(--amber);background:rgba(20,27,24,.94);display:grid;grid-template-columns:auto minmax(0,1fr);gap:18px;align-items:start}
+.odd-disclose .tag{font-family:var(--f-mono);font-size:11px;letter-spacing:.1em;text-transform:uppercase;color:var(--peat);background:var(--amber);padding:5px 8px;white-space:nowrap}
+.odd-disclose p{margin:0;font-size:16px;color:var(--lichen)}
+@media (max-width:900px){.odd-flow{grid-template-columns:repeat(2,minmax(0,1fr))}}
+@media (max-width:700px){
+  .odd-row,.odd-row.flip,.odd-pair{grid-template-columns:1fr;gap:24px}
+  .odd-scenes{grid-template-columns:1fr}
+  .odd-scenes .odd-shot img{aspect-ratio:auto}
+  .odd-disclose{grid-template-columns:1fr}
+}
 @media (max-width:900px){
   .case.hero{grid-template-columns:1fr}
   .pipe{grid-template-columns:repeat(2,minmax(0,1fr))}
@@ -305,7 +354,7 @@ footer{position:relative;z-index:2;padding-block:40px calc(60px + env(safe-area-
 <header class="navbar">
   <a class="mark" href="#top">Karl<span>/</span>Rapp <small>AI Video · Cork</small></a>
   <nav aria-label="Sections">
-    <a href="#work">Work</a><a href="#lab">Lab</a><a href="#method">Method</a><a href="#ethics">Ethics</a><a class="cta" href="#contact">Contact</a>
+    <a href="#oddie">ODD-1</a><a href="#work">Work</a><a href="#lab">Lab</a><a href="#method">Method</a><a href="#ethics">Ethics</a><a class="cta" href="#contact">Contact</a>
   </nav>
 </header>
 
@@ -324,7 +373,7 @@ footer{position:relative;z-index:2;padding-block:40px calc(60px + env(safe-area-
       <p class="lede">Most AI video is impressive for three seconds and forgettable after that. I've spent twenty years directing film, motion and 3D for global brands. Now I build the method that makes generative work worth watching, and that a whole team can use.</p>
       <p class="role"><b>Karl Rapp</b> · Creative director, AI video &amp; motion<br>Ex-Executive Creative Director, AB InBev / draftLine Africa · Cork, Ireland</p>
       <div class="cta-row">
-        <a class="btn solid" href="#work">See the work</a>
+        <a class="btn solid" href="#oddie">See the AI work</a>
         <a class="btn" href="#method">How I'd build it at Deel</a>
       </div>
       <dl class="proof">
@@ -344,11 +393,84 @@ footer{position:relative;z-index:2;padding-block:40px calc(60px + env(safe-area-
       <p>You listed five things. Here's where each one lives on this page.</p>
       <ul class="brief">
         <li><div class="ask"><b>You asked</b>Ten years across video, motion or design, with direction and production</div><div class="ans"><strong>Twenty-plus, both sides of the camera</strong>Executive Creative Director, Executive Producer and Creative Director roles since 2003. TVCs, conference films, 3D environments and animation. <a href="#work">See the work</a></div></li>
-        <li><div class="ask"><b>You asked</b>Recent work made or directed with generative AI that stands up as creative work first</div><div class="ans"><strong>Idea first, tool second</strong>A spec film for Deel, in production now. The animatic runs live on this page. <a href="#lab">Open the lab</a></div></li>
+        <li><div class="ask"><b>You asked</b>Recent work made or directed with generative AI that stands up as creative work first</div><div class="ans"><strong>Idea first, tool second</strong>ODD-1, an original AI character and social series, from first design tests to finished scenes. Plus a spec film for Deel, with a live animatic. <a href="#oddie">See ODD-1</a></div></li>
         <li><div class="ask"><b>You asked</b>Deep knowledge of the current tooling, and clear judgment about where it breaks</div><div class="ans"><strong>Four failure points, four fixes</strong>Where today's tools fall over, and the production workaround for each. <a href="#breaks">Where it breaks</a></div></li>
         <li><div class="ask"><b>You asked</b>Proven ability to build a workflow other people can actually use</div><div class="ans"><strong>Built once, used at 80 sites</strong>A 3D safety-induction system rolled out across AB InBev Africa. The same instinct, applied to AI. <a href="#method">The method</a></div></li>
         <li><div class="ask"><b>You asked</b>A point of view on likeness, disclosure and provenance</div><div class="ans"><strong>Consent, labels, a paper trail</strong>Three rules I work by, and what a provenance record for one shot looks like. <a href="#ethics">The stance</a></div></li>
       </ul>
+    </div>
+  </section>
+
+  <!-- ODD-1 -->
+  <section id="oddie" data-name="ODD-1">
+    <div class="col wide reveal">
+      <p class="eyebrow">Featured AI project · independent · in development</p>
+      <h2>ODD-1 <em>/ Oddie</em></h2>
+      <p class="lede">A robot's guide to being human. A social series about everyday life, seen through a robot's eyes.</p>
+      <p class="odd-hook">What does a robot order when he's only there for the company? <span>A cappuccino, apparently.</span></p>
+      <div class="odd-meta"><span>Concept</span><span>Creative direction</span><span>Character design</span><span>AI production</span><span class="ai">AI-generated · original character</span></div>
+
+      <div class="odd-film">
+        <video id="oddVideo" src="odd-1/oddie-scene.mp4" poster="odd-1/oddie-poster.jpg" muted loop playsinline preload="metadata" aria-label="ODD-1 scene test: Oddie waits at a rainy bus stop under an umbrella, the sign reads Delayed, and he turns to the camera"></video>
+        <div class="slate" aria-hidden="true"><span>ODD-1</span><span>Sc 02</span><span>Delayed</span></div>
+        <div class="ctrls"><button type="button" id="oddPlay" aria-pressed="true">Pause</button><button type="button" id="oddSound" aria-pressed="false">Sound on</button></div>
+      </div>
+      <p class="odd-cap">Scene test, “Delayed”. Video developed from the approved character references.</p>
+
+      <div class="odd-row">
+        <div>
+          <h3><small>01 · The idea</small>One tilt does the acting</h3>
+          <p>I created ODD-1, or Oddie, as the lead character for a social series about everyday life seen through a robot's eyes. In one scene he sits beside a rain-streaked café window, one hand on his cup, his head tilted towards us.</p>
+          <p>He has two amber eyes and no mouth. That small tilt does most of the acting. I wanted someone scrolling past to pause because they recognised the gesture, even though they'd never met the character.</p>
+        </div>
+        <figure class="odd-shot"><img src="odd-1/oddie-cafe.jpg" alt="Oddie, a cream and teal robot with amber eyes, sits at a wooden café table by a rainy window with a cappuccino" width="1122" height="1402" loading="lazy" decoding="async"><figcaption>Sc 01 · The café</figcaption></figure>
+      </div>
+
+      <div class="odd-block">
+        <h3><small>02 · Where it broke</small>The head-turn test</h3>
+        <p>I used generative AI from the first design explorations through to the finished scene images. The most revealing test was turning Oddie's head. A front view could feel convincing, yet at three-quarter angle his proportions would drift and he'd look like a toy.</p>
+        <div class="odd-row flip" style="margin-top:28px">
+          <div>
+            <p style="margin-top:0">The fixes, checked from the front, side and back:</p>
+            <ul class="odd-fixes">
+              <li><span>Made the head smaller, so he reads as a person's height, not a mascot's.</span></li>
+              <li><span>Set the earpieces flush with the shell, so the silhouette holds at every angle.</span></li>
+              <li><span>Used the café window's reflection to make the black crown panels read as glass.</span></li>
+            </ul>
+          </div>
+          <figure class="odd-shot"><img src="odd-1/oddie-head-reference.jpg" alt="ODD-1 glass head reference sheet: front three-quarter, left profile, rear three-quarter and back views" width="1536" height="1024" loading="lazy" decoding="async"><figcaption>Glass head reference · four angles</figcaption></figure>
+        </div>
+        <div class="odd-pair wide">
+          <figure class="odd-shot"><img src="odd-1/oddie-head-studies.jpg" alt="Two head studies of Oddie side by side, comparing head proportion and earpiece position" width="1536" height="1024" loading="lazy" decoding="async"><figcaption>Head studies · proportion and earpieces</figcaption></figure>
+          <figure class="odd-shot"><img src="odd-1/oddie-portrait.jpg" alt="Front portrait of Oddie with amber rectangular eyes and the ODD-1 chest marking" width="1536" height="1024" loading="lazy" decoding="async"><figcaption>Expression study · front</figcaption></figure>
+        </div>
+      </div>
+
+      <div class="odd-block">
+        <h3><small>03 · The method</small>Built so someone else can direct him</h3>
+        <p>Those corrections became the production method. I built a character sheet, head and expression studies, and scene prompts for video development. Another creative can start with the approved references, choose what Oddie is paying attention to, and direct his performance without having to invent him again.</p>
+        <figure class="odd-shot wide"><img src="odd-1/oddie-character-sheet.jpg" alt="ODD-1 character reference sheet showing front, left profile, back, right profile and three-quarter front views" width="1774" height="887" loading="lazy" decoding="async"><figcaption>Character reference · five views</figcaption></figure>
+        <ol class="odd-flow">
+          <li><b>References</b><span>Start from the approved character sheet and head studies.</span></li>
+          <li><b>Attention</b><span>Choose what Oddie is paying attention to in the scene.</span></li>
+          <li><b>Performance</b><span>Direct the gesture: the tilt, the eyes, the pause.</span></li>
+          <li><b>Scene</b><span>The design stays consistent. The behaviour gives each scene its story.</span></li>
+        </ol>
+      </div>
+
+      <div class="odd-block">
+        <h3><small>04 · Scenes</small>Everyday life, one robot</h3>
+        <div class="odd-scenes">
+          <figure class="odd-shot"><img src="odd-1/oddie-cafe.jpg" alt="Oddie at a café table with a cappuccino" width="1122" height="1402" loading="lazy" decoding="async"><figcaption>The café</figcaption></figure>
+          <figure class="odd-shot"><img src="odd-1/oddie-bus-stop.jpg" alt="Oddie holding an umbrella at a rainy bus stop with a Delayed sign" width="1122" height="1402" loading="lazy" decoding="async"><figcaption>Delayed</figcaption></figure>
+          <figure class="odd-shot"><img src="odd-1/oddie-portrait.jpg" alt="Oddie portrait in a warmly lit hall" width="1536" height="1024" loading="lazy" decoding="async"><figcaption>Portrait</figcaption></figure>
+        </div>
+      </div>
+
+      <div class="odd-disclose">
+        <span class="tag">Disclosure</span>
+        <p>Oddie is an original fictional character, and I identify the imagery as AI-generated. I want the audience to know how he was made and still wonder what he'll do next.</p>
+      </div>
     </div>
   </section>
 
@@ -443,8 +565,7 @@ footer{position:relative;z-index:2;padding-block:40px calc(60px + env(safe-area-
 
       <ul class="lab">
         <li><div><strong>Same job, any border</strong><small>Spec film for Deel · generative worlds, type and sound in post</small></div><span class="chip live">Animatic</span></li>
-        <li><div><strong>Backup Squad, rebuilt AI-native</strong><small>Remake of a real campaign to show before and after</small></div><span class="chip">In generation</span></li>
-        <li><div><strong>Factory floor safety film</strong><small>Live-action plates with generated hazard scenarios</small></div><span class="chip">In edit</span></li>
+        <li><div><strong><a href="#oddie">ODD-1 · A robot's guide to being human</a></strong><small>Original AI character and social series · scene tests</small></div><span class="chip live">In development</span></li>
       </ul>
       <p class="note">Every piece ships with its production log and an AI-assisted label.</p>
     </div>
@@ -769,6 +890,18 @@ footer{position:relative;z-index:2;padding-block:40px calc(60px + env(safe-area-
   setStage(0);
   pipeItems.forEach((li, i) => li.addEventListener('mouseenter', () => setStage(i)));
   if (!reduce) setInterval(() => { if (!document.hidden) setStage((stage + 1) % pipeItems.length); }, 2600);
+
+  // ---------- ODD-1 scene video ----------
+  const ov = document.getElementById('oddVideo'), oPlay = document.getElementById('oddPlay'), oSound = document.getElementById('oddSound');
+  if (ov){
+    let want = !reduce;
+    const sync = () => { const on = !ov.paused; oPlay.setAttribute('aria-pressed', String(on)); oPlay.textContent = on ? 'Pause' : 'Play'; };
+    ov.addEventListener('play', sync); ov.addEventListener('pause', sync);
+    oPlay.addEventListener('click', () => { if (ov.paused){ want = true; ov.play().catch(() => {}); } else { want = false; ov.pause(); } });
+    oSound.addEventListener('click', () => { ov.muted = !ov.muted; oSound.setAttribute('aria-pressed', String(!ov.muted)); oSound.textContent = ov.muted ? 'Sound on' : 'Sound off'; if (!ov.muted && ov.paused){ want = true; ov.play().catch(() => {}); } });
+    if ('IntersectionObserver' in window) new IntersectionObserver(es => es.forEach(e => { if (e.isIntersecting){ if (want) ov.play().catch(() => {}); } else ov.pause(); }), {threshold:.4}).observe(ov);
+    sync();
+  }
 
   // ---------- In-page video player ----------
   const player = document.getElementById('player'), pFrame = document.getElementById('playerFrame');
