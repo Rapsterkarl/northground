@@ -413,7 +413,7 @@ footer{position:relative;z-index:2;padding-block:40px calc(60px + env(safe-area-
       <div class="odd-film">
         <video id="oddVideo" src="odd-1/oddie-scene.mp4" poster="odd-1/oddie-poster.jpg" muted loop playsinline preload="metadata" aria-label="ODD-1 scene test: Oddie waits at a rainy bus stop under an umbrella, the sign reads Delayed, and he turns to the camera"></video>
         <div class="slate" aria-hidden="true"><span>ODD-1</span><span>Sc 02</span><span>Delayed</span></div>
-        <div class="ctrls"><button type="button" id="oddPlay" aria-pressed="true">Pause</button><button type="button" id="oddSound" aria-pressed="false">Sound on</button></div>
+        <div class="ctrls"><button type="button" id="oddPlay" aria-pressed="true">Pause</button></div>
       </div>
       <p class="odd-cap">Scene test, “Delayed”. Video developed from the approved character references.</p>
 
@@ -892,13 +892,12 @@ footer{position:relative;z-index:2;padding-block:40px calc(60px + env(safe-area-
   if (!reduce) setInterval(() => { if (!document.hidden) setStage((stage + 1) % pipeItems.length); }, 2600);
 
   // ---------- ODD-1 scene video ----------
-  const ov = document.getElementById('oddVideo'), oPlay = document.getElementById('oddPlay'), oSound = document.getElementById('oddSound');
+  const ov = document.getElementById('oddVideo'), oPlay = document.getElementById('oddPlay');
   if (ov){
     let want = !reduce;
     const sync = () => { const on = !ov.paused; oPlay.setAttribute('aria-pressed', String(on)); oPlay.textContent = on ? 'Pause' : 'Play'; };
     ov.addEventListener('play', sync); ov.addEventListener('pause', sync);
     oPlay.addEventListener('click', () => { if (ov.paused){ want = true; ov.play().catch(() => {}); } else { want = false; ov.pause(); } });
-    oSound.addEventListener('click', () => { ov.muted = !ov.muted; oSound.setAttribute('aria-pressed', String(!ov.muted)); oSound.textContent = ov.muted ? 'Sound on' : 'Sound off'; if (!ov.muted && ov.paused){ want = true; ov.play().catch(() => {}); } });
     if ('IntersectionObserver' in window) new IntersectionObserver(es => es.forEach(e => { if (e.isIntersecting){ if (want) ov.play().catch(() => {}); } else ov.pause(); }), {threshold:.4}).observe(ov);
     sync();
   }
