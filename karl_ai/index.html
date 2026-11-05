@@ -411,11 +411,18 @@ footer{position:relative;z-index:2;padding-block:40px calc(60px + env(safe-area-
       <div class="odd-meta"><span>Concept</span><span>Creative direction</span><span>Character design</span><span>AI production</span><span class="ai">AI-generated · original character</span></div>
 
       <div class="odd-film">
-        <video id="oddVideo" src="odd-1/oddie-scene.mp4" poster="odd-1/oddie-poster.jpg" muted loop playsinline preload="metadata" aria-label="ODD-1 scene test: Oddie waits at a rainy bus stop under an umbrella, the sign reads Delayed, and he turns to the camera"></video>
-        <div class="slate" aria-hidden="true"><span>ODD-1</span><span>Sc 02</span><span>Delayed</span></div>
-        <div class="ctrls"><button type="button" id="oddPlay" aria-pressed="true">Pause</button></div>
+        <video src="odd-1/oddie-cafe-scene.mp4" poster="odd-1/oddie-cafe-poster.jpg" muted loop playsinline preload="metadata" aria-label="ODD-1 scene test: Oddie sits by a rainy café window, lifts his cappuccino to a face with no mouth, and sets it back down"></video>
+        <div class="slate" aria-hidden="true"><span>ODD-1</span><span>Sc 01</span><span>The café</span></div>
+        <div class="ctrls"><button type="button" class="odd-play" aria-pressed="true">Pause</button></div>
       </div>
-      <p class="odd-cap">Scene test, “Delayed”. Video developed from the approved character references.</p>
+      <p class="odd-cap">Scene test, “The café”. He lifts the cup to a face with no mouth, then sets it down.</p>
+
+      <div class="odd-film" style="margin-top:28px">
+        <video src="odd-1/oddie-scene.mp4" poster="odd-1/oddie-poster.jpg" muted loop playsinline preload="metadata" aria-label="ODD-1 scene test: Oddie waits at a rainy bus stop under an umbrella, the sign reads Delayed, and he turns to the camera"></video>
+        <div class="slate" aria-hidden="true"><span>ODD-1</span><span>Sc 02</span><span>Delayed</span></div>
+        <div class="ctrls"><button type="button" class="odd-play" aria-pressed="true">Pause</button></div>
+      </div>
+      <p class="odd-cap">Scene test, “Delayed”. Both videos developed from the approved character references.</p>
 
       <div class="odd-row">
         <div>
@@ -877,16 +884,17 @@ footer{position:relative;z-index:2;padding-block:40px calc(60px + env(safe-area-
   pipeItems.forEach((li, i) => li.addEventListener('mouseenter', () => setStage(i)));
   if (!reduce) setInterval(() => { if (!document.hidden) setStage((stage + 1) % pipeItems.length); }, 2600);
 
-  // ---------- ODD-1 scene video ----------
-  const ov = document.getElementById('oddVideo'), oPlay = document.getElementById('oddPlay');
-  if (ov){
+  // ---------- ODD-1 scene videos ----------
+  document.querySelectorAll('.odd-film').forEach(box => {
+    const ov = box.querySelector('video'), btn = box.querySelector('.odd-play');
+    if (!ov || !btn) return;
     let want = !reduce;
-    const sync = () => { const on = !ov.paused; oPlay.setAttribute('aria-pressed', String(on)); oPlay.textContent = on ? 'Pause' : 'Play'; };
+    const sync = () => { const on = !ov.paused; btn.setAttribute('aria-pressed', String(on)); btn.textContent = on ? 'Pause' : 'Play'; };
     ov.addEventListener('play', sync); ov.addEventListener('pause', sync);
-    oPlay.addEventListener('click', () => { if (ov.paused){ want = true; ov.play().catch(() => {}); } else { want = false; ov.pause(); } });
+    btn.addEventListener('click', () => { if (ov.paused){ want = true; ov.play().catch(() => {}); } else { want = false; ov.pause(); } });
     if ('IntersectionObserver' in window) new IntersectionObserver(es => es.forEach(e => { if (e.isIntersecting){ if (want) ov.play().catch(() => {}); } else ov.pause(); }), {threshold:.4}).observe(ov);
     sync();
-  }
+  });
 
   // ---------- In-page video player ----------
   const player = document.getElementById('player'), pFrame = document.getElementById('playerFrame');
