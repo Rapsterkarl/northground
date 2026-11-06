@@ -264,6 +264,29 @@ footer{position:relative;z-index:2;padding-block:40px calc(60px + env(safe-area-
 @keyframes rise{from{transform:translateY(60%);opacity:0}to{transform:none;opacity:1}}
 
 
+/* Flying Fish case study */
+.ff-film{position:relative;background:#000;aspect-ratio:4/5;max-width:100%;overflow:hidden}
+.ff-film video{position:absolute;inset:0;width:100%;height:100%;object-fit:contain;display:block}
+.ff-film .ctrls{position:absolute;right:10px;bottom:10px;display:flex;gap:8px}
+.ff-film .ctrls button{font-family:var(--f-mono);font-size:11px;letter-spacing:.08em;text-transform:uppercase;padding:8px 11px;min-height:40px;border:1px solid rgba(200,211,188,.5);background:rgba(7,10,9,.7);color:var(--lichen);cursor:pointer}
+.ff-film .ctrls button[aria-pressed="true"]{background:var(--amber);border-color:var(--amber);color:var(--peat)}
+.ff-lead{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:14px;margin-top:36px;align-items:start}
+.ff-lead > *{min-width:0}
+.ff-cuts{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:14px;margin-top:24px}
+.ff-cuts > *{min-width:0}
+.ff-cuts figure,.ff-lead figure{margin:0}
+.ff-cuts figcaption,.ff-lead figcaption{font-family:var(--f-mono);font-size:11px;letter-spacing:.06em;text-transform:uppercase;color:var(--mist);margin-top:8px}
+.ff-kv{display:block;width:100%;height:auto;max-width:100%;background:var(--peat-2)}
+.ff-lines{list-style:none;padding:0;margin:22px 0 0;display:grid;gap:0}
+.ff-lines li{display:grid;grid-template-columns:minmax(0,1fr) auto;gap:16px;align-items:baseline;padding:12px 0;border-top:1px solid var(--line)}
+.ff-lines li:last-child{border-bottom:1px solid var(--line)}
+.ff-lines b{font-family:var(--f-display);font-weight:900;font-size:24px;text-transform:uppercase;color:var(--lichen);line-height:1}
+.ff-lines span{font-family:var(--f-mono);font-size:11px;letter-spacing:.06em;text-transform:uppercase;color:var(--mist);white-space:nowrap}
+@media (max-width:700px){
+  .ff-lead,.ff-cuts{grid-template-columns:1fr}
+  .ff-lines li{grid-template-columns:1fr;gap:4px}
+}
+
 /* ODD-1 case study */
 .odd-hook{font-family:var(--f-display);font-weight:700;font-size:clamp(24px,2.6vw,34px);line-height:1.05;text-transform:uppercase;color:var(--lichen);margin:22px 0 0;max-width:30ch}
 .odd-hook span{color:var(--amber)}
@@ -354,7 +377,7 @@ footer{position:relative;z-index:2;padding-block:40px calc(60px + env(safe-area-
 <header class="navbar">
   <a class="mark" href="#top">Karl<span>/</span>Rapp <small>AI Video · Cork</small></a>
   <nav aria-label="Sections">
-    <a href="#oddie">ODD-1</a><a href="#work">Work</a><a href="#lab">Lab</a><a href="#method">Method</a><a href="#ethics">Ethics</a><a class="cta" href="#contact">Contact</a>
+    <a href="#oddie">ODD-1</a><a href="#flyingfish">Flying Fish</a><a href="#work">Work</a><a href="#lab">Lab</a><a href="#method">Method</a><a href="#ethics">Ethics</a><a class="cta" href="#contact">Contact</a>
   </nav>
 </header>
 
@@ -393,7 +416,7 @@ footer{position:relative;z-index:2;padding-block:40px calc(60px + env(safe-area-
       <p>You listed five things. Here's where each one lives on this page.</p>
       <ul class="brief">
         <li><div class="ask"><b>You asked</b>Ten years across video, motion or design, with direction and production</div><div class="ans"><strong>Twenty-plus, both sides of the camera</strong>Executive Creative Director, Executive Producer and Creative Director roles since 2003. TVCs, conference films, 3D environments and animation. <a href="#work">See the work</a></div></li>
-        <li><div class="ask"><b>You asked</b>Recent work made or directed with generative AI that stands up as creative work first</div><div class="ans"><strong>Idea first, tool second</strong>ODD-1, an original AI character and social series, from first design tests to finished scenes. Plus a spec film for Deel, with a live animatic. <a href="#oddie">See ODD-1</a></div></li>
+        <li><div class="ask"><b>You asked</b>Recent work made or directed with generative AI that stands up as creative work first</div><div class="ans"><strong>Idea first, tool second</strong>ODD-1, an original AI character and social series, and a Flying Fish Halloween campaign made with generative AI. Plus a spec film for Deel, with a live animatic. <a href="#oddie">See the AI work</a></div></li>
         <li><div class="ask"><b>You asked</b>Deep knowledge of the current tooling, and clear judgment about where it breaks</div><div class="ans"><strong>Four failure points, four fixes</strong>Where today's tools fall over, and the production workaround for each. <a href="#breaks">Where it breaks</a></div></li>
         <li><div class="ask"><b>You asked</b>Proven ability to build a workflow other people can actually use</div><div class="ans"><strong>Built once, used at 80 sites</strong>A 3D safety-induction system rolled out across AB InBev Africa. The same instinct, applied to AI. <a href="#method">The method</a></div></li>
         <li><div class="ask"><b>You asked</b>A point of view on likeness, disclosure and provenance</div><div class="ans"><strong>Consent, labels, a paper trail</strong>Three rules I work by, and what a provenance record for one shot looks like. <a href="#ethics">The stance</a></div></li>
@@ -481,6 +504,52 @@ footer{position:relative;z-index:2;padding-block:40px calc(60px + env(safe-area-
     </div>
   </section>
 
+  <!-- FLYING FISH -->
+  <section id="flyingfish" data-name="Flying Fish">
+    <div class="col wide reveal">
+      <p class="eyebrow">AI campaign · Flying Fish · Halloween limited edition</p>
+      <h2>Dare to taste <em>the flavour</em></h2>
+      <p class="lede">A Halloween limited edition for Flying Fish Passion Fruit &amp; Lemon: one key visual and a set of short vertical films for social, all made with generative AI.</p>
+      <p class="odd-hook">Two little bite marks. <span>One wicked bassline.</span></p>
+      <div class="odd-meta"><span>Concept</span><span>Creative direction</span><span>Copy</span><span>AI production</span><span>Spec concept</span><span class="ai">AI-generated</span></div>
+
+      <div class="ff-lead">
+        <figure><img class="ff-kv" src="flying-fish/ff-key-visual.jpg" alt="Flying Fish Halloween key visual: a purple Passion Fruit and Lemon can in front of a green-lit castle, with fanged yellow flying fish. Headline: Two little bite marks. One wicked bassline." width="1122" height="1402" loading="lazy" decoding="async"><figcaption>Key visual</figcaption></figure>
+        <figure><div class="ff-film"><video src="flying-fish/ff-sets-castle.mp4" poster="flying-fish/ff-sets-castle.jpg" muted loop playsinline preload="metadata" aria-label="Surprisingly Good Sets, Halloween Edition: fanged flying fish circle the can in front of a green-lit castle"></video><div class="ctrls"><button type="button" class="odd-play" aria-pressed="true">Pause</button></div></div><figcaption>Surprisingly Good Sets · 16s</figcaption></figure>
+      </div>
+
+      <div class="odd-row">
+        <div>
+          <h3><small>01 · The idea</small>A flavour you have to dare</h3>
+          <p>Flying Fish already owns “Surprisingly good”. For Halloween I turned that into a dare: fanged flying fish, a vampire with a taste for citrus, and a castle lit like a sound system.</p>
+          <p>Every piece carries the same end line, Dare to taste the flavour, and ends on Sound on. The fear is played for fun, and the can is always the hero.</p>
+        </div>
+        <ul class="ff-lines" aria-label="Campaign lines">
+          <li><b>Two little bite marks. One wicked bassline.</b><span>Key visual</span></li>
+          <li><b>Surprisingly Good Sets</b><span>Halloween edition</span></li>
+          <li><b>Bass. Bite. Boo.</b><span>Social film</span></li>
+          <li><b>Love at first bite</b><span>Social film</span></li>
+          <li><b>Dare to taste the flavour</b><span>End line</span></li>
+        </ul>
+      </div>
+
+      <div class="odd-block">
+        <h3><small>02 · One idea, many cuts</small>A system, not a single ad</h3>
+        <p>The can, the end line and the age mark stay fixed. The story around them changes, so each film works on its own in a feed and the set still reads as one campaign.</p>
+        <div class="ff-cuts">
+          <figure><div class="ff-film"><video src="flying-fish/ff-bass-bite-boo.mp4" poster="flying-fish/ff-bass-bite-boo.jpg" muted loop playsinline preload="metadata" aria-label="Bass. Bite. Boo.: the can spins on a podium between glowing speakers while a vampire watches"></video><div class="ctrls"><button type="button" class="odd-play" aria-pressed="true">Pause</button></div></div><figcaption>Bass. Bite. Boo.</figcaption></figure>
+          <figure><div class="ff-film"><video src="flying-fish/ff-love-at-first-bite.mp4" poster="flying-fish/ff-love-at-first-bite.jpg" muted loop playsinline preload="metadata" aria-label="Love at first bite: a vampire with glowing green eyes holds up the can"></video><div class="ctrls"><button type="button" class="odd-play" aria-pressed="true">Pause</button></div></div><figcaption>Love at first bite</figcaption></figure>
+          <figure><div class="ff-film"><video src="flying-fish/ff-sets-creatures.mp4" poster="flying-fish/ff-sets-creatures.jpg" muted loop playsinline preload="metadata" aria-label="Surprisingly Good Sets: fanged flying fish creatures crowd around the can as it grows to fill the frame"></video><div class="ctrls"><button type="button" class="odd-play" aria-pressed="true">Pause</button></div></div><figcaption>Surprisingly Good Sets · creatures</figcaption></figure>
+        </div>
+      </div>
+
+      <div class="odd-disclose">
+        <span class="tag">Disclosure</span>
+        <p>A spec concept, not a live campaign. Flying Fish is an AB InBev brand, shown here as portfolio work. The key visual and films are AI-generated. For adults 18+ only.</p>
+      </div>
+    </div>
+  </section>
+
   <!-- WORK -->
   <section id="work" data-name="Selected work">
     <div class="col wide reveal">
@@ -500,21 +569,16 @@ footer{position:relative;z-index:2;padding-block:40px calc(60px + env(safe-area-
         </article>
 
 
-        <article class="case">
-          <div class="frame" data-seed="80" data-pal="safety" role="img" aria-label="Generated frame for the Health and Safety 3D Induction System"><canvas></canvas><span class="tc">TC 00:01:20:00 · Seed 80</span><span class="still">System</span></div>
-          <p class="brand">AB InBev Africa · Operations</p>
-          <h3>3D Safety Induction System</h3>
-          <p>One animation pipeline, designed so every site got the same standard without me in the room. This is the method-builder piece.</p>
-          <div class="result"><strong>80 sites</strong><span>Rolled out across AB InBev's African operations.</span></div>
-        </article>
 
 
-        <article class="case">
+        <article class="case hero">
           <a class="frame" href="https://www.youtube.com/watch?v=U0V7unOemjM" target="_blank" rel="noopener" data-seed="57" data-pal="carling" aria-label="Watch Carling Black Label SLC film on YouTube"><canvas></canvas><span class="tc">TC 00:02:40:12 · Seed 57</span><span class="play">Play</span></a>
-          <p class="brand">Carling Black Label · AB InBev</p>
-          <h3>SLC Conference Film</h3>
-          <p>Brand case film for AB InBev's leadership conference. Turned round fast through many late changes.</p>
-          <div class="tags"><span>Direction</span><span>Edit</span><span>Motion</span></div>
+          <div>
+            <p class="brand">Carling Black Label · AB InBev</p>
+            <h3>SLC Conference Film</h3>
+            <p>Brand case film for AB InBev's leadership conference. Turned round fast through many late changes.</p>
+            <div class="tags"><span>Direction</span><span>Edit</span><span>Motion</span></div>
+          </div>
         </article>
       </div>
 
@@ -559,6 +623,7 @@ footer{position:relative;z-index:2;padding-block:40px calc(60px + env(safe-area-
       <ul class="lab">
         <li><div><strong>Same job, any border</strong><small>Spec film for Deel · generative worlds, type and sound in post</small></div><span class="chip live">Animatic</span></li>
         <li><div><strong><a href="#oddie">ODD-1 · A robot's guide to being human</a></strong><small>Original AI character and social series · scene tests</small></div><span class="chip live">In development</span></li>
+        <li><div><strong><a href="#flyingfish">Flying Fish · Dare to taste the flavour</a></strong><small>Halloween spec campaign · key visual and social films</small></div><span class="chip">Spec</span></li>
       </ul>
       <p class="note">Every piece ships with its production log and an AI-assisted label.</p>
     </div>
@@ -885,7 +950,7 @@ footer{position:relative;z-index:2;padding-block:40px calc(60px + env(safe-area-
   if (!reduce) setInterval(() => { if (!document.hidden) setStage((stage + 1) % pipeItems.length); }, 2600);
 
   // ---------- ODD-1 scene videos ----------
-  document.querySelectorAll('.odd-film').forEach(box => {
+  document.querySelectorAll('.odd-film, .ff-film').forEach(box => {
     const ov = box.querySelector('video'), btn = box.querySelector('.odd-play');
     if (!ov || !btn) return;
     let want = !reduce;
